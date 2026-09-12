@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WAGIE</title>
-<meta name="description" content="WAGIE — the memecoin that treats you like an employee. Clock in every workday. Payday every second Friday, in $WDAY. Miss three days and you're fired.">
+<meta name="description" content="WAGIE — the memecoin that treats you like an employee. Clock in every workday. Payday every second Friday, in $SPY — the whole stock market. Miss three days and you're fired.">
 <meta property="og:title" content="WAGIE">
-<meta property="og:description" content="Clock in every workday. Payday every second Friday, in $WDAY. Three misses and you're fired.">
+<meta property="og:description" content="Clock in every workday. Payday every second Friday, in $SPY. Three misses and you're fired.">
 <meta property="og:image" content="assets/banner.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -52,7 +52,12 @@ img{max-width:100%}
   font-style:normal;color:#16233a;font-size:11px;font-weight:bold;text-align:center;line-height:16px}
 
 /* ---------- masthead ---------- */
-.mast{display:flex;align-items:center;gap:14px;padding:12px 16px 10px;background:linear-gradient(#fbfaf5,#ebe8dc);border-bottom:1px solid var(--line)}
+.mast{display:flex;align-items:center;gap:14px;padding:14px 16px 12px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;min-height:126px;
+  background-color:#e6e9e1;background-image:linear-gradient(to right,rgba(120,132,118,.16) 1px,transparent 1px),linear-gradient(to bottom,rgba(120,132,118,.16) 1px,transparent 1px);background-size:26px 26px}
+.mast .desk{position:absolute;right:345px;bottom:-6px;height:132px;pointer-events:none;filter:drop-shadow(0 8px 12px rgba(20,25,20,.28))}
+.mast > *{position:relative}
+@media (max-width:1000px){ .mast .desk{right:335px;height:110px} }
+@media (max-width:820px){ .mast .desk{display:none} }
 .mast .face{width:64px;height:64px;border:1px solid var(--line-d);background:#c9d2cb;overflow:hidden;flex:0 0 auto;position:relative}
 .mast .face img{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:76px}
 .mast .word{font-size:40px;line-height:.9;font-weight:bold;letter-spacing:-1.5px;
@@ -66,7 +71,7 @@ img{max-width:100%}
   box-shadow:1px 1px 0 rgba(0,0,0,.08);white-space:nowrap}
 .pair .tk{width:44px;height:44px;border-radius:6px;background:linear-gradient(160deg,#1f5fbf,#0a246a);color:#fff;font-weight:bold;font-size:12px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;letter-spacing:.3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
-.pair .tk small{font-size:7.5px;opacity:.85;margin-top:3px;letter-spacing:1px}
+.pair .tk small{font-size:6.5px;opacity:.85;margin-top:3px;letter-spacing:.6px;white-space:nowrap}
 .pair .pt{font-size:10px;color:var(--muted);letter-spacing:1.4px;line-height:1.3}
 .pair .pt b{display:block;font-size:13px;color:var(--ink);letter-spacing:.3px}
 .pair .pt i{font-style:normal;color:var(--ok);font-weight:bold}
@@ -81,13 +86,29 @@ img{max-width:100%}
   box-shadow:inset 1px 1px 0 #fff;position:relative;top:1px;border-radius:3px 3px 0 0}
 .tab:hover{background:linear-gradient(#fff,#e8e4d8)}
 .tab[aria-selected="true"]{background:#fff;border-top:3px solid #e0961a;padding-top:5px;top:2px;box-shadow:none}
-.tab .k{display:none}
+.tab svg{vertical-align:-2px;margin-right:6px;color:var(--blue)}
+.tab[aria-selected="true"] svg{color:#e0961a}
+@media (max-width:560px){ .tab svg{display:none} }
 .snd{margin-left:8px;appearance:none;border:1px solid var(--line-d);background:linear-gradient(#f6f5ef,#dcd8cb);
   cursor:pointer;font-size:11px;padding:5px 10px 4px;border-radius:3px 3px 0 0;position:relative;top:1px;color:var(--ink);
   box-shadow:inset 1px 1px 0 #fff;display:inline-flex;align-items:center;gap:6px;font-weight:bold;letter-spacing:.4px}
 .snd .led{width:8px;height:8px;border-radius:50%;background:#8a3a3a;box-shadow:inset 0 0 2px #000;display:inline-block}
 .snd[aria-pressed="true"] .led{background:#4fd15a;box-shadow:0 0 6px #4fd15a,inset 0 0 2px #063}
+.snd .eq{display:none;align-items:flex-end;gap:2px;height:10px;margin-left:2px}
+.snd .eq i{width:3px;background:var(--blue);display:block;animation:eq .7s ease-in-out infinite alternate}
+.snd .eq i:nth-child(2){animation-delay:.2s} .snd .eq i:nth-child(3){animation-delay:.4s}
+.snd[aria-pressed="true"] .eq{display:inline-flex}
+@keyframes eq{from{height:3px}to{height:10px}}
 @media (max-width:560px){ .tab{padding:6px 9px 5px;font-size:10.5px;letter-spacing:.3px} .snd{margin-left:2px} }
+
+.ticker{display:flex;align-items:stretch;background:#fff8dc;border-bottom:1px solid var(--line-d);font-size:11px;height:26px;overflow:hidden}
+.ticker .lbl{background:#a62121;color:#fff;font-weight:bold;letter-spacing:1.5px;font-size:9.5px;padding:0 10px;display:flex;align-items:center;flex:0 0 auto;text-shadow:0 1px 0 rgba(0,0,0,.3)}
+.tk-wrap{flex:1;overflow:hidden;position:relative}
+.tk-run{position:absolute;white-space:nowrap;line-height:26px;color:#3a3110;animation:tk 60s linear infinite;padding-left:100%}
+.tk-run b{color:#a62121}
+.tk-run span{margin-right:44px}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.ticker:hover .tk-run{animation-play-state:paused}
 
 /* ---------- content ---------- */
 .content{background:#fff;padding:16px;min-height:520px}
@@ -140,8 +161,9 @@ hr.dot{border:0;border-top:1px dotted var(--line);margin:12px 0}
 
 /* ---------- welcome strip ---------- */
 .welcome{display:flex;align-items:center;gap:12px;background:var(--paper-2);border:1px solid var(--line);padding:8px 12px;margin-bottom:14px}
-.welcome .av{width:44px;height:44px;border:1px solid var(--line-d);background:#c9d2cb;overflow:hidden;position:relative;flex:0 0 auto}
-.welcome .av img{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:54px}
+.welcome .av{width:74px;height:74px;border:1px solid var(--line-d);background:linear-gradient(#e3eaf1,#c5d2df);overflow:hidden;position:relative;flex:0 0 auto}
+.welcome .av img{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);width:92px;transition:opacity .2s}
+.welcome .av .mood{position:absolute;left:0;right:0;bottom:0;background:rgba(10,36,106,.85);color:#fff;font-size:8px;letter-spacing:1.5px;text-align:center;line-height:13px}
 .welcome .txt{font-size:12px;line-height:1.45}
 .welcome .txt .st{margin-left:6px}
 .welcome .day{margin-left:auto;text-align:right;font-size:11px;color:var(--muted);white-space:nowrap}
@@ -198,6 +220,19 @@ hr.dot{border:0;border-top:1px dotted var(--line);margin:12px 0}
 .aw.got{opacity:1;filter:none;background:#fff8dc;border-color:#d8b95a}
 .paycal td.pd{background:#fff8dc;font-weight:bold}
 .lb tr td.zero{padding:10px 8px}
+
+.tip{display:flex;gap:10px;align-items:center;border:1px solid #d8b95a;background:linear-gradient(#fffbe6,#fff3c4);padding:8px 10px;font-size:11.5px;margin-bottom:14px}
+.tip .bulb{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff6b0,#e0b400);border:1px solid #8a6c00;color:#4a3505;text-align:center;line-height:24px;font-size:15px;flex:0 0 auto}
+.tip b{display:block;font-size:10px;letter-spacing:1.5px;color:#7a5a00}
+.tip .copy{margin-left:auto}
+.btn.punch{background:linear-gradient(#e94b4b,#a62121);color:#fff;border-color:#6f0505;text-shadow:0 1px 0 rgba(0,0,0,.4);box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 4px 0 #5a0a0a,0 6px 10px rgba(0,0,0,.25);border-radius:6px;letter-spacing:2px}
+.btn.punch:hover{background:linear-gradient(#f25e5e,#b42a2a)}
+.btn.punch:active{transform:translateY(3px);box-shadow:inset 0 2px 0 rgba(255,255,255,.2),0 1px 0 #5a0a0a}
+.btn.punch:disabled{transform:none;box-shadow:inset 0 2px 0 rgba(255,255,255,.2),0 2px 0 #5a0a0a;background:linear-gradient(#9a9a94,#6a6a64);border-color:#4a4a44}
+.tc td.today{animation:todaypulse 2.4s ease-in-out infinite}
+@keyframes todaypulse{0%,100%{box-shadow:inset 0 0 0 0 rgba(201,162,39,0)}50%{box-shadow:inset 0 0 0 4px rgba(201,162,39,.35)}}
+.tc td.today.in,.tc td.today.missed{animation:none}
+.tc td .tm{position:absolute;left:0;right:0;bottom:3px;text-align:center;font-size:9px;color:var(--ok);letter-spacing:.5px}
 
 /* ---------- pay statement ---------- */
 .stub{border:1px solid var(--line-d);background:#fff;padding:14px 16px;font-size:12px;box-shadow:2px 2px 0 rgba(0,0,0,.06)}
@@ -328,28 +363,38 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 
 /* ---------- login loader ---------- */
 #login{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;
-  background:linear-gradient(180deg,#eef2f6 0%,#d5dee8 100%);
-  transition:opacity .45s ease}
+  background:linear-gradient(180deg,#eef2f6 0%,#d5dee8 100%);transition:opacity .45s ease}
 #login:before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,#0a246a,#3a6ea5,#a6caf0)}
-#login .foot{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-size:10.5px;color:#6a7683;letter-spacing:.4px}
 #login.out{opacity:0;pointer-events:none}
-.lwin{width:min(420px,100%);background:var(--chrome);border:1px solid #5a6b7c;box-shadow:0 14px 34px rgba(30,45,60,.28),0 0 0 1px rgba(255,255,255,.6) inset}
-.lwin .bar{height:30px;background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);color:#fff;font-weight:bold;font-size:12px;
-  display:flex;align-items:center;padding:0 10px;text-shadow:1px 1px 0 rgba(0,0,0,.55)}
-.lwin .b{padding:16px}
+#login .foot{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-size:10.5px;color:#6a7683;letter-spacing:.4px;padding:0 16px}
+.lbox{display:grid;grid-template-columns:1.15fr 1fr;width:min(860px,100%);border:1px solid #4d5f73;box-shadow:0 22px 50px rgba(20,35,55,.35);background:var(--chrome)}
+.lbrand{position:relative;overflow:hidden;background:linear-gradient(160deg,#0a246a 0%,#1d4488 45%,#3a6ea5 100%);color:#fff;padding:28px 26px 0;min-height:420px}
+.lgrid{position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.07) 1px,transparent 1px);background-size:28px 28px}
+.lword{position:relative;font-size:64px;font-weight:bold;letter-spacing:-2px;line-height:.9;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+.lsub{position:relative;font-size:11px;letter-spacing:5px;margin-top:8px;opacity:.9;font-weight:bold}
+.lpts{position:relative;list-style:none;margin:18px 0 0;padding:0;font-size:13px;line-height:1.9}
+.lpts li:before{content:"▸";margin-right:8px;color:#a6caf0}
+.lpts b{color:#ffe08a}
+.ldesk{position:absolute;right:-30px;bottom:-14px;width:78%;max-width:none;filter:drop-shadow(0 12px 20px rgba(0,0,0,.35))}
+.lver{position:absolute;left:26px;bottom:10px;font-size:9.5px;letter-spacing:1.5px;opacity:.7}
+.lwin{background:var(--chrome);display:flex;flex-direction:column}
+.lwin .bar{height:30px;background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);color:#fff;font-weight:bold;font-size:12px;display:flex;align-items:center;padding:0 10px;text-shadow:1px 1px 0 rgba(0,0,0,.55)}
+.lwin .b{padding:16px 18px 10px;flex:1}
 .lwin .brand{display:flex;gap:12px;align-items:center;margin-bottom:12px}
 .lwin .brand .face{width:52px;height:52px;border:1px solid var(--line-d);background:#c9d2cb;overflow:hidden;position:relative;flex:0 0 auto}
 .lwin .brand .face img{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:62px}
-.lwin .brand .w{font-size:26px;font-weight:bold;letter-spacing:-1px;color:var(--blue-d);line-height:1}
-.lwin .brand .w small{display:block;font-size:9.5px;letter-spacing:3px;color:#4a5a50;margin-top:3px}
-.lwin label{display:grid;grid-template-columns:80px 1fr;gap:8px;align-items:center;font-size:11.5px;margin-bottom:8px}
+.lwin .brand .w{font-size:22px;font-weight:bold;letter-spacing:-.5px;color:var(--blue-d);line-height:1}
+.lwin .brand .w small{display:block;font-size:9px;letter-spacing:3px;color:#4a5a50;margin-top:3px}
+.lwin label{display:grid;grid-template-columns:76px 1fr;gap:8px;align-items:center;font-size:11.5px;margin-bottom:8px}
 .lwin .field{background:#fff;border:1px solid;border-color:#5a5a52 #fff #fff #5a5a52;padding:4px 6px;font-size:12px;font-family:inherit;height:24px;display:flex;align-items:center}
 .lwin .field.pw{letter-spacing:2px}
 .lwin .prog{margin-top:12px;height:18px;border:1px solid var(--line-d);background:#fff;box-shadow:inset 1px 1px 0 rgba(0,0,0,.08);padding:2px;display:flex;gap:2px}
 .lwin .prog i{width:9px;background:linear-gradient(#5f9be8,#2a5aa8);display:block;opacity:0}
 .lwin .prog i.on{opacity:1}
 .lwin .st{font-size:11px;color:var(--muted);margin-top:6px;min-height:16px}
-.lwin .row{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+.lwin .row{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+.ltip{border-top:1px solid var(--line);background:#fff8dc;padding:8px 14px;font-size:11px;color:#4a3f10;line-height:1.5}
+@media (max-width:720px){ .lbox{grid-template-columns:1fr} .lbrand{min-height:230px;padding:18px 18px 0} .lword{font-size:44px} .ldesk{width:52%;right:-10px} .lpts{font-size:12px;line-height:1.7;max-width:60%} }
 
 /* ---------- misc ---------- */
 .sr{position:absolute;left:-9999px}
@@ -361,19 +406,30 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 
 <!-- ===================== LOGIN (loader) ===================== -->
 <div id="login" aria-live="polite">
-  <div class="lwin">
-    <div class="bar">Employee Self Service — Sign In</div>
-    <div class="b">
-      <div class="brand">
-        <div class="face"><img src="assets/wagie-face.png" alt=""></div>
-        <div class="w">WAGIE, INC.<small>EMPLOYEE SELF SERVICE</small></div>
+  <div class="lbox">
+    <div class="lbrand">
+      <div class="lgrid"></div>
+      <div class="lword">WAGIE</div>
+      <div class="lsub">EMPLOYEE SELF SERVICE</div>
+      <ul class="lpts"><li>Clock in once a workday.</li><li>Payday every second Friday, in <b>$SPY</b>.</li><li>Miss three and you're fired.</li></ul>
+      <img class="ldesk" src="assets/wagie-desk.png" alt="">
+      <div class="lver">ESS v2.1 · build 0912 · CORP\ATTENDANCE</div>
+    </div>
+    <div class="lwin">
+      <div class="bar">Sign In</div>
+      <div class="b">
+        <div class="brand">
+          <div class="face"><img src="assets/wagie-face.png" alt=""></div>
+          <div class="w">WAGIE, INC.<small>ATTENDANCE DIVISION</small></div>
+        </div>
+        <label><span>User ID</span><span class="field">wagie</span></label>
+        <label><span>Password</span><span class="field pw">••••••••••</span></label>
+        <label><span>Domain</span><span class="field">CORP\ATTENDANCE</span></label>
+        <div class="prog" id="lprog"></div>
+        <div class="st" id="lst">Contacting domain controller…</div>
+        <div class="row"><span class="btn def" style="pointer-events:none">Sign In</span><span class="btn" style="pointer-events:none">Cancel</span></div>
       </div>
-      <label><span>User ID</span><span class="field">wagie</span></label>
-      <label><span>Password</span><span class="field pw">••••••••••</span></label>
-      <label><span>Domain</span><span class="field">CORP\ATTENDANCE</span></label>
-      <div class="prog" id="lprog"></div>
-      <div class="st" id="lst">Contacting domain controller…</div>
-      <div class="row"><span class="btn def" style="pointer-events:none">Sign In</span><span class="btn" style="pointer-events:none">Cancel</span></div>
+      <div class="ltip"><b>Tip of the day:</b> <span id="ltip"></span></div>
     </div>
   </div>
   <div class="foot">Unauthorised access is monitored. Authorised access is also monitored. · WAGIE, INC.</div>
@@ -381,34 +437,36 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 
 <!-- ===================== PAGE ===================== -->
 <div class="page">
-  <div class="tbar">Employee Self Service — WAGIE, INC. <span class="clk" id="utc">--:--:-- UTC</span><span class="dots"><i>_</i><i>□</i><i>×</i></span></div>
+  <div class="tbar">Employee Self Service — WAGIE, INC. <span class="clk"><span style="opacity:.8">wagie · #000001 · </span><span id="utc">--:--:-- UTC</span></span><span class="dots"><i>_</i><i>□</i><i>×</i></span></div>
 
   <div class="mast">
+    <img class="desk" src="assets/wagie-desk.png" alt="">
     <div class="face"><img src="assets/wagie-face.png" alt="WAGIE"></div>
     <div>
       <div class="word">WAGIE</div>
       <div class="sub">EMPLOYEE SELF SERVICE</div>
     </div>
-    <div class="who">Signed in as <b>WAGIE</b> · Employee #000001<br>Department: Clocking In · <a href="#" onclick="return false">Sign out</a></div>
-    <a class="pair" href="#" data-go="company" title="Payroll currency"><span class="tk">$WDAY<small>STOCK TOKEN</small></span><span class="pt">PAYROLL CURRENCY<b>Workday, Inc. · Robinhood Chain</b><i>● listed</i> · pair verified</span></a>
+    <a class="pair" style="margin-left:auto" href="#" data-go="company" title="Payroll currency"><span class="tk">$SPY<small>STOCK TOKEN</small></span><span class="pt">PAYROLL CURRENCY<b>The S&amp;P 500 · Robinhood Chain</b><i>● listed</i> · pair verified</span></a>
   </div>
 
   <nav class="nav" role="tablist" aria-label="Portal sections">
-    <button class="tab" role="tab" data-v="timecard" aria-selected="true">TIMECARD</button>
-    <button class="tab" role="tab" data-v="pay">PAY</button>
-    <button class="tab" role="tab" data-v="handbook">HANDBOOK</button>
-    <button class="tab" role="tab" data-v="bulletin">BULLETIN</button>
-    <button class="tab" role="tab" data-v="company">COMPANY</button>
-    <button class="tab" role="tab" data-v="help">HELP</button>
-    <button class="snd" id="snd" aria-pressed="false" title="Hold music"><span class="led"></span>HOLD MUSIC</button>
+    <button class="tab" role="tab" data-v="timecard" aria-selected="true"><svg viewBox="0 0 16 16" width="12" height="12"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 4.5V8l2.6 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>TIMECARD</button>
+    <button class="tab" role="tab" data-v="pay"><svg viewBox="0 0 16 16" width="12" height="12"><rect x="1.5" y="3.5" width="13" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>PAY</button>
+    <button class="tab" role="tab" data-v="handbook"><svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 2.5h6.5a2 2 0 0 1 2 2V14H5a2 2 0 0 0-2 2z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 5.5h4M5.5 8h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>HANDBOOK</button>
+    <button class="tab" role="tab" data-v="bulletin"><svg viewBox="0 0 16 16" width="12" height="12"><path d="M6 1.5h4l-.5 4 2.5 2.5v1H4V8l2.5-2.5z" fill="currentColor"/><path d="M8 9v5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>BULLETIN</button>
+    <button class="tab" role="tab" data-v="company"><svg viewBox="0 0 16 16" width="12" height="12"><path d="M2.5 14V3.5l5-2 5 2V14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5.5 6h1M8.5 6h1M5.5 9h1M8.5 9h1M6.5 14v-3h2v3" stroke="currentColor" stroke-width="1.4"/></svg>COMPANY</button>
+    <button class="tab" role="tab" data-v="help"><svg viewBox="0 0 16 16" width="12" height="12"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 6.2a2 2 0 1 1 3 1.7c-.7.4-1 .8-1 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="currentColor"/></svg>HELP</button>
+    <button class="snd" id="snd" aria-pressed="false" title="Hold music"><span class="led"></span>HOLD MUSIC<span class="eq"><i></i><i></i><i></i></span></button>
   </nav>
+
+  <div class="ticker" aria-hidden="true"><span class="lbl">ANNOUNCEMENTS</span><div class="tk-wrap"><div class="tk-run" id="tkrun"></div></div></div>
 
   <div class="content">
 
     <!-- ===================== TIMECARD ===================== -->
     <section class="view on" id="v-timecard" role="tabpanel">
       <div class="welcome">
-        <div class="av"><img src="assets/wagie-face.png" alt=""></div>
+        <div class="av"><img id="moodimg" src="assets/wagie-face.png" alt=""><span class="mood" id="moodlbl">NEUTRAL</span></div>
         <div class="txt">Welcome back, <b>WAGIE</b>.<span class="st" id="w-status"></span><br><span class="small">Your timecard for the current pay cycle is shown below. Clock in once per workday.</span></div>
         <div class="day">TODAY<b id="w-day">WK1 MON</b></div>
       </div>
@@ -420,7 +478,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
             <div class="pb">
               <table class="tc" id="tc" aria-label="Timecard"></table>
               <div class="btnrow">
-                <button class="btn big go" id="b-in">CLOCK IN</button>
+                <button class="btn big punch" id="b-in">CLOCK IN</button>
                 <button class="btn big" id="b-next">NEXT WORKDAY ▸</button>
                 <button class="btn" id="b-reset" title="Start a new timecard">RESET</button>
               </div>
@@ -433,11 +491,12 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
             <div class="pb">
               <div class="how">
                 <div class="c"><span class="n">1</span><b>CLOCK IN</b>Once per workday, hold WAGIE and call <code>clockIn()</code>. That's the whole job. No manager. No meeting.<img src="assets/wagie-clockin.png" alt=""></div>
-                <div class="c"><span class="n">2</span><b>GET PAID</b>Every trade pays a 1% fee. The creator share (70%) goes into the attendance pool and is split among everyone who clocked in that period — paid in <b>$WDAY</b>, every second Friday.<img src="assets/wagie-thumbs.png" alt=""></div>
+                <div class="c"><span class="n">2</span><b>GET PAID</b>Every trade pays a 1% fee. The creator share (70%) goes into the attendance pool and is split among everyone who clocked in that period — paid in <b>$SPY</b>, every second Friday.<img src="assets/wagie-thumbs.png" alt=""></div>
                 <div class="c"><span class="n">3</span><b>DON'T GET FIRED</b>Miss three workdays in a row and the contract terminates you. Your unpaid share goes to the colleagues who showed up. You can reapply — from zero.<img src="assets/wagie-box.png" alt=""></div>
               </div>
             </div>
           </div>
+          <div class="tip"><span class="bulb">☼</span><div><b>Tip of the day</b><span id="tip"></span></div><button class="copy" id="tipnext">next</button></div>
         </div>
 
         <div>
@@ -467,8 +526,8 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
             <div class="ph">PAYCHECK PREVIEW <span class="r">this period</span></div>
             <div class="pb">
               <table class="kv">
-                <tr><td>Fees collected</td><td class="zero" id="p-fees">0.0000 $WDAY</td></tr>
-                <tr><td>Your share</td><td class="zero" id="p-share">0.0000 $WDAY</td></tr>
+                <tr><td>Fees collected</td><td class="zero" id="p-fees">0.0000 $SPY</td></tr>
+                <tr><td>Your share</td><td class="zero" id="p-share">0.0000 $SPY</td></tr>
               </table>
               <p class="small" style="margin:8px 0 0">The pool fills from trading fees after launch. Until then every payday pays exactly what it says on the tin.</p>
             </div>
@@ -503,16 +562,16 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
             </div>
             <table class="t">
               <tr><th>Earnings</th><th>Units</th><th>Rate</th><th style="text-align:right">Amount</th></tr>
-              <tr><td>Attendance share</td><td id="ps-shifts">0 shifts</td><td>pro-rata of period fees</td><td class="num zero">0.0000 $WDAY</td></tr>
-              <tr><td>Perfect-attendance bonus</td><td>—</td><td>none. attendance is the job.</td><td class="num zero">0.0000 $WDAY</td></tr>
-              <tr><th colspan="3">Gross</th><td class="num"><b>0.0000 $WDAY</b></td></tr>
+              <tr><td>Attendance share</td><td id="ps-shifts">0 shifts</td><td>pro-rata of period fees</td><td class="num zero">0.0000 $SPY</td></tr>
+              <tr><td>Perfect-attendance bonus</td><td>—</td><td>none. attendance is the job.</td><td class="num zero">0.0000 $SPY</td></tr>
+              <tr><th colspan="3">Gross</th><td class="num"><b>0.0000 $SPY</b></td></tr>
             </table>
             <table class="t" style="margin-top:10px">
               <tr><th>Deductions</th><th style="text-align:right">Amount</th></tr>
               <tr><td>Federal, state, local, dental, 401(k), parking</td><td class="num zero">none — there is no pay yet</td></tr>
             </table>
-            <div class="net"><span>NET PAY</span><b id="ps-net">0.0000 $WDAY</b></div>
-            <div class="small" style="margin-top:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px"><span>YTD net: <b>0.0000 $WDAY</b></span><span>Paid to: your wallet, in $WDAY (Workday, Inc. stock token)</span></div>
+            <div class="net"><span>NET PAY</span><b id="ps-net">0.0000 $SPY</b></div>
+            <div class="small" style="margin-top:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px"><span>YTD net: <b>0.0000 $SPY</b></span><span>Paid to: your wallet, in $SPY (S&amp;P 500 stock token)</span></div>
           </div>
           <div class="panel" style="margin-top:14px">
             <div class="ph">DISTRIBUTION HISTORY</div>
@@ -532,7 +591,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
                 <div class="s"><b>Someone trades WAGIE</b>Buy or sell, on the bonding curve or the pool.</div>
                 <div class="s"><b>1% fee</b>Charged by Pons v2 on every trade.</div>
                 <div class="s"><b>70% → attendance pool</b>The creator share. 100% of it is payroll. The other 30% is the protocol's.</div>
-                <div class="s"><b>Second Friday: payday</b>Pool is split pro-rata by shifts clocked among holders still employed. Paid in <b>$WDAY</b>.</div>
+                <div class="s"><b>Second Friday: payday</b>Pool is split pro-rata by shifts clocked among holders still employed. Paid in <b>$SPY</b>.</div>
               </div>
               <hr class="dot">
               <p class="small">Worked example, in units not dollars: if 10 holders each clock 10 shifts and one clocks 5, the pool splits 105 ways and the part-timer gets 5/105ths. Show up and the maths is on your side.</p>
@@ -546,10 +605,10 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
             </div>
           </div>
           <div class="panel">
-            <div class="ph">WHY $WDAY</div>
+            <div class="ph">WHY $SPY</div>
             <div class="pb small" style="font-size:12px">
-              <p>Because Workday, Inc. is the company whose software runs the real version of this portal. Your actual timecard, your actual PTO request, your actual pay statement — there's a decent chance it's Workday.</p>
-              <p style="margin:0">So the payroll company pays the payroll. See the <a href="#" data-go="handbook">Handbook</a> for how that company came to exist.</p>
+              <p>Because it's the index. Every wagie's retirement plan is quietly sitting in $SPY already, waiting forty years to matter. We cut out the wait: you get paid in the whole stock market, every second Friday.</p>
+              <p style="margin:0">It is also the most traded security on earth and the first ETF ever made. See the <a href="#" data-go="handbook">Handbook</a> for the part about the eleven children.</p>
             </div>
           </div>
         </div>
@@ -562,28 +621,24 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
         <div class="ph">EMPLOYEE HANDBOOK <span class="r">rev. 2026-09 · Section 4</span></div>
         <div class="pb hb">
           <img class="hero" src="assets/wagie-desk.png" alt="">
-          <h2 class="sec mt0">4.1 — Why we pay in $WDAY</h2>
-          <p>New hires ask why payroll is denominated in a Workday stock token rather than, say, money. The short answer is that Workday makes the software that runs employee self-service portals like this one. The long answer is the best corporate revenge story of the 2000s, and every employee should know it.</p>
+          <h2 class="sec mt0">4.1 — Why we pay in $SPY</h2>
+          <p>New hires ask why payroll is denominated in an S&amp;P 500 token rather than, say, money. The short answer is that every office worker on earth is already being paid in $SPY — through a retirement plan they are not allowed to touch for forty years. We removed the forty years. The long answer is that the fund itself is one of the strangest financial objects ever built, and every employee should know it.</p>
 
           <div class="clause"><div class="n">4.1.1</div><div>
-            <p>In <b>June 2003</b>, Oracle launched a hostile bid for <b>PeopleSoft</b>, the HR-software company Dave Duffield had co-founded in 1987. The opening offer was roughly <b>$13 billion</b>. Over the next eighteen months it went down to about $9.4B, down again to about $7.7B, and back up to $9.4B.<sup><a href="#src-2">[2]</a></sup></p>
+            <p>SPY launched on <b>22 January 1993</b> and first traded on the American Stock Exchange a week later. It was the <b>first exchange-traded fund in the United States</b>. It was designed by two AMEX product people, <b>Nathan Most</b> and <b>Steven Bloom</b>, with State Street doing the plumbing. Initial issue: <b>150,000 units</b>.<sup><a href="#src-1">[1]</a></sup></p>
           </div></div>
           <div class="clause"><div class="n">4.1.2</div><div>
-            <p>PeopleSoft fought back with a poison pill unlike most: a <b>customer assurance program</b> promising customers refunds of <b>two to five times</b> their licence fees if the company were acquired and support was cut. It did not stop the deal.<sup><a href="#src-2">[2]</a></sup></p>
+            <p>"SPDR" stands for <b>Standard &amp; Poor's Depositary Receipts</b>. Everyone says "spider". It is the most traded security in the world, and in <b>February 2024</b> it became the first ETF to hold <b>$500 billion</b>; by <b>October 2024</b>, <b>$600 billion</b>.<sup><a href="#src-1">[1]</a></sup></p>
           </div></div>
           <div class="clause"><div class="n">4.1.3</div><div>
-            <p>Oracle closed the acquisition in <b>December 2004</b> for about <b>$10.3 billion</b>. <b>A month later it laid off 6,000 of PeopleSoft's 11,000 employees.</b><sup><a href="#src-2">[2]</a></sup> That is more than half of a company that had been famous for how it treated its people.</p>
+            <p>Here is the part nobody's HR department mentions. SPY is legally a <b>unit investment trust</b> — an old structure with no portfolio manager and no board. It can't reinvest dividends between payouts and it can't lend out its shares. It also, by law, has to have an expiry date.<sup><a href="#src-1">[1]</a></sup></p>
           </div></div>
           <div class="clause"><div class="n">4.1.4</div><div>
-            <p>In <b>March 2005</b> — three months after losing his company — Duffield and Aneel Bhusri founded <b>Workday</b>. The product launched in <b>November 2006</b>. In December 2008 the company moved its headquarters to <b>Pleasanton, California</b>: PeopleSoft's home town.<sup><a href="#src-1">[1]</a></sup></p>
+            <p>So in 1993 the lawyers pegged the trust's lifespan to <b>eleven real children</b>, born around the launch, eight of them relatives of people at the exchange. The fund that half the planet's pensions sit in is scheduled to dissolve <b>twenty years after the last of those eleven people dies</b> — or on <b>22 January 2118</b>, whichever comes first.<sup><a href="#src-1">[1]</a></sup></p>
+            <blockquote class="q">Somewhere there are eleven millennials whose life expectancy is a material fact for a $600 billion fund. None of them, as far as we know, have ever clocked in.</blockquote>
           </div></div>
           <div class="clause"><div class="n">4.1.5</div><div>
-            <p>Workday IPO'd on <b>12 October 2012</b> at <b>$28</b> a share and closed its first day at <b>$48.69</b>, raising about <b>$637 million</b> and valuing the company near <b>$9.5 billion</b>.<sup><a href="#src-1">[1]</a></sup> Today its software is the timecard, the PTO request and the pay statement for a meaningful slice of the world's office workers. In fiscal 2025 it reported <b>$8.45 billion</b> in revenue and around <b>20,400</b> employees.<sup><a href="#src-1">[1]</a></sup></p>
-          </div></div>
-          <div class="clause"><div class="n">4.1.6</div><div>
-            <p>One more thing every wagie should know. Duffield's largest philanthropy is <b>Maddie's Fund</b>, an animal-welfare foundation named after his <b>miniature schnauzer, Maddie</b>, who died in <b>1997</b>.<sup><a href="#src-3">[3]</a></sup> In his words:</p>
-            <blockquote class="q">"Maddie was the lighthouse during the stormy period."</blockquote>
-            <p>The company that fired six thousand people made him a billionaire twice. The dog got the foundation.</p>
+            <p>In <b>February 2025</b> Vanguard's VOO overtook SPY as the world's largest ETF; SPY is still the one that trades. On <b>26 January 2026</b> the fund was renamed the <b>State Street SPDR S&amp;P 500 ETF Trust</b>.<sup><a href="#src-1">[1]</a></sup> The $SPY token on Robinhood Chain tracks it, which means: every second Friday, WAGIE pays you in the entire American stock market, and the payroll department is a spider with an expiry date.</p>
           </div></div>
 
           <h2 class="sec" style="margin-top:18px">4.2 — Attendance policy</h2>
@@ -593,17 +648,15 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
           <div class="clause"><div class="n">4.2.4</div><div><p>There is no PTO. There is no sick leave. There is no manager to ask. There is a button.</p></div></div>
 
           <h2 class="sec" style="margin-top:18px">4.3 — About the payroll currency</h2>
-          <div class="clause"><div class="n">4.3.1</div><div><p><b>$WDAY</b> is a stock token on Robinhood Chain that tracks Workday, Inc. It is one of the tokenized US equities Robinhood lists on its chain, and it is the asset WAGIE is paired against on Pons v2. We checked the chain's live asset list before choosing it; ADP and Paychex, the other payroll names, are not listed there.<sup><a href="#src-5">[5]</a></sup></p></div></div>
-          <div class="clause"><div class="n">4.3.2</div><div><p>A stock token is not a share. It carries no voting rights and is not issued by Workday. Read Robinhood's own documentation before treating it as anything more than what it is: the unit your attendance is paid in.</p></div></div>
+          <div class="clause"><div class="n">4.3.1</div><div><p><b>$SPY</b> is a stock token on Robinhood Chain that tracks the SPDR S&amp;P 500 ETF Trust. It is one of the tokenized US equities and ETFs Robinhood lists on its chain, and it is the asset WAGIE is paired against on Pons v2. We checked the chain's live asset list before choosing it.<sup><a href="#src-2">[2]</a></sup></p></div></div>
+          <div class="clause"><div class="n">4.3.2</div><div><p>A stock token is not a share and not a fund unit. It carries no voting rights and is not issued by State Street. Read Robinhood's own documentation before treating it as anything more than what it is: the unit your attendance is paid in.</p></div></div>
 
           <div class="src">
             <b>Sources</b><br>
-            <span id="src-1">[1]</span> Wikipedia — <a href="https://en.wikipedia.org/wiki/Workday,_Inc." target="_blank" rel="noopener">Workday, Inc.</a><br>
-            <span id="src-2">[2]</span> Wikipedia — <a href="https://en.wikipedia.org/wiki/PeopleSoft" target="_blank" rel="noopener">PeopleSoft</a> (Oracle acquisition)<br>
-            <span id="src-3">[3]</span> Maddie's Fund — <a href="https://www.maddiesfund.org/dave-duffield.htm" target="_blank" rel="noopener">Dave Duffield, Founder</a><br>
-            <span>[4]</span> Workday — <a href="https://www.workday.com/en-us/company/about-workday/leadership/dave-duffield.html" target="_blank" rel="noopener">Co-Founder and CEO Emeritus Dave Duffield</a><br>
-            <span id="src-5">[5]</span> Robinhood — <a href="https://docs.robinhood.com/chain/stock-tokens/" target="_blank" rel="noopener">Stock Tokens on Robinhood Chain</a> · asset list at <a href="https://api.robinhood.com/rhj/assets" target="_blank" rel="noopener">api.robinhood.com/rhj/assets</a><br>
-            WAGIE is not affiliated with, endorsed by, or connected to Workday, Inc., Oracle, or PeopleSoft. The facts above are public record; the jokes are ours.
+            <span id="src-1">[1]</span> Wikipedia — <a href="https://en.wikipedia.org/wiki/SPDR_S%26P_500_ETF_Trust" target="_blank" rel="noopener">SPDR S&amp;P 500 ETF Trust</a> (launch, structure, termination clause, AUM records)<br>
+            <span id="src-2">[2]</span> Robinhood — <a href="https://docs.robinhood.com/chain/stock-tokens/" target="_blank" rel="noopener">Stock Tokens on Robinhood Chain</a> · asset list at <a href="https://api.robinhood.com/rhj/assets" target="_blank" rel="noopener">api.robinhood.com/rhj/assets</a><br>
+            <span>[3]</span> Pons — <a href="https://github.com/ponsdotdev/ponsfamily" target="_blank" rel="noopener">PonsLaunchFactory</a> (fee split)<br>
+            WAGIE is not affiliated with, endorsed by, or connected to State Street, SPDR, S&amp;P Dow Jones Indices or Robinhood. The facts above are public record; the jokes are ours.
           </div>
         </div>
       </div>
@@ -624,7 +677,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
             <div class="notes">
               <div class="memo-note">Payday is the <b>second Friday</b>. It has always been the second Friday. Please stop asking the contract.</div>
               <div class="memo-note w"><b>REMINDER FROM FACILITIES</b><br>The break-room microwave is shared. If you clock in, you clean up. If you don't clock in, you don't have a microwave.</div>
-              <div class="memo-note" style="transform:rotate(-1.8deg)">LOST: one (1) stapler, red. Last seen before the reorg. Reward: my undying gratitude and 0.0000 $WDAY.</div>
+              <div class="memo-note" style="transform:rotate(-1.8deg)">LOST: one (1) stapler, red. Last seen before the reorg. Reward: my undying gratitude and 0.0000 $SPY.</div>
             </div>
           </div>
           <p class="small center" style="margin:12px 0 0">Right-click, save, post. Captions are yours to keep.</p>
@@ -642,7 +695,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
               <table class="t">
                 <tr><th style="width:170px">Name</th><td>WAGIE</td></tr>
                 <tr><th>Ticker</th><td>$WAGIE</td></tr>
-                <tr><th>Pair</th><td><b>$WDAY</b> — Workday, Inc. stock token on Robinhood Chain</td></tr>
+                <tr><th>Pair</th><td><b>$SPY</b> — SPDR S&amp;P 500 ETF Trust, as a Robinhood Chain stock token. You are paid in the index.</td></tr>
                 <tr><th>Chain</th><td>Robinhood Chain (chain id 4663)</td></tr>
                 <tr><th>Launchpad</th><td>Pons v2 — bonding curve, graduates to a Uniswap v4 pool</td></tr>
                 <tr><th>Trade fee</th><td>1% per trade: 70% to the attendance pool (payroll), 30% to the protocol</td></tr>
@@ -658,8 +711,8 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
           <div class="panel">
             <div class="ph">ABOUT WAGIE, INC.</div>
             <div class="pb" style="font-size:12px">
-              <p>WAGIE, INC. is not a company. It has no offices, no revenue, no products and no employees, in the sense that would interest a regulator. It has a contract, a timecard, and a mascot who has been at his desk since March 2005 and has not been promoted once.</p>
-              <p>The contract collects the creator share of trading fees and pays it back out to holders on the same schedule as real payroll, in the stock token of the company whose software runs real payroll. That's the whole company. That's the whole joke. We think it's a good one.</p>
+              <p>WAGIE, INC. is not a company. It has no offices, no revenue, no products and no employees, in the sense that would interest a regulator. It has a contract, a timecard, and a mascot who has been at his desk since 22 January 1993 and has not been promoted once.</p>
+              <p>The contract collects the creator share of trading fees and pays it back out to holders on the same schedule as real payroll — in $SPY, the entire American stock market, which is what real payroll quietly turns into anyway. That's the whole company. That's the whole joke. We think it's a good one.</p>
               <p style="margin:0">Facilities note: the plant in the cubicle is plastic.</p>
             </div>
           </div>
@@ -708,10 +761,10 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
       <div class="grid2">
         <div>
           <h2 class="sec">Frequently asked questions</h2>
-          <details class="faq" open><summary>What do I actually have to do?</summary><div class="a">Hold WAGIE. Once per workday (Mon–Fri, UTC), call <code>clockIn()</code> from the wallet that holds it. That is the entire job description. Every second Friday, the attendance pool is paid out to everyone who clocked in, pro-rata by shifts, in $WDAY.</div></details>
+          <details class="faq" open><summary>What do I actually have to do?</summary><div class="a">Hold WAGIE. Once per workday (Mon–Fri, UTC), call <code>clockIn()</code> from the wallet that holds it. That is the entire job description. Every second Friday, the attendance pool is paid out to everyone who clocked in, pro-rata by shifts, in $SPY.</div></details>
           <details class="faq"><summary>What happens if I miss a day?</summary><div class="a">One miss resets your streak. Two misses is a warning you will not receive because there is no HR. <b>Three consecutive misses and the contract terminates you.</b> Your shifts for that period are forfeited to the colleagues who clocked in. You can reapply immediately and start again from zero.</div></details>
-          <details class="faq"><summary>Where does the money come from?</summary><div class="a">Trading fees, and only trading fees. Pons v2 charges 1% on every trade; 70% of that is the creator share, and 100% of the creator share is the attendance pool. There is no treasury, no team allocation and no "marketing wallet". If nobody trades, payday is 0.0000 $WDAY and the pay statement will say so.</div></details>
-          <details class="faq"><summary>Why is payday in $WDAY and not ETH or a stablecoin?</summary><div class="a">Because it's funnier, and because Workday, Inc. is the company whose software is the real version of this portal. Robinhood Chain lets a token pair against tokenized US stocks, so the payroll company pays the payroll. Read Handbook §4.1 for the origin story.</div></details>
+          <details class="faq"><summary>Where does the money come from?</summary><div class="a">Trading fees, and only trading fees. Pons v2 charges 1% on every trade; 70% of that is the creator share, and 100% of the creator share is the attendance pool. There is no treasury, no team allocation and no "marketing wallet". If nobody trades, payday is 0.0000 $SPY and the pay statement will say so.</div></details>
+          <details class="faq"><summary>Why is payday in $SPY and not ETH or a stablecoin?</summary><div class="a">Because it's funnier, and because it's the thing every office worker is already being paid in, forty years late, through a 401(k). Robinhood Chain lets a token pair against tokenized US stocks and ETFs, so WAGIE pays you in the S&amp;P 500 directly. Read Handbook §4.1 for why that particular fund is stranger than it looks.</div></details>
           <details class="faq"><summary>Is the timecard on this page real?</summary><div class="a">It runs in your browser only, so you can learn the rules before the on-chain clock opens. It enforces the same rules the contract will. Nothing you do here is written anywhere but your own browser.</div></details>
           <details class="faq"><summary>Is there a contract address yet?</summary><div class="a" id="faq-ca">Not yet. When there is, it appears on the Company tab, in the pinned post on X, and nowhere else. Anything claiming to be WAGIE before that is not.</div></details>
           <details class="faq"><summary>Can I get promoted?</summary><div class="a">No.</div></details>
@@ -721,7 +774,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
           <div class="legal">
             <p><b>WAGIE is a memecoin.</b> It is not employment, a security, an investment product, a payroll service or a promise of income. "Clock in", "payday", "employee", "terminated" and every other word on this site are jokes wearing lanyards.</p>
             <p>There is no salary, no benefits, no employer and no guarantee that the attendance pool will ever contain anything. Payouts depend entirely on trading activity, which may be zero. Tokens can go to zero. Smart contracts can have bugs. Do not put in money you cannot afford to lose, and do not take financial advice from a cartoon in a headset.</p>
-            <p>WAGIE is not affiliated with, endorsed by or connected to Workday, Inc., Oracle Corporation, PeopleSoft, Robinhood Markets or Pons. $WDAY refers to a third-party stock token on Robinhood Chain; holding WAGIE gives you no rights in Workday, Inc.</p>
+            <p>WAGIE is not affiliated with, endorsed by or connected to State Street, SPDR, S&amp;P Dow Jones Indices, Robinhood Markets or Pons. $SPY refers to a third-party stock token on Robinhood Chain that tracks the SPDR S&amp;P 500 ETF Trust; holding WAGIE gives you no rights in that fund or in any company in the index.</p>
             <p style="margin:0">Nothing on this site is financial, legal or tax advice. Consult a professional. Or a manager, if you can find one.</p>
           </div>
           <div class="panel" style="margin-top:14px">
@@ -770,7 +823,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
         <div class="t2" id="pay-title">ATTENDANCE POOL DISTRIBUTION</div>
         <div class="hr"></div>
         <img src="assets/wagie-photo.png" alt="">
-        <div class="amt" id="pay-amt">0.0000 $WDAY</div>
+        <div class="amt" id="pay-amt">0.0000 $SPY</div>
         <div class="ft" id="pay-ft"></div>
       </div>
     </div>
@@ -794,7 +847,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
    ============================================================ */
 const CONFIG = {
   name: 'WAGIE',
-  pair: '$WDAY',
+  pair: '$SPY',           // SPDR S&P 500 ETF Trust — Robinhood Chain stock token
   chain: 'Robinhood Chain (4663)',
   ca: '',            // contract address, e.g. '0x…'
   x: '',             // https://x.com/…
@@ -876,7 +929,7 @@ function renderGrid(){
       let cls = s==='in' ? 'in' : s==='missed' ? 'missed' : 'future';
       if (i===S.cur && S.cur<WD) cls += ' today';
       if (isPayday(i)) cls += ' payday';
-      let mark = s==='in' ? '<span class="stamp">IN</span>' : s==='missed' ? '<span class="mark">MISSED</span>' : (i===S.cur ? '<span class="mark" style="color:#8a6c00">TODAY</span>' : '<span class="mark">—</span>');
+      let mark = s==='in' ? '<span class="stamp">IN</span><span class="tm">09:00</span>' : s==='missed' ? '<span class="mark">MISSED</span>' : (i===S.cur ? '<span class="mark" style="color:#8a6c00">TODAY</span>' : '<span class="mark">—</span>');
       h += '<td class="'+cls+'"><span class="lbl">'+DAYS[d]+' '+(w*5+d+1)+'</span>'+(isPayday(i)?'<span class="pd">$ PAYDAY</span>':'')+mark+'</td>';
     }
     h += '</tr>';
@@ -909,6 +962,14 @@ function renderStatus(){
   pl.innerHTML = S.log.length ? S.log.slice(-6).map(l=>'<div class="'+l.k+'">'+l.t+'</div>').join('') : '<div class="zero">— no punches yet —</div>';
   // recognition
   document.querySelectorAll('.aw').forEach(a=>a.classList.toggle('got', !!S.aw[a.dataset.aw]));
+  // mood
+  const mi=$('moodimg'), ml=$('moodlbl');
+  let src='assets/wagie-face.png', lbl='NEUTRAL';
+  if(!S.employed){ src='assets/wagie-box.png'; lbl='TERMINATED'; }
+  else if(S.streak>=5){ src='assets/wagie-photo.png'; lbl='THRIVING'; }
+  else if(S.shifts[S.cur]==='in'){ src='assets/wagie-thumbs.png'; lbl='CLOCKED IN'; }
+  else if(S.missed>=2){ src='assets/wagie-face.png'; lbl='ON NOTICE'; }
+  if(mi.getAttribute('src')!==src) mi.setAttribute('src',src); ml.textContent=lbl;
 }
 function logLine(k, t){ S.log.push({k,t}); if (S.log.length>40) S.log.shift(); }
 function award(key, title){ if (S.aw[key]) return; S.aw[key]=true; setTimeout(()=>toast('<b>Recognition:</b> '+title, 'info', 'Human Resources'), 900); }
@@ -966,7 +1027,7 @@ function nextDay(){
       if (S.missed>=3){ S.employed=false; S.terms++; S.per=0; logLine('sys', label(i)+'  17:00  TERMINATED'); }
     }
   }
-  if (isPayday(i)) logLine('sys', label(i)+'  17:00  PAYDAY  0.0000 WDAY');
+  if (isPayday(i)) logLine('sys', label(i)+'  17:00  PAYDAY  0.0000 SPY');
   const payday = isPayday(i);
   const wasEmployed = S.employed;
   const perShifts = S.per;
@@ -996,10 +1057,44 @@ $('b-next').addEventListener('click', nextDay);
 $('b-reset').addEventListener('click', reset);
 $('b-reapply').addEventListener('click', reapply);
 $('b-share').addEventListener('click', ()=>{
-  const txt = 'clocked in '+S.per+'/10 workdays this period at WAGIE, INC.\nstreak: '+S.streak+' · status: '+(S.employed?'employed':'terminated')+'\npaid in $WDAY every second friday.\n'+location.origin+location.pathname;
+  const txt = 'clocked in '+S.per+'/10 workdays this period at WAGIE, INC.\nstreak: '+S.streak+' · status: '+(S.employed?'employed':'terminated')+'\npaid in $SPY every second friday.\n'+location.origin+location.pathname;
   try{ navigator.clipboard.writeText(txt); toast('<b>Copied.</b> Paste it on X. HR is watching.', 'info', 'Company'); }
   catch(e){ toast('Could not copy on this browser.', 'bad', 'Company'); }
 });
+
+/* announcements ticker */
+(function ticker(){
+  const items=[
+    'Payday is the <b>second Friday</b>. It has always been the second Friday.',
+    'Payroll currency: <b>$SPY</b> — the S&amp;P 500, as a Robinhood Chain stock token.',
+    'Three consecutive missed workdays = <b>termination</b>. There is no appeal. There is a Reapply button.',
+    'Contract address: <b>'+(CONFIG.ca||'not yet issued')+'</b>.',
+    'The break-room microwave is shared. Clean it.',
+    'Reminder: your timecard on this page is <b>practice</b>. The on-chain clock opens at launch.',
+    'Employee of the period receives a plaque. The plaque is paid for from the pool.',
+    'Lost: one (1) red stapler. Last seen before the reorg.',
+    'Fee split: 1% per trade → <b>70% payroll</b>, 30% protocol. No treasury. No team wallet.',
+    'HR has been notified. HR is a smart contract.',
+  ];
+  const html=items.map(t=>'<span>▪ '+t+'</span>').join('');
+  $('tkrun').innerHTML=html+html;
+})();
+
+/* tips of the day */
+const TIPS=[
+  'Clock in before you open the chart. The chart will still be there. Your streak might not.',
+  'A missed day resets your streak but not your job. Three in a row is the job.',
+  'Payday splits the pool by shifts. Ten of ten beats nine of ten by exactly one tenth. Show up.',
+  'The plant in the cubicle is plastic. Do not water it. Facilities has asked twice.',
+  'Terminated? Reapply immediately. The desk is still warm.',
+  'Every trade anyone makes puts 0.7% into your paycheck. Tell a colleague.',
+  'Hold music is available in the nav. It is not good. That is the point.',
+  'You are paid in $SPY: the whole index, every second Friday. Your 401(k) would like a word.',
+];
+let tipI = Math.floor(Math.random()*TIPS.length);
+function showTip(){ $('tip').textContent=TIPS[tipI%TIPS.length]; try{ $('ltip').textContent=TIPS[(tipI+3)%TIPS.length]; }catch(e){} }
+$('tipnext').addEventListener('click',()=>{ tipI++; showTip(); });
+showTip();
 
 /* live UTC clock in the title bar */
 (function clock(){
@@ -1016,7 +1111,7 @@ $('b-share').addEventListener('click', ()=>{
   let h='<tr><th>Friday</th><th>Type</th><th style="text-align:right">Distribution</th></tr>';
   for(let i=0;i<6;i++){
     const pd = i%2===1;
-    h+='<tr><td>'+fmt(d)+'</td><td'+(pd?' class="pd"':'')+'>'+(pd?'PAYDAY':'—')+'</td><td class="num zero">'+(pd?'0.0000 $WDAY':'')+'</td></tr>';
+    h+='<tr><td>'+fmt(d)+'</td><td'+(pd?' class="pd"':'')+'>'+(pd?'PAYDAY':'—')+'</td><td class="num zero">'+(pd?'0.0000 $SPY':'')+'</td></tr>';
     d.setUTCDate(d.getUTCDate()+7);
   }
   $('paycal').innerHTML=h;
