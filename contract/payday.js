@@ -1,6 +1,6 @@
 // WAGIE — payday runner (illustrative, unaudited)
 // Runs every second Friday after 00:00 UTC: sweeps the creator fee share,
-// swaps it to $WDAY, forwards it to WagieClock, then calls runPayday().
+// forwards it (already denominated in $SPY, the pair asset) to WagieClock, then calls runPayday().
 //
 //   node payday.js            (dry run)
 //   node payday.js --send     (broadcast)
@@ -15,7 +15,7 @@ const CHAIN = { id: 4663, name: 'Robinhood Chain', nativeCurrency: { name: 'Ethe
 
 const ADDR = {
   clock:    process.env.WAGIE_CLOCK   || '0x0000000000000000000000000000000000000000',
-  payroll:  process.env.WDAY_TOKEN    || '0x0000000000000000000000000000000000000000', // $WDAY stock token
+  payroll:  process.env.SPY_TOKEN    || '0x0000000000000000000000000000000000000000', // $SPY stock token
   treasury: process.env.TREASURY      || '0x0000000000000000000000000000000000000000', // receives Pons creator share
 };
 
@@ -51,12 +51,12 @@ async function main() {
   const treasuryBal = await pub.readContract({ address: ADDR.payroll, abi: erc20Abi, functionName: 'balanceOf', args: [ADDR.treasury] });
   const shifts = await pub.readContract({ address: ADDR.clock, abi: clockAbi, functionName: 'periodShiftTotal', args: [period] });
 
-  console.log(`period ${period}: treasury holds ${formatUnits(treasuryBal, dec)} $WDAY, ${shifts} shifts credited`);
-  if (treasuryBal === 0n) return console.log('pool is empty — payday pays 0.0000 $WDAY, exactly as advertised');
+  console.log(`period ${period}: treasury holds ${formatUnits(treasuryBal, dec)} $SPY, ${shifts} shifts credited`);
+  if (treasuryBal === 0n) return console.log('pool is empty — payday pays 0.0000 $SPY, exactly as advertised');
   if (shifts === 0n)      return console.log('nobody clocked in — pool rolls to next period');
 
   // 1) forward the period's pool to the clock. (The Pons creator share arrives in the pair
-  //    asset already when the token is paired to $WDAY, so no swap step is needed here.)
+  //    asset already when the token is paired to $SPY, so no swap step is needed here.)
   // 2) run payday so holders can claim().
   if (!send || !wallet) return console.log('dry run — pass --send to broadcast');
 

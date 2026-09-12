@@ -15,7 +15,7 @@ pragma solidity ^0.8.24;
  *     workday by any address holding at least MIN_HOLD of WAGIE.
  *   - Payday is every second Friday. The attendance pool — the creator
  *     share of Pons v2 trade fees collected since the previous payday,
- *     already swapped to the paired stock token ($WDAY) — is split
+ *     already swapped to the paired stock token ($SPY) — is split
  *     pro-rata by shifts clocked among holders who are still employed.
  *   - Three consecutive missed workdays = TERMINATED. The holder's shifts
  *     for the period are forfeited to colleagues who clocked in. A
@@ -29,7 +29,7 @@ interface IERC20 {
 
 contract WagieClock {
     IERC20  public immutable WAGIE;     // the memecoin
-    IERC20  public immutable PAYROLL;   // the payout token ($WDAY stock token)
+    IERC20  public immutable PAYROLL;   // the payout token: $SPY (SPDR S&P 500 ETF Trust) stock token
     uint256 public immutable MIN_HOLD;  // minimum WAGIE balance to clock in
     address public immutable treasury;  // receives the creator fee share, forwards to this contract
 
