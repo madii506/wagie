@@ -184,6 +184,9 @@ hr.dot{border:0;border-top:1px dotted var(--line);margin:12px 0}
 .tc td.today{outline:2px solid var(--today-b);outline-offset:-2px;background:var(--today)}
 .tc td.today.in{background:#e7f5d9}
 .tc td.future .mark{color:#c9c6bb;font-weight:normal;font-size:11px}
+.tc td.past{background:#f3f2ec}
+.tc td.past .mark{color:#b9b6ab;font-weight:normal;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase}
+.tc th.wk small{display:block;font-size:8.5px;letter-spacing:.3px;color:var(--muted);font-weight:normal;margin-top:1px}
 .tc td.payday{box-shadow:inset 0 -4px 0 #e6c45a}
 .tc td .stamp{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);border:2px solid var(--ok);color:var(--ok);
   font-size:11px;font-weight:bold;padding:1px 6px;letter-spacing:1px;border-radius:3px;opacity:.9;animation:stamp .28s ease-out}
@@ -361,41 +364,42 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 .toast .body{padding:10px 12px}
 .toast .body .msg{font-size:12px}
 
-/* ---------- login loader ---------- */
-#login{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;
-  background:linear-gradient(180deg,#eef2f6 0%,#d5dee8 100%);transition:opacity .45s ease}
-#login:before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,#0a246a,#3a6ea5,#a6caf0)}
+/* ---------- login loader (full-screen split) ---------- */
+#login{position:fixed;inset:0;z-index:100;display:grid;grid-template-columns:1.25fr 1fr;transition:opacity .45s ease;overflow:hidden}
 #login.out{opacity:0;pointer-events:none}
-#login .foot{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-size:10.5px;color:#6a7683;letter-spacing:.4px;padding:0 16px}
-.lbox{display:grid;grid-template-columns:1.15fr 1fr;width:min(860px,100%);border:1px solid #4d5f73;box-shadow:0 22px 50px rgba(20,35,55,.35);background:var(--chrome)}
-.lbrand{position:relative;overflow:hidden;background:linear-gradient(160deg,#0a246a 0%,#1d4488 45%,#3a6ea5 100%);color:#fff;padding:28px 26px 0;min-height:420px}
-.lgrid{position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.07) 1px,transparent 1px);background-size:28px 28px}
-.lword{position:relative;font-size:64px;font-weight:bold;letter-spacing:-2px;line-height:.9;text-shadow:0 3px 0 rgba(0,0,0,.25)}
-.lsub{position:relative;font-size:11px;letter-spacing:5px;margin-top:8px;opacity:.9;font-weight:bold}
-.lpts{position:relative;list-style:none;margin:18px 0 0;padding:0;font-size:13px;line-height:1.9}
-.lpts li:before{content:"▸";margin-right:8px;color:#a6caf0}
+.lbrand{position:relative;overflow:hidden;background:linear-gradient(160deg,#0a246a 0%,#1d4488 45%,#3a6ea5 100%);color:#fff;padding:7vh 6vw 0;min-height:100%}
+.lgrid{position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.07) 1px,transparent 1px);background-size:34px 34px}
+.lword{position:relative;font-size:clamp(72px,11vw,150px);font-weight:bold;letter-spacing:-4px;line-height:.88;text-shadow:0 4px 0 rgba(0,0,0,.28),0 14px 30px rgba(0,0,0,.25)}
+.lsub{position:relative;font-size:clamp(12px,1.1vw,16px);letter-spacing:8px;margin-top:14px;opacity:.92;font-weight:bold}
+.lpts{position:relative;list-style:none;margin:30px 0 0;padding:0;font-size:clamp(14px,1.25vw,18px);line-height:2}
+.lpts li:before{content:"▸";margin-right:10px;color:#a6caf0}
 .lpts b{color:#ffe08a}
-.ldesk{position:absolute;right:-30px;bottom:-14px;width:78%;max-width:none;filter:drop-shadow(0 12px 20px rgba(0,0,0,.35))}
-.lver{position:absolute;left:26px;bottom:10px;font-size:9.5px;letter-spacing:1.5px;opacity:.7}
-.lwin{background:var(--chrome);display:flex;flex-direction:column}
-.lwin .bar{height:30px;background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);color:#fff;font-weight:bold;font-size:12px;display:flex;align-items:center;padding:0 10px;text-shadow:1px 1px 0 rgba(0,0,0,.55)}
-.lwin .b{padding:16px 18px 10px;flex:1}
-.lwin .brand{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-.lwin .brand .face{width:52px;height:52px;border:1px solid var(--line-d);background:#c9d2cb;overflow:hidden;position:relative;flex:0 0 auto}
-.lwin .brand .face img{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:62px}
-.lwin .brand .w{font-size:22px;font-weight:bold;letter-spacing:-.5px;color:var(--blue-d);line-height:1}
-.lwin .brand .w small{display:block;font-size:9px;letter-spacing:3px;color:#4a5a50;margin-top:3px}
-.lwin label{display:grid;grid-template-columns:76px 1fr;gap:8px;align-items:center;font-size:11.5px;margin-bottom:8px}
-.lwin .field{background:#fff;border:1px solid;border-color:#5a5a52 #fff #fff #5a5a52;padding:4px 6px;font-size:12px;font-family:inherit;height:24px;display:flex;align-items:center}
+.ldesk{position:absolute;right:-4%;bottom:-3%;width:min(64%,760px);max-width:none;filter:drop-shadow(0 18px 30px rgba(0,0,0,.4))}
+.lver{position:absolute;left:6vw;bottom:16px;font-size:10.5px;letter-spacing:2px;opacity:.7}
+.lpane{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;background:linear-gradient(180deg,#eef2f6 0%,#d5dee8 100%)}
+.lpane:before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,#0a246a,#3a6ea5,#a6caf0)}
+.lpane .foot{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-size:10.5px;color:#6a7683;letter-spacing:.4px;padding:0 16px}
+.lwin{width:min(500px,100%);background:var(--chrome);border:1px solid #5a6b7c;box-shadow:0 24px 60px rgba(20,35,55,.32),0 0 0 1px rgba(255,255,255,.6) inset;display:flex;flex-direction:column}
+.lwin .bar{height:34px;background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);color:#fff;font-weight:bold;font-size:13px;display:flex;align-items:center;padding:0 12px;text-shadow:1px 1px 0 rgba(0,0,0,.55)}
+.lwin .b{padding:20px 22px 12px;flex:1}
+.lwin .brand{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.lwin .brand .face{width:64px;height:64px;border:1px solid var(--line-d);background:linear-gradient(#e3eaf1,#c5d2df);overflow:hidden;position:relative;flex:0 0 auto}
+.lwin .brand .face img{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:78px}
+.lwin .brand .w{font-size:26px;font-weight:bold;letter-spacing:-.5px;color:var(--blue-d);line-height:1}
+.lwin .brand .w small{display:block;font-size:10px;letter-spacing:4px;color:#4a5a50;margin-top:4px}
+.lwin label{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:center;font-size:13px;margin-bottom:10px}
+.lwin .field{background:#fff;border:1px solid;border-color:#5a5a52 #fff #fff #5a5a52;padding:4px 8px;font-size:13.5px;font-family:inherit;height:30px;display:flex;align-items:center}
 .lwin .field.pw{letter-spacing:2px}
-.lwin .prog{margin-top:12px;height:18px;border:1px solid var(--line-d);background:#fff;box-shadow:inset 1px 1px 0 rgba(0,0,0,.08);padding:2px;display:flex;gap:2px}
-.lwin .prog i{width:9px;background:linear-gradient(#5f9be8,#2a5aa8);display:block;opacity:0}
+.lwin .prog{margin-top:14px;height:22px;border:1px solid var(--line-d);background:#fff;box-shadow:inset 1px 1px 0 rgba(0,0,0,.08);padding:2px;display:flex;gap:2px}
+.lwin .prog i{flex:1;background:linear-gradient(#5f9be8,#2a5aa8);display:block;opacity:0}
 .lwin .prog i.on{opacity:1}
-.lwin .st{font-size:11px;color:var(--muted);margin-top:6px;min-height:16px}
-.lwin .row{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
-.ltip{border-top:1px solid var(--line);background:#fff8dc;padding:8px 14px;font-size:11px;color:#4a3f10;line-height:1.5}
+.lwin .row{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.lwin .row .btn{height:34px;font-size:13px;min-width:110px}
+.ltip{border-top:1px solid var(--line);background:#fff8dc;padding:10px 16px;font-size:12px;color:#4a3f10;line-height:1.5}
+@media (max-width:820px){ #login{grid-template-columns:1fr;grid-template-rows:auto 1fr;overflow:auto} .lbrand{min-height:250px;padding:26px 22px 0} .lword{font-size:60px;letter-spacing:-2px} .lsub{letter-spacing:5px;margin-top:8px} .lpts{margin-top:14px;font-size:13px;line-height:1.75;max-width:58%} .ldesk{width:56%;right:-8%;bottom:-6%} .lver{display:none} .lpane{padding:16px 16px 40px;justify-content:flex-start} .lwin .b{padding:14px 16px 10px} }
+
 /* login motion */
-.lbox{animation:lin .5s cubic-bezier(.2,.8,.2,1) both}
+.lwin{animation:lin .5s cubic-bezier(.2,.8,.2,1) both}
 @keyframes lin{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 .lbrand:after{content:"";position:absolute;top:-40%;left:-60%;width:40%;height:180%;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.10) 45%,rgba(255,255,255,.16) 50%,rgba(255,255,255,.10) 55%,transparent 100%);transform:rotate(8deg);animation:sweep 4.5s ease-in-out infinite}
 @keyframes sweep{0%{left:-60%}55%{left:130%}100%{left:130%}}
@@ -412,14 +416,14 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 .lwin .prog{opacity:0;transition:opacity .3s}
 .lwin .prog.on{opacity:1}
 .lwin .prog i{transition:opacity .15s}
-.llog{list-style:none;margin:8px 0 0;padding:0;font:11px/1.55 'DejaVu Sans Mono','Liberation Mono',Consolas,monospace;color:#3a3a36;min-height:96px}
+.llog{list-style:none;margin:10px 0 0;padding:0;font:12px/1.6 'DejaVu Sans Mono','Liberation Mono',Consolas,monospace;color:#3a3a36;min-height:96px}
 .llog li{display:flex;justify-content:space-between;gap:10px;opacity:0;transform:translateX(-4px);animation:lg .25s ease-out forwards}
 .llog li b{font-weight:normal;color:var(--ok)}
 .llog li b.wait{color:var(--muted)}
 .llog li b.skip{color:#a07a10}
 @keyframes lg{to{opacity:1;transform:none}}
-.lwin .st{font-size:10.5px;color:var(--muted);margin-top:8px;min-height:14px;border-top:1px dotted var(--line);padding-top:6px}
-@media (max-width:720px){ .lbox{grid-template-columns:1fr} .lbrand{min-height:230px;padding:18px 18px 0} .lword{font-size:44px} .ldesk{width:52%;right:-10px} .lpts{font-size:12px;line-height:1.7;max-width:60%} .llog{min-height:0} }
+.lwin .st{font-size:11px;color:var(--muted);margin-top:10px;min-height:14px;border-top:1px dotted var(--line);padding-top:8px}
+@media (max-width:820px){ .llog{min-height:0} }
 
 /* ============================================================
    DESKTOP SHELL
@@ -580,17 +584,17 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 
 <!-- ===================== LOGIN (loader) ===================== -->
 <div id="login" aria-live="polite">
-  <div class="lbox">
-    <div class="lbrand">
-      <div class="lgrid"></div>
-      <div class="lword">WAGIE</div>
-      <div class="lsub">EMPLOYEE SELF SERVICE</div>
-      <ul class="lpts"><li>Clock in once a workday.</li><li>Payday every second Friday, in <b>$SPY</b>.</li><li>Miss three and you're fired.</li></ul>
-      <img class="ldesk" src="assets/wagie-desk.png" alt="">
-      <div class="lver">ESS v2.1 · build 0912 · CORP\ATTENDANCE</div>
-    </div>
+  <div class="lbrand">
+    <div class="lgrid"></div>
+    <div class="lword">WAGIE</div>
+    <div class="lsub">EMPLOYEE SELF SERVICE</div>
+    <ul class="lpts"><li>Clock in once a workday.</li><li>Payday every second Friday, in <b>$SPY</b>.</li><li>Miss three and you're fired.</li></ul>
+    <img class="ldesk" src="assets/wagie-desk.png" alt="">
+    <div class="lver">ESS v3.1 · build 0912 · CORP\ATTENDANCE · CUBICLE-04</div>
+  </div>
+  <div class="lpane">
     <div class="lwin">
-      <div class="bar">Sign In</div>
+      <div class="bar">Sign In — WAGIE, INC.</div>
       <div class="b">
         <div class="brand">
           <div class="face"><img src="assets/wagie-face.png" alt=""></div>
@@ -606,8 +610,8 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
       </div>
       <div class="ltip"><b>Tip of the day:</b> <span id="ltip"></span></div>
     </div>
+    <div class="foot">Unauthorised access is monitored. Authorised access is also monitored. · WAGIE, INC.</div>
   </div>
-  <div class="foot">Unauthorised access is monitored. Authorised access is also monitored. · WAGIE, INC.</div>
 </div>
 
 <!-- ===================== DESKTOP ===================== -->
@@ -661,7 +665,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
     <section class="view on" id="v-timecard" role="tabpanel">
       <div class="welcome">
         <div class="av"><img id="moodimg" src="assets/wagie-face.png" alt=""><span class="mood" id="moodlbl">NEUTRAL</span></div>
-        <div class="txt">Welcome back, <b>WAGIE</b>.<span class="st" id="w-status"></span><br><span class="small">Your timecard for the current pay cycle is shown below. Clock in once per workday.</span></div>
+        <div class="txt">Welcome back, <b>WAGIE</b>.<span class="st" id="w-status"></span><br><span class="small" id="w-sub">Your timecard for the current pay cycle is shown below. Clock in once per workday.</span></div>
         <div class="day">TODAY<b id="w-day">WK1 MON</b></div>
       </div>
 
@@ -1249,14 +1253,27 @@ snd.addEventListener('click', async ()=>{
    every second Friday (index % 10 === 9), 3 consecutive misses
    = terminated, reapply from zero.
    ============================================================ */
-const DAYS = ['MON','TUE','WED','THU','FRI'], WD = 20;
-const KEY = 'wagie.timecard.v1';
-const fresh = ()=>({ cur:0, cycle:1, shifts:Array(WD).fill(null), employed:true, streak:0, best:0, missed:0, per:0, paydays:0, terms:0, log:[], aw:{} });
+const DAYS = ['MON','TUE','WED','THU','FRI'], WD = 20, MONS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const DAY_MS = 86400000;
+// real calendar, UTC. The grid is the 4 weeks starting Monday of the current week.
+const _now = new Date(), TODAY = Date.UTC(_now.getUTCFullYear(), _now.getUTCMonth(), _now.getUTCDate());
+const DOW = new Date(TODAY).getUTCDay();                 // 0 Sun … 6 Sat
+const IS_WEEKEND = DOW===0 || DOW===6;
+const BASE = TODAY - ((DOW+6)%7)*DAY_MS;                 // Monday 00:00 UTC of this week
+const dateOf = i => new Date(BASE + (Math.floor(i/5)*7 + i%5)*DAY_MS);
+const fmtD = d => DAYS.concat(['SAT','SUN'])[(d.getUTCDay()+6)%7] + ' ' + d.getUTCDate() + ' ' + MONS[d.getUTCMonth()];
+const fmtShort = d => d.getUTCDate() + ' ' + MONS[d.getUTCMonth()];
+const TODAY_IDX = IS_WEEKEND ? (DOW===6 ? 5 : 5) : (DOW-1);   // weekend → next Monday (index 5)
+const TODAY_LABEL = fmtD(new Date(TODAY));
+const KEY = 'wagie.timecard.v2';
+const fresh = ()=>({ base:BASE, cur:TODAY_IDX, simOn:false, cycle:1, shifts:Array(WD).fill(null), employed:true, streak:0, best:0, missed:0, per:0, paydays:0, terms:0, log:[], aw:{} });
 let S = fresh();
-try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.shifts) && s.shifts.length===WD) S = Object.assign(fresh(), s); }catch(e){}
+try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.base===BASE && Array.isArray(s.shifts) && s.shifts.length===WD) S = Object.assign(fresh(), s); }catch(e){}
 const save = ()=>{ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
 const isPayday = i => i % 10 === 9;
-const label = i => 'WK'+(Math.floor(i/5)+1)+' '+DAYS[i%5];
+const label = i => fmtD(dateOf(i));
+const simulating = () => S.cur > TODAY_IDX || (IS_WEEKEND && S.simOn);
+const weekendLock = () => IS_WEEKEND && !S.simOn && S.cur===TODAY_IDX;
 
 const $ = id => document.getElementById(id);
 const tc = $('tc');
@@ -1264,14 +1281,19 @@ const tc = $('tc');
 function renderGrid(){
   let h = '<thead><tr><th class="wk"></th>' + DAYS.map(d=>'<th>'+d+'</th>').join('') + '</tr></thead><tbody>';
   for (let w=0; w<4; w++){
-    h += '<tr><th class="wk">WK '+(w+1)+'</th>';
+    h += '<tr><th class="wk">WK '+(w+1)+'<small>'+fmtShort(dateOf(w*5))+'</small></th>';
     for (let d=0; d<5; d++){
-      const i = w*5+d, s = S.shifts[i];
-      let cls = s==='in' ? 'in' : s==='missed' ? 'missed' : 'future';
+      const i = w*5+d, s = S.shifts[i], dt = dateOf(i);
+      const past = i < TODAY_IDX && s===null;
+      let cls = s==='in' ? 'in' : s==='missed' ? 'missed' : past ? 'past' : 'future';
       if (i===S.cur && S.cur<WD) cls += ' today';
       if (isPayday(i)) cls += ' payday';
-      let mark = s==='in' ? '<span class="stamp">IN</span><span class="tm">09:00</span>' : s==='missed' ? '<span class="mark">MISSED</span>' : (i===S.cur ? '<span class="mark" style="color:#8a6c00">TODAY</span>' : '<span class="mark">—</span>');
-      h += '<td class="'+cls+'"><span class="lbl">'+DAYS[d]+' '+(w*5+d+1)+'</span>'+(isPayday(i)?'<span class="pd">$ PAYDAY</span>':'')+mark+'</td>';
+      const isSim = i===S.cur && simulating();
+      let mark = s==='in' ? '<span class="stamp">IN</span><span class="tm">09:00</span>'
+               : s==='missed' ? '<span class="mark">MISSED</span>'
+               : past ? '<span class="mark">no record</span>'
+               : (i===S.cur ? '<span class="mark" style="color:#8a6c00">'+(weekendLock()?'MONDAY':(isSim?'SIM · TODAY':'TODAY'))+'</span>' : '<span class="mark">—</span>');
+      h += '<td class="'+cls+'"><span class="lbl">'+DAYS[d]+' '+dt.getUTCDate()+'</span>'+(isPayday(i)?'<span class="pd">$ PAYDAY</span>':'')+mark+'</td>';
     }
     h += '</tr>';
   }
@@ -1280,7 +1302,9 @@ function renderGrid(){
 
 function renderStatus(){
   const done = S.cur>=WD;
-  $('w-day').textContent = done ? 'CYCLE END' : label(S.cur);
+  const sim = !done && simulating();
+  $('w-day').innerHTML = done ? 'CYCLE END' : (sim ? label(S.cur)+' <span class="tag warn" style="vertical-align:middle;font-size:9px">SIM</span>' : TODAY_LABEL + (IS_WEEKEND ? ' <span class="tag info" style="vertical-align:middle;font-size:9px">WEEKEND</span>' : ''));
+  const wt=$('w-sub'); if(wt) wt.textContent = weekendLock() ? 'It\'s the weekend. The clock reopens '+label(TODAY_IDX)+' 00:00 UTC. Press SIMULATE to practise the week ahead.' : (sim ? 'Practice mode — simulating '+label(S.cur)+'. Nothing is written to the chain.' : 'Your timecard for the current pay cycle is shown below. Clock in once per workday.');
   $('cyc').textContent = S.cycle;
   $('w-status').innerHTML = S.employed ? '<span class="tag ok">EMPLOYED</span>' : '<span class="tag bad">TERMINATED</span>';
   $('s-emp').innerHTML = S.employed ? '<span class="tag ok">EMPLOYED</span>' : '<span class="tag bad">TERMINATED</span>';
@@ -1294,10 +1318,10 @@ function renderStatus(){
   $('s-pdc').textContent = S.paydays;
   $('s-term').textContent = S.terms;
   $('ps-shifts').textContent = S.per + (S.per===1?' shift':' shifts') + ' (practice)';
-  $('ps-period').textContent = 'Cycle '+S.cycle+', '+(S.cur<=9?'weeks 1–2':'weeks 3–4');
-  $('b-in').disabled = done || !S.employed || S.shifts[S.cur]!==null;
-  $('b-in').textContent = !S.employed ? 'CLOCK IN (TERMINATED)' : (S.shifts[S.cur]==='in' ? 'CLOCKED IN ✓' : 'CLOCK IN');
-  $('b-next').textContent = done ? 'START NEW CYCLE ▸' : 'NEXT WORKDAY ▸';
+  $('ps-period').textContent = (S.cur<=9 ? fmtShort(dateOf(0))+' – '+fmtShort(dateOf(9)) : fmtShort(dateOf(10))+' – '+fmtShort(dateOf(19)));
+  $('b-in').disabled = done || !S.employed || S.shifts[S.cur]!==null || weekendLock();
+  $('b-in').textContent = !S.employed ? 'CLOCK IN (TERMINATED)' : weekendLock() ? 'CLOCK IN (WEEKEND)' : (S.shifts[S.cur]==='in' ? 'CLOCKED IN ✓' : 'CLOCK IN');
+  $('b-next').textContent = done ? 'START NEW CYCLE ▸' : weekendLock() ? 'SIMULATE '+label(TODAY_IDX)+' ▸' : (sim ? 'NEXT WORKDAY (SIM) ▸' : 'SIMULATE NEXT WORKDAY ▸');
   // punch log (last 6)
   const pl = $('punchlog');
   pl.innerHTML = S.log.length ? S.log.slice(-6).map(l=>'<div class="'+l.k+'">'+l.t+'</div>').join('') : '<div class="zero">— no punches yet —</div>';
@@ -1344,6 +1368,7 @@ function close(id){ $(id).classList.remove('on'); }
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>close(b.dataset.close)));
 
 function clockIn(){
+  if (weekendLock()){ toast('<b>It\'s '+TODAY_LABEL.split(' ')[0]+'.</b> The clock reopens Monday 00:00 UTC. Use SIMULATE to practise.', 'info', 'Attendance'); return; }
   if (S.cur>=WD || !S.employed || S.shifts[S.cur]!==null) return;
   S.shifts[S.cur]='in'; S.streak++; S.best=Math.max(S.best,S.streak); S.missed=0; S.per++;
   logLine('in', label(S.cur)+'  09:00  IN   #'+String(S.per).padStart(2,'0'));
@@ -1356,9 +1381,10 @@ function clockIn(){
 }
 
 function nextDay(){
-  if (S.cur>=WD){ // new cycle
-    S.cur=0; S.cycle++; S.shifts=Array(WD).fill(null); S.per=0; S.missed = S.employed ? 0 : S.missed;
-    render(); toast('<b>New pay cycle started.</b> Cycle '+S.cycle+', WK1 MON.', 'info', 'Payroll'); return;
+  if (weekendLock()){ S.simOn=true; render(); logLine('sys','SIM    00:00  '+label(S.cur)); toast('<b>Simulating '+label(S.cur)+'.</b> Practice only — the real clock opens Monday.', 'info', 'Attendance'); return; }
+  if (S.cur>=WD){ // new cycle (simulated)
+    S.cur=0; S.cycle++; S.simOn=true; S.shifts=Array(WD).fill(null); S.per=0; S.missed = S.employed ? 0 : S.missed;
+    render(); toast('<b>New pay cycle started.</b> Cycle '+S.cycle+' (simulated).', 'info', 'Payroll'); return;
   }
   const i=S.cur;
   if (S.shifts[i]===null){
@@ -1392,7 +1418,7 @@ function showPayday(shifts, employed){
   open('ov-pay');
 }
 function reapply(){ S.employed=true; S.missed=0; S.streak=0; logLine('sys', 'HR     09:00  REHIRED'); award('rehired','Rehired. Same desk. Same plant.'); close('ov-term'); render(); toast('<b>Application accepted.</b> Welcome back. Streak: 0. Try to make it to Friday.', 'info', 'Human Resources'); }
-function reset(){ S=fresh(); render(); toast('<b>Timecard reset.</b> New employee, same desk.', 'info', 'Payroll'); }
+function reset(){ S=fresh(); render(); toast('<b>Timecard reset.</b> Back to '+TODAY_LABEL+'. New employee, same desk.', 'info', 'Payroll'); }
 
 $('b-in').addEventListener('click', clockIn);
 $('b-next').addEventListener('click', nextDay);
@@ -1441,7 +1467,7 @@ showTip();
 /* live UTC clock in the title bar */
 (function clock(){
   const el=$('utc'); const two=n=>String(n).padStart(2,'0');
-  function t(){ const d=new Date(); el.textContent = two(d.getUTCHours())+':'+two(d.getUTCMinutes())+' UTC'; el.title = d.toUTCString(); }
+  function t(){ const d=new Date(); el.textContent = TODAY_LABEL.slice(0,3)+' '+d.getUTCDate()+' · '+two(d.getUTCHours())+':'+two(d.getUTCMinutes())+' UTC'; el.title = d.toUTCString(); }
   t(); setInterval(t,1000);
 })();
 
@@ -1642,7 +1668,7 @@ reward is 0.0000 $SPY until payday, then it's a share of the pool, which dependi
 also did u clock in today
 
 - dave`},
-    {id:'reminder', from:'Attendance Committee', sub:'Reminder: you have not clocked in today', dt:'Today 04:51', unread:true, body:
+    {id:'reminder', from:'Attendance Committee', sub:(IS_WEEKEND?'Weekend notice: clock reopens Monday 00:00 UTC':'Reminder: you have not clocked in today'), dt:'Today 04:51', unread:true, body:
 `wagie,
 
 Our records show no clock-in for today's workday.
@@ -1686,6 +1712,7 @@ Payroll`},
     $('clog').innerHTML='';
     say('dave','hey',300); typing(900); say('dave','u there',1800); typing(2300);
     if(S.shifts[S.cur]==='in'){ say('dave','saw u clocked in. respect.',3200); typing(3800); say('dave','payday is second friday. in $SPY. the whole index. wild.',4800); buttons([['see you at payday',()=>{ say('me','see you at payday',0); typing(700); say('dave','not if hr sees me first',1900); }]]); }
+    else if (weekendLock()){ say('dave','it\'s '+TODAY_LABEL.split(' ')[0].toLowerCase()+'. why r u on the portal',3200); typing(3700); say('dave','clock reopens monday. go outside',4900); buttons([['practising for monday',()=>{ say('me','practising for monday',0); typing(700); say('dave','respect. see u at payday',1900); }],['no',()=>{ say('me','no',0); typing(600); say('dave','fair',1500); }]]); }
     else { say('dave','did u clock in yet',3200); typing(3700); say('dave','streak resets at midnight utc. just saying',4900);
       setTimeout(()=>buttons([['clocking in now',()=>{ say('me','clocking in now',0); openWin('ess'); go('timecard'); setTimeout(()=>{ clockIn(); typing(400); say('dave','nice. see u at payday',1500); },600); }],['later',()=>{ say('me','later',0); typing(600); say('dave','ok. it\'s your streak.',1700); typing(2300); say('dave','(it\'s also my payday. more for me.)',3400); }]]), 5200);
     }
@@ -1780,7 +1807,7 @@ same fund. fewer decades.`],
     Object.values(W).forEach(w=>{ delete w.dataset.placed; });
     setTimeout(()=>{ SFX.chime(); openWin('ess'); if(isMobile()) W.ess.classList.add('max'); }, 250);
     renderMail();
-    setTimeout(()=>{ if(S.shifts[S.cur]!=='in' && S.employed) balloon('You have not clocked in today', 'Click here to open your timecard. Your streak resets at 23:59 UTC.', ()=>{ openWin('ess'); go('timecard'); }); }, 2600);
+    setTimeout(()=>{ if(weekendLock()) balloon('It\'s the weekend', 'The clock reopens '+label(TODAY_IDX)+' 00:00 UTC. Click to practise the week ahead.', ()=>{ openWin('ess'); go('timecard'); }); else if(S.shifts[S.cur]!=='in' && S.employed) balloon('You have not clocked in today', 'Click here to open your timecard. Your streak resets at 23:59 UTC.', ()=>{ openWin('ess'); go('timecard'); }); }, 2600);
     setTimeout(()=>{ if(!isMobile()) openWin('chat'); else if(S.shifts[S.cur]!=='in') balloon('CorpChat — Dave (Accounting)', 'did u clock in yet', ()=>openWin('chat')); }, 11000);
     armIdle();
   }
