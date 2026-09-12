@@ -76,7 +76,7 @@ img{max-width:100%}
 .pair .pt b{display:block;font-size:13px;color:var(--ink);letter-spacing:.3px}
 .pair .pt i{font-style:normal;color:var(--ok);font-weight:bold}
 @media (max-width:820px){ .mast .who{display:none} }
-@media (max-width:640px){ .mast .word{font-size:34px} .pair .pt{display:none} .pair{padding:4px} }
+@media (max-width:640px){ .mast .word{font-size:34px} .pair .pt{display:none} .pair{padding:4px} .pair .tk small{display:none} .pair .tk{width:40px;height:40px;font-size:11px} }
 
 /* ---------- nav: one centred row ---------- */
 .nav{display:flex;justify-content:center;align-items:flex-end;gap:2px;padding:10px 10px 0;background:var(--chrome);
@@ -188,7 +188,7 @@ hr.dot{border:0;border-top:1px dotted var(--line);margin:12px 0}
 .tc td .stamp{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);border:2px solid var(--ok);color:var(--ok);
   font-size:11px;font-weight:bold;padding:1px 6px;letter-spacing:1px;border-radius:3px;opacity:.9;animation:stamp .28s ease-out}
 @keyframes stamp{0%{transform:translate(-50%,-50%) rotate(-8deg) scale(2.2);opacity:0}70%{opacity:1}100%{transform:translate(-50%,-50%) rotate(-8deg) scale(1)}}
-@media (max-width:560px){ .tc td{height:54px} .tc td .mark{font-size:11px} .tc th.wk{width:38px} .tc td .lbl{font-size:8.5px} }
+@media (max-width:560px){ .tc td{height:54px} .tc td .mark{font-size:11px} .tc th.wk{width:38px} .tc td .lbl{font-size:8.5px} .tc td .pd{font-size:0;top:auto;bottom:2px;right:3px} .tc td .pd:before{content:"$";font-size:10px} .tc td .tm{text-align:left;padding-left:5px} }
 
 .kv{width:100%;border-collapse:collapse}
 .kv td{padding:6px 8px;border-bottom:1px dotted var(--line);font-size:12px;vertical-align:middle}
@@ -318,7 +318,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 @media (max-width:560px){ .status span:nth-child(2){display:none} }
 
 /* ---------- modals & toast ---------- */
-.ov{position:fixed;inset:0;background:rgba(20,30,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.ov{position:fixed;inset:0;background:rgba(20,30,25,.55);display:none;align-items:center;justify-content:center;z-index:5000;padding:16px}
 .ov.on{display:flex}
 .dlg{width:min(560px,100%);background:var(--chrome);border:2px solid;border-color:#fff #5a5a52 #5a5a52 #fff;box-shadow:4px 4px 0 rgba(0,0,0,.35);animation:pop .16s ease-out}
 @keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
@@ -355,7 +355,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 .plate .ft{font-size:11.5px;line-height:1.6;margin-top:8px}
 .plate img{height:110px;margin:-6px auto 0;display:block}
 
-.toast{position:fixed;right:16px;bottom:16px;z-index:60;width:min(340px,calc(100% - 32px));display:none}
+.toast{position:fixed;right:16px;bottom:44px;z-index:5100;width:min(340px,calc(100% - 32px));display:none}
 .toast.on{display:block;animation:pop .16s ease-out}
 .toast .dlg{width:100%}
 .toast .body{padding:10px 12px}
@@ -396,6 +396,155 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 .ltip{border-top:1px solid var(--line);background:#fff8dc;padding:8px 14px;font-size:11px;color:#4a3f10;line-height:1.5}
 @media (max-width:720px){ .lbox{grid-template-columns:1fr} .lbrand{min-height:230px;padding:18px 18px 0} .lword{font-size:44px} .ldesk{width:52%;right:-10px} .lpts{font-size:12px;line-height:1.7;max-width:60%} }
 
+/* ============================================================
+   DESKTOP SHELL
+   ============================================================ */
+.desktop{position:fixed;inset:0;overflow:hidden;display:none;user-select:none}
+.desktop.on{display:block}
+.wall{position:absolute;inset:0 0 34px 0;background:
+  radial-gradient(ellipse at 50% 110%,rgba(255,255,255,.10),transparent 60%),
+  linear-gradient(180deg,#2c5aa0 0%,#1f4784 55%,#173768 100%)}
+.wall:after{content:"WAGIE, INC.";position:absolute;right:26px;bottom:18px;font-size:44px;font-weight:bold;letter-spacing:-1px;color:rgba(255,255,255,.08)}
+.dicons{position:absolute;left:12px;top:12px;display:grid;grid-template-columns:repeat(1,84px);gap:6px;z-index:1}
+.dico{appearance:none;background:none;border:1px solid transparent;color:#fff;font:inherit;font-size:11px;text-align:center;padding:6px 2px 4px;cursor:pointer;border-radius:3px;position:relative;line-height:1.25}
+.dico span{display:block;margin-top:4px;text-shadow:0 1px 2px rgba(0,0,0,.9),0 0 6px rgba(0,0,0,.6)}
+.dico:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+.dico:active,.dico:focus{background:rgba(49,106,197,.6);border-color:rgba(255,255,255,.4);outline:none}
+.badge{position:absolute;right:14px;top:2px;min-width:16px;height:16px;border-radius:8px;background:#e0342c;color:#fff;font-size:9.5px;font-weight:bold;font-style:normal;line-height:16px;padding:0 4px;border:1px solid #fff;display:none}
+.badge.on{display:block}
+/* icons (CSS/SVG, original) */
+.ic{display:inline-block;width:34px;height:34px;background-repeat:no-repeat;background-size:contain;background-position:center;vertical-align:middle;flex:0 0 auto}
+.ic.sm{width:16px;height:16px;margin-right:6px}
+.ic.xs{width:14px;height:14px;margin-right:4px}
+.ic-ess{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='3' y='5' width='26' height='18' rx='2' fill='%23dfe8f4' stroke='%23233' stroke-width='1.5'/><rect x='5' y='7' width='22' height='12' fill='%232f5bb7'/><rect x='5' y='7' width='22' height='3' fill='%230a246a'/><rect x='8' y='12' width='9' height='2' fill='%23a6caf0'/><rect x='8' y='15' width='14' height='2' fill='%23a6caf0'/><rect x='12' y='24' width='8' height='3' fill='%23889'/><rect x='9' y='27' width='14' height='2' fill='%23556'/></svg>")}
+.ic-clock{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='5' y='3' width='22' height='26' rx='2' fill='%239aa0a8' stroke='%23233' stroke-width='1.5'/><rect x='8' y='7' width='16' height='8' fill='%23222'/><rect x='9' y='8' width='14' height='6' fill='%237fb6e8'/><rect x='10' y='18' width='12' height='2' fill='%23555'/><circle cx='16' cy='24' r='2.5' fill='%23a62121'/></svg>")}
+.ic-mail{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='3' y='8' width='26' height='17' rx='2' fill='%23fff8dc' stroke='%23233' stroke-width='1.5'/><path d='M3 10l13 9 13-9' fill='none' stroke='%23233' stroke-width='1.5'/><path d='M3 25l10-8M29 25l-10-8' fill='none' stroke='%23233' stroke-width='1.2'/></svg>")}
+.ic-chat{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 6h17a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H11l-6 5v-5a3 3 0 0 1-3-3V9a3 3 0 0 1 2-3z' fill='%23e8f0fb' stroke='%23233' stroke-width='1.5'/><path d='M12 12h18a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-1v4l-5-4h-9' fill='%2360b060' stroke='%23233' stroke-width='1.5'/></svg>")}
+.ic-book{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M6 5h14a4 4 0 0 1 4 4v18H10a4 4 0 0 0-4 3z' fill='%231d4488' stroke='%23233' stroke-width='1.5'/><path d='M9 8h11v14H9z' fill='%23fff'/><path d='M11 11h7M11 14h7M11 17h5' stroke='%23999' stroke-width='1.2'/></svg>")}
+.ic-pin{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='6' width='24' height='18' fill='%23c69a68' stroke='%236b4a2b' stroke-width='2'/><rect x='8' y='10' width='10' height='9' fill='%23fff'/><circle cx='13' cy='10' r='2.2' fill='%23b40e0e'/><rect x='19' y='12' width='6' height='7' fill='%23fff9b8'/></svg>")}
+.ic-txt{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M7 3h13l6 6v20H7z' fill='%23fff' stroke='%23233' stroke-width='1.5'/><path d='M20 3v6h6' fill='%23ddd' stroke='%23233' stroke-width='1.5'/><path d='M10 13h12M10 17h12M10 21h8' stroke='%23555' stroke-width='1.4'/></svg>")}
+.ic-bin{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M8 9h16l-1.5 19h-13z' fill='%23dfe8f4' stroke='%23233' stroke-width='1.5'/><rect x='6' y='6' width='20' height='3' fill='%23889' stroke='%23233' stroke-width='1'/><path d='M13 12v13M16 12v13M19 12v13' stroke='%23778' stroke-width='1.3'/><path d='M11 14l3 3-3 3' fill='none' stroke='%232e7d32' stroke-width='1.6'/></svg>")}
+.ic-snd{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M5 12h6l8-6v20l-8-6H5z' fill='%23889' stroke='%23233' stroke-width='1.5'/><path d='M22 11a7 7 0 0 1 0 10M25 8a11 11 0 0 1 0 16' fill='none' stroke='%23233' stroke-width='1.6'/></svg>")}
+.ic-note{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M12 24V8l14-3v16' fill='none' stroke='%23233' stroke-width='2'/><circle cx='9' cy='24' r='3.5' fill='%231d4488'/><circle cx='23' cy='21' r='3.5' fill='%231d4488'/></svg>")}
+.ic-run{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='3' y='6' width='26' height='20' rx='2' fill='%23111' stroke='%23233' stroke-width='1.5'/><path d='M7 12l5 4-5 4' fill='none' stroke='%237fe07f' stroke-width='2'/><path d='M14 20h9' stroke='%237fe07f' stroke-width='2'/></svg>")}
+.ic-pay{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='3' y='8' width='26' height='16' rx='2' fill='%23c9e6c0' stroke='%23233' stroke-width='1.5'/><circle cx='16' cy='16' r='4' fill='%232e7d32'/></svg>")}
+.ic-help{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='12' fill='%23e8f0fb' stroke='%23233' stroke-width='1.5'/><path d='M12 12a4 4 0 1 1 6 3.4c-1.4.8-2 1.6-2 3' fill='none' stroke='%231d4488' stroke-width='2.2' stroke-linecap='round'/><circle cx='16' cy='23' r='1.6' fill='%231d4488'/></svg>")}
+.ic-off{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='17' r='10' fill='none' stroke='%23a62121' stroke-width='3'/><path d='M16 5v11' stroke='%23a62121' stroke-width='3' stroke-linecap='round'/></svg>")}
+
+/* windows */
+.wins{position:absolute;inset:0 0 34px 0}
+.win{position:absolute;display:none;flex-direction:column;background:var(--chrome);border:1px solid #223550;box-shadow:0 14px 34px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.35) inset;min-width:260px;min-height:120px;user-select:text}
+.win.open{display:flex}
+.win.max{left:0!important;top:0!important;width:100%!important;height:100%!important}
+.wt{height:28px;flex:0 0 28px;background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);color:#fff;display:flex;align-items:center;gap:4px;padding:0 4px 0 8px;font-weight:bold;font-size:12px;cursor:move;user-select:none;text-shadow:1px 1px 0 rgba(0,0,0,.55)}
+.win.inactive .wt{background:linear-gradient(to bottom,#7e8a99,#5f6d7e 50%,#8a97a8)}
+.wtitle{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wbtns{display:flex;gap:2px}
+.wbtns b{width:20px;height:18px;background:linear-gradient(#e8eef8,#a8bdda);border:1px solid #3c4a60;color:#16233a;font-size:11px;text-align:center;line-height:16px;cursor:pointer;font-weight:bold;text-shadow:none}
+.wbtns b:hover{background:linear-gradient(#fff,#c5d6ee)}
+.wbtns b[data-close]{background:linear-gradient(#e98b7f,#c0392b);color:#fff;border-color:#7a1d12}
+.addr{display:flex;align-items:center;gap:8px;height:26px;background:var(--chrome);border-bottom:1px solid var(--line-d);padding:0 8px;font-size:11px}
+.addr .url{flex:1;background:#fff;border:1px solid;border-color:#5a5a52 #fff #fff #5a5a52;padding:2px 6px;height:20px;line-height:15px;color:#222;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.addr .gobtn{border:1px solid var(--line-d);background:linear-gradient(#f6f5ef,#dcd8cb);padding:1px 8px;font-size:11px}
+.wb{flex:1;overflow:auto;background:#fff;position:relative;min-height:0}
+.win .page{max-width:none;margin:0;border:0;box-shadow:none;min-height:100%}
+.wstat{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);padding:3px 8px;border-top:1px solid var(--line-d);background:var(--chrome)}
+.mtool{display:flex;gap:2px;align-items:center;padding:3px 6px;background:var(--chrome);border-bottom:1px solid var(--line-d);font-size:11px}
+.mbtn{padding:2px 8px;border:1px solid transparent;cursor:default}
+.mbtn:hover{border-color:var(--line-d);background:#fff}
+.mtool .sep{width:1px;height:16px;background:var(--line-d);margin:0 4px}
+/* mail */
+.wb.mail{display:grid;grid-template-columns:270px 1fr;overflow:hidden}
+.mlist{border-right:1px solid var(--line-d);overflow:auto;background:#fff}
+.mrow{display:grid;grid-template-columns:18px 1fr auto;gap:6px;padding:6px 8px;border-bottom:1px solid #eee;font-size:11.5px;cursor:pointer;align-items:center}
+.mrow:hover{background:#eef3fb}
+.mrow.sel{background:var(--sel);color:#fff}
+.mrow .fr{font-weight:normal}
+.mrow.unread .fr,.mrow.unread .sb{font-weight:bold}
+.mrow .sb{grid-column:2/4;color:inherit;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow .dt{font-size:10px;opacity:.7}
+.mrow .env{width:12px;height:9px;border:1px solid currentColor;position:relative;opacity:.7}
+.mrow.unread .env{background:#f6d24a;border-color:#8a6408}
+.mview{overflow:auto;padding:0}
+.mhead{padding:10px 14px;border-bottom:1px solid var(--line);background:var(--paper-2);font-size:11.5px;line-height:1.6}
+.mhead b{font-size:14px;display:block;margin-bottom:4px}
+.mbody{padding:14px;font-size:12.5px;line-height:1.65;white-space:pre-wrap;font-family:Tahoma,Verdana,'DejaVu Sans',sans-serif}
+@media (max-width:640px){ .wb.mail{grid-template-columns:1fr} .mview{display:none} .wb.mail.viewing .mlist{display:none} .wb.mail.viewing .mview{display:block} .mback{display:inline-block!important} }
+.mback{display:none;margin:8px 8px 0;font-size:11px}
+/* chat */
+.wb.chat{display:flex;flex-direction:column;background:#fff}
+.chead{padding:8px 10px;border-bottom:1px solid var(--line);background:linear-gradient(#f6f9ff,#e8f0fb);font-size:12px}
+.chead .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#4fd15a;margin-right:6px;box-shadow:0 0 4px #4fd15a}
+.clog{flex:1;overflow:auto;padding:10px;font-size:12px;line-height:1.5;min-height:160px}
+.clog .m{margin-bottom:8px;max-width:88%}
+.clog .m b{display:block;font-size:10px;color:var(--muted);margin-bottom:1px;letter-spacing:.3px}
+.clog .m span{display:inline-block;background:#eef3fb;border:1px solid #cfdcef;padding:5px 9px;border-radius:2px}
+.clog .m.me{margin-left:auto;text-align:right}
+.clog .m.me span{background:#e2f2e0;border-color:#b8dbb7}
+.clog .typing span{color:var(--muted);font-style:italic}
+.cbtns{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--chrome);flex-wrap:wrap}
+.cbtns .btn{min-width:0;height:28px;font-size:11.5px}
+.note-ta{width:100%;height:100%;min-height:220px;border:0;resize:none;font:12.5px/1.55 'DejaVu Sans Mono','Liberation Mono',Consolas,monospace;padding:10px;background:#fff;color:#222;outline:none;display:block}
+.frow{cursor:pointer} .frow:hover td{background:#eef3fb!important}
+/* balloon */
+.balloon{position:absolute;right:12px;bottom:44px;width:280px;background:#fff8dc;border:1px solid #8a6408;border-radius:6px;padding:10px 26px 10px 12px;font-size:11.5px;line-height:1.5;box-shadow:0 8px 20px rgba(0,0,0,.3);display:none;z-index:4000;cursor:pointer}
+.balloon.on{display:block;animation:pop .18s ease-out}
+.balloon:after{content:"";position:absolute;right:40px;bottom:-9px;border:9px solid transparent;border-bottom:0;border-top-color:#8a6408}
+.balloon b{display:block;margin-bottom:3px;font-size:12px}
+.balloon .bx{position:absolute;right:6px;top:4px;font-style:normal;font-weight:bold;cursor:pointer;color:#6a5a1a}
+/* start menu */
+.startmenu{position:absolute;left:2px;bottom:36px;width:300px;display:none;grid-template-columns:26px 1fr;background:var(--chrome);border:1px solid #223550;box-shadow:6px 6px 16px rgba(0,0,0,.4);z-index:4500}
+.startmenu.on{display:grid}
+.sband{background:linear-gradient(to top,#0a246a,#2f5bb7);color:#fff;font-weight:bold;font-size:13px;letter-spacing:2px;writing-mode:vertical-rl;transform:rotate(180deg);text-align:left;padding:10px 4px;text-shadow:1px 1px 0 rgba(0,0,0,.5)}
+.sitems{padding:4px 0}
+.shead{display:flex;align-items:center;gap:8px;padding:8px 10px;background:linear-gradient(#dfe7f3,#c4d3e8);border-bottom:1px solid var(--line-d);font-size:12px;font-weight:bold}
+.shead img{width:30px;height:30px;border:1px solid var(--line-d);background:#c9d2cb;object-fit:cover}
+.shead small{display:block;font-weight:normal;color:var(--muted);font-size:10.5px}
+.sitems button{appearance:none;display:flex;align-items:center;width:100%;border:0;background:none;text-align:left;padding:6px 12px;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
+.sitems button:hover{background:var(--sel);color:#fff}
+.sitems button .r{margin-left:auto;font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:1px}
+.sdiv{height:1px;background:var(--line-d);margin:4px 8px;box-shadow:0 1px 0 #fff}
+/* taskbar */
+.taskbar{position:absolute;left:0;right:0;bottom:0;height:34px;background:linear-gradient(#e4eaf2,#bfcbdb 70%,#aebccd);border-top:1px solid #fff;display:flex;align-items:center;gap:4px;padding:0 4px;z-index:4600;box-shadow:0 -1px 0 #7d8ea3}
+.start{appearance:none;display:flex;align-items:center;gap:6px;height:26px;padding:0 12px 0 6px;border:1px solid #1d3f8f;border-radius:3px;background:linear-gradient(#5f9be8,#1d4488);color:#fff;font:inherit;font-weight:bold;font-size:12px;cursor:pointer;text-shadow:0 1px 0 rgba(0,0,0,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.start img{width:18px;height:18px;border-radius:2px;background:#c9d2cb;object-fit:cover}
+.start:hover{filter:brightness(1.08)}
+.tsep{width:1px;height:24px;background:#7d8ea3;box-shadow:1px 0 0 #fff;margin:0 3px}
+.tasks{flex:1;display:flex;gap:3px;overflow:hidden;min-width:0}
+.task{appearance:none;display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border:1px solid #7d8ea3;border-radius:2px;background:linear-gradient(#f7f9fc,#d5deea);font:inherit;font-size:11.5px;cursor:pointer;max-width:200px;min-width:0;color:var(--ink);box-shadow:inset 0 1px 0 #fff}
+.task span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task.active{background:linear-gradient(#c5d3e6,#dbe4f0);box-shadow:inset 1px 1px 3px rgba(0,0,0,.25);font-weight:bold}
+.task .badge{position:static;display:none;margin-left:2px}
+.task .badge.on{display:inline-block}
+.tray{display:flex;align-items:center;gap:2px;height:26px;padding:0 6px 0 8px;border-left:1px solid #7d8ea3;box-shadow:inset 1px 0 0 #fff}
+.tico{appearance:none;border:0;background:none;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:2px;padding:0}
+.tico:hover{background:rgba(255,255,255,.5)}
+.tico.off{opacity:.4;filter:grayscale(1)}
+.pdot{width:10px;height:10px;border-radius:50%;background:#a62121;box-shadow:inset 0 0 2px #000;display:block}
+.pdot.in{background:#2e7d32;box-shadow:0 0 5px #4fd15a,inset 0 0 2px #063}
+.tclock{font-size:11.5px;padding:0 6px;font-variant-numeric:tabular-nums;letter-spacing:.3px}
+/* screensaver / shutdown */
+#saver{position:fixed;inset:0;background:#000;display:none;z-index:200;cursor:none;overflow:hidden}
+#saver.on{display:block}
+.bounce{position:absolute;left:0;top:0;padding:14px 22px;border:3px solid #a6caf0;color:#a6caf0;font-weight:bold;font-size:28px;letter-spacing:-.5px;line-height:1;text-align:center;will-change:transform}
+.bounce span{display:block;font-size:12px;letter-spacing:5px;margin-top:6px;font-weight:normal}
+#shutdown{position:fixed;inset:0;background:#000;display:none;z-index:300;align-items:center;justify-content:center;text-align:center;color:#f6b26b;font:16px/1.6 'DejaVu Sans Mono','Liberation Mono',Consolas,monospace}
+#shutdown.on{display:flex}
+#shutdown p{font-size:22px;margin:0 0 18px}
+#shutdown .btn{font-family:inherit}
+/* mobile: windows fill the screen, no drag */
+@media (max-width:820px){
+  .dicons{display:none}
+  .win{left:0!important;top:0!important;width:100%!important;height:100%!important;border:0;box-shadow:none}
+  .wt{cursor:default}
+  .wbtns b[data-max]{display:none}
+  .wall:after{font-size:26px}
+  .balloon{right:8px;left:8px;width:auto}
+  .startmenu{width:min(300px,calc(100% - 4px))}
+  .task{padding:0 8px;max-width:120px}
+  .tclock{display:none}
+}
+
 /* ---------- misc ---------- */
 .sr{position:absolute;left:-9999px}
 .center{text-align:center}
@@ -435,9 +584,28 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
   <div class="foot">Unauthorised access is monitored. Authorised access is also monitored. · WAGIE, INC.</div>
 </div>
 
-<!-- ===================== PAGE ===================== -->
+<!-- ===================== DESKTOP ===================== -->
+<div id="desktop" class="desktop" aria-hidden="true">
+  <div class="wall"></div>
+  <div class="dicons">
+    <button class="dico" data-open="ess" data-tab="timecard"><i class="ic ic-ess"></i><span>Employee Self Service</span></button>
+    <button class="dico" data-open="ess" data-tab="timecard"><i class="ic ic-clock"></i><span>Timecard</span></button>
+    <button class="dico" data-open="inbox"><i class="ic ic-mail"></i><span>Inbox</span><em class="badge" id="badge-inbox">1</em></button>
+    <button class="dico" data-open="chat"><i class="ic ic-chat"></i><span>CorpChat</span></button>
+    <button class="dico" data-open="ess" data-tab="handbook"><i class="ic ic-book"></i><span>Handbook</span></button>
+    <button class="dico" data-open="ess" data-tab="bulletin"><i class="ic ic-pin"></i><span>Bulletin Board</span></button>
+    <button class="dico" data-open="note" data-note="readme"><i class="ic ic-txt"></i><span>READ ME FIRST.txt</span></button>
+    <button class="dico" data-open="bin"><i class="ic ic-bin"></i><span>Recycle Bin</span></button>
+  </div>
+
+  <div class="wins" id="wins">
+
+  <!-- ===== ESS window (the intranet portal) ===== -->
+  <div class="win" id="w-ess" data-app="ess" data-title="Employee Self Service — WAGIE Intranet">
+    <div class="wt"><i class="ic ic-ess sm"></i><span class="wtitle">Employee Self Service — WAGIE Intranet</span><span class="wbtns"><b data-min title="Minimize">_</b><b data-max title="Maximize">□</b><b data-close title="Close">×</b></span></div>
+    <div class="addr"><span class="lbl">Address</span><span class="url" id="addr">http://intranet.wagie.corp/ess/timecard</span><span class="gobtn">Go</span></div>
+    <div class="wb">
 <div class="page">
-  <div class="tbar">Employee Self Service — WAGIE, INC. <span class="clk"><span style="opacity:.8">wagie · #000001 · </span><span id="utc">--:--:-- UTC</span></span><span class="dots"><i>_</i><i>□</i><i>×</i></span></div>
 
   <div class="mast">
     <img class="desk" src="assets/wagie-desk.png" alt="">
@@ -796,6 +964,123 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
     <span id="st-right">Ready</span>
   </div>
 </div><!-- /page -->
+    </div>
+  </div>
+
+  <!-- ===== Inbox ===== -->
+  <div class="win" id="w-inbox" data-app="inbox" data-title="Inbox — WAGIE Mail">
+    <div class="wt"><i class="ic ic-mail sm"></i><span class="wtitle">Inbox — WAGIE Mail</span><span class="wbtns"><b data-min>_</b><b data-max>□</b><b data-close>×</b></span></div>
+    <div class="mtool"><span class="mbtn">New</span><span class="mbtn">Reply</span><span class="mbtn">Reply All</span><span class="mbtn">Forward</span><span class="sep"></span><span class="mbtn">Delete</span><span class="mbtn" style="margin-left:auto;opacity:.6">Send/Receive</span></div>
+    <div class="wb mail">
+      <div class="mlist" id="mlist"></div>
+      <div class="mview" id="mview"><div class="zero" style="padding:20px">Select a message.</div></div>
+    </div>
+    <div class="wstat"><span id="mcount">6 items</span><span>Mailbox: wagie@wagie.corp</span></div>
+  </div>
+
+  <!-- ===== CorpChat ===== -->
+  <div class="win" id="w-chat" data-app="chat" data-title="CorpChat — Dave (Accounting)">
+    <div class="wt"><i class="ic ic-chat sm"></i><span class="wtitle">CorpChat — Dave (Accounting)</span><span class="wbtns"><b data-min>_</b><b data-close>×</b></span></div>
+    <div class="wb chat">
+      <div class="chead"><span class="dot on"></span><b>Dave (Accounting)</b> <span class="small">— online · "spreadsheets don't lie"</span></div>
+      <div class="clog" id="clog"></div>
+      <div class="cbtns" id="cbtns"></div>
+    </div>
+  </div>
+
+  <!-- ===== Run ===== -->
+  <div class="win" id="w-run" data-app="run" data-title="Run">
+    <div class="wt"><span class="wtitle">Run</span><span class="wbtns"><b data-close>×</b></span></div>
+    <div class="wb" style="padding:14px;background:var(--chrome)">
+      <div style="display:flex;gap:12px;align-items:flex-start"><i class="ic ic-run"></i><div style="font-size:12px;line-height:1.5">Type the name of a program, folder, document, or Internet resource, and WAGIE will open it for you.</div></div>
+      <div style="display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:center;margin:12px 0"><span style="font-size:12px">Open:</span><input id="runin" class="field" style="height:24px;padding:2px 6px;font:inherit;font-size:12px" placeholder="clockin" autocomplete="off"></div>
+      <div id="runout" class="small" style="min-height:16px;margin-bottom:8px;color:var(--bad)"></div>
+      <div style="display:flex;justify-content:flex-end;gap:8px"><button class="btn def" id="runok">OK</button><button class="btn" data-close>Cancel</button></div>
+    </div>
+  </div>
+
+  <!-- ===== Recycle Bin ===== -->
+  <div class="win" id="w-bin" data-app="bin" data-title="Recycle Bin">
+    <div class="wt"><i class="ic ic-bin sm"></i><span class="wtitle">Recycle Bin</span><span class="wbtns"><b data-min>_</b><b data-close>×</b></span></div>
+    <div class="wb" style="background:#fff">
+      <table class="t" style="font-size:11.5px"><tr><th>Name</th><th>Original location</th><th>Date deleted</th><th>Size</th></tr>
+        <tr class="frow" data-note="motivation"><td><i class="ic ic-txt xs"></i> motivation.txt</td><td>C:\Users\wagie\Desktop</td><td>Monday</td><td>1 KB</td></tr>
+        <tr class="frow" data-note="resign"><td><i class="ic ic-txt xs"></i> resignation_letter_FINAL_v7.txt</td><td>C:\Users\wagie\Documents</td><td>Every Friday</td><td>2 KB</td></tr>
+        <tr class="frow" data-note="k401"><td><i class="ic ic-txt xs"></i> 401k_projection_2066.txt</td><td>C:\Users\wagie\Documents</td><td>Payday</td><td>1 KB</td></tr>
+        <tr class="frow" data-note="promo"><td><i class="ic ic-txt xs"></i> promotion_request.txt</td><td>\\HR\inbox</td><td>2005</td><td>0 KB</td></tr>
+      </table>
+      <p class="small" style="padding:8px 10px;margin:0">Double-click is not required. We are not animals.</p>
+    </div>
+  </div>
+
+  <!-- ===== Notepad ===== -->
+  <div class="win" id="w-note" data-app="note" data-title="Notepad">
+    <div class="wt"><i class="ic ic-txt sm"></i><span class="wtitle" id="notetitle">Untitled — Notepad</span><span class="wbtns"><b data-min>_</b><b data-max>□</b><b data-close>×</b></span></div>
+    <div class="mtool"><span class="mbtn">File</span><span class="mbtn">Edit</span><span class="mbtn">Format</span><span class="mbtn">View</span><span class="mbtn">Help</span></div>
+    <div class="wb"><textarea id="notebody" class="note-ta" readonly></textarea></div>
+  </div>
+
+  <!-- ===== System Properties ===== -->
+  <div class="win" id="w-sys" data-app="sys" data-title="System Properties">
+    <div class="wt"><span class="wtitle">System Properties</span><span class="wbtns"><b data-close>×</b></span></div>
+    <div class="wb" style="background:var(--chrome);padding:14px">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+        <img src="assets/wagie-full.png" alt="" style="width:110px">
+        <table class="kv" style="flex:1;min-width:220px">
+          <tr><td>System</td><td>WAGIE, INC. ESS 2.2</td></tr>
+          <tr><td>Registered to</td><td>wagie (#000001)</td></tr>
+          <tr><td>Asset tag</td><td>CUBICLE-04</td></tr>
+          <tr><td>Processor</td><td>1 × Employee, tired</td></tr>
+          <tr><td>Memory</td><td>512 MB (of grievances)</td></tr>
+          <tr><td>Payroll currency</td><td>$SPY</td></tr>
+          <tr><td>Uptime</td><td id="uptime">0:00</td></tr>
+        </table>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button class="btn def" data-close>OK</button></div>
+    </div>
+  </div>
+
+  </div><!-- /wins -->
+
+  <div class="balloon" id="balloon"><b id="bal-t"></b><span id="bal-b"></span><i class="bx" data-bal-close>×</i></div>
+
+  <div class="startmenu" id="startmenu">
+    <div class="sband">WAGIE, INC.</div>
+    <div class="sitems">
+      <div class="shead"><img src="assets/wagie-face.png" alt=""><span>wagie<small>Employee #000001</small></span></div>
+      <button data-open="ess" data-tab="timecard"><i class="ic ic-ess sm"></i>Employee Self Service</button>
+      <button data-open="inbox"><i class="ic ic-mail sm"></i>Inbox</button>
+      <button data-open="chat"><i class="ic ic-chat sm"></i>CorpChat</button>
+      <button data-open="ess" data-tab="pay"><i class="ic ic-pay sm"></i>Pay Statement</button>
+      <button data-open="ess" data-tab="handbook"><i class="ic ic-book sm"></i>Employee Handbook</button>
+      <button data-open="note" data-note="readme"><i class="ic ic-txt sm"></i>Notepad</button>
+      <div class="sdiv"></div>
+      <button id="sm-music"><i class="ic ic-snd sm"></i>Hold Music <span class="r" id="sm-music-st">off</span></button>
+      <button id="sm-sfx"><i class="ic ic-snd sm"></i>Sound Effects <span class="r" id="sm-sfx-st">on</span></button>
+      <button data-open="run"><i class="ic ic-run sm"></i>Run…</button>
+      <button data-open="sys"><i class="ic ic-ess sm"></i>System Properties</button>
+      <button data-open="ess" data-tab="help"><i class="ic ic-help sm"></i>Help</button>
+      <div class="sdiv"></div>
+      <button id="sm-logoff"><i class="ic ic-off sm"></i>Log Off wagie…</button>
+      <button id="sm-shut"><i class="ic ic-off sm"></i>Shut Down…</button>
+    </div>
+  </div>
+
+  <div class="taskbar">
+    <button class="start" id="start"><img src="assets/wagie-face.png" alt="">Start</button>
+    <div class="tsep"></div>
+    <div class="tasks" id="tasks"></div>
+    <div class="tray">
+      <button class="tico" id="tr-sfx" title="Sound effects"><i class="ic ic-snd xs"></i></button>
+      <button class="tico" id="tr-music" title="Hold music"><i class="ic ic-note xs"></i></button>
+      <span class="tico" id="tr-punch" title="Not clocked in"><i class="pdot"></i></span>
+      <span class="tclock" id="utc" title="UTC">--:--</span>
+    </div>
+  </div>
+</div><!-- /desktop -->
+
+<div id="saver"><div class="bounce" id="bounce"><b>WAGIE, INC.</b><span>clock in.</span></div></div>
+<div id="shutdown"><div><p>It is now safe to clock out.</p><button class="btn" id="poweron">Power on</button></div></div>
 
 <!-- ===================== MODALS ===================== -->
 <div class="ov" id="ov-term" aria-modal="true" role="dialog">
@@ -872,9 +1157,10 @@ const DATA = { holders: null, liquidity: null, marketCap: null, supply: null, di
     prog.querySelectorAll('i').forEach((el,i)=>el.classList.toggle('on', i<lit));
     st.textContent = steps[Math.min(steps.length-1, Math.floor(p*steps.length))];
     if (p<1) requestAnimationFrame(tick);
-    else { document.getElementById('login').classList.add('out'); setTimeout(()=>document.getElementById('login').remove(), 600); }
+    else { document.getElementById('login').classList.add('out'); setTimeout(()=>{ document.getElementById('login').style.display='none'; window.bootDesktop && window.bootDesktop(); }, 450); }
   }
   requestAnimationFrame(tick);
+  window.rerunLogin = function(){ const l=document.getElementById('login'); l.style.display='flex'; l.classList.remove('out'); const t0b=performance.now(); function tk(){ const p=Math.min(1,(performance.now()-t0b)/T); const lit=Math.floor(p*N); prog.querySelectorAll('i').forEach((el,i)=>el.classList.toggle('on', i<lit)); st.textContent=steps[Math.min(steps.length-1,Math.floor(p*steps.length))]; if(p<1) requestAnimationFrame(tk); else { l.classList.add('out'); setTimeout(()=>{ l.style.display='none'; window.bootDesktop(); },450);} } requestAnimationFrame(tk); };
 })();
 
 /* ============================================================
@@ -886,7 +1172,8 @@ function go(v){
   document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
   try{ history.replaceState(null,'','#'+v); }catch(e){}
   document.getElementById('st-right').textContent = 'Viewing: ' + v.toUpperCase();
-  window.scrollTo({top:0,behavior:'smooth'});
+  const ab=document.getElementById('addr'); if(ab) ab.textContent='http://intranet.wagie.corp/ess/'+v;
+  const wb=document.querySelector('#w-ess .wb'); if(wb) wb.scrollTo({top:0,behavior:'smooth'});
 }
 tabs.forEach(t=>t.addEventListener('click',()=>go(t.dataset.v)));
 document.addEventListener('click',e=>{ const a=e.target.closest('[data-go]'); if(a){ e.preventDefault(); go(a.dataset.go); } });
@@ -900,6 +1187,8 @@ snd.addEventListener('click', async ()=>{
   const on = snd.getAttribute('aria-pressed')==='true';
   if (on){ music.pause(); snd.setAttribute('aria-pressed','false'); }
   else { try{ music.volume=.55; await music.play(); snd.setAttribute('aria-pressed','true'); }catch(e){} }
+  const st=document.getElementById('sm-music-st'); if(st) st.textContent = snd.getAttribute('aria-pressed')==='true' ? 'on' : 'off';
+  const tr=document.getElementById('tr-music'); if(tr) tr.classList.toggle('off', snd.getAttribute('aria-pressed')!=='true');
 });
 
 /* ============================================================
@@ -970,6 +1259,7 @@ function renderStatus(){
   else if(S.shifts[S.cur]==='in'){ src='assets/wagie-thumbs.png'; lbl='CLOCKED IN'; }
   else if(S.missed>=2){ src='assets/wagie-face.png'; lbl='ON NOTICE'; }
   if(mi.getAttribute('src')!==src) mi.setAttribute('src',src); ml.textContent=lbl;
+  const pd=document.querySelector('#tr-punch .pdot'); if(pd){ pd.classList.toggle('in', S.shifts[S.cur]==='in'); pd.parentElement.title = S.shifts[S.cur]==='in' ? 'Clocked in' : 'Not clocked in'; }
 }
 function logLine(k, t){ S.log.push({k,t}); if (S.log.length>40) S.log.shift(); }
 function award(key, title){ if (S.aw[key]) return; S.aw[key]=true; setTimeout(()=>toast('<b>Recognition:</b> '+title, 'info', 'Human Resources'), 900); }
@@ -1009,7 +1299,7 @@ function clockIn(){
   if (S.streak>=5) award('week','Full Week. Five in a row.');
   if (S.per>=10) award('perfect','Perfect Period. 10 of 10. There is a plaque.');
   punch(); const im=$('clockimg'); im.classList.add('punch'); setTimeout(()=>im.classList.remove('punch'),140);
-  render();
+  render(); window.shell && shell.onClockIn();
   toast('<b>Shift recorded.</b> '+label(S.cur)+' · 09:00 UTC. Streak: '+S.streak+'.');
 }
 
@@ -1034,8 +1324,8 @@ function nextDay(){
   S.cur++;
   if (payday){ S.paydays++; S.per=0; }
   render();
-  if (!S.employed && S.missed>=3 && S.shifts[i]==='missed' && S.terms>0 && justTerminated(i)){ open('ov-term'); return; }
-  if (payday) showPayday(perShifts, wasEmployed);
+  if (!S.employed && S.missed>=3 && S.shifts[i]==='missed' && S.terms>0 && justTerminated(i)){ open('ov-term'); window.shell && shell.onTerminated(); return; }
+  if (payday){ showPayday(perShifts, wasEmployed); window.shell && shell.onPayday(perShifts, wasEmployed); }
   else if (S.shifts[i]==='missed' && S.employed) toast('<b>Missed workday.</b> '+label(i)+'. Consecutive misses: '+S.missed+' of 3.', 'bad', 'Attendance');
 }
 function justTerminated(i){ // terminated on this exact advance?
@@ -1099,7 +1389,7 @@ showTip();
 /* live UTC clock in the title bar */
 (function clock(){
   const el=$('utc'); const two=n=>String(n).padStart(2,'0');
-  function t(){ const d=new Date(); el.textContent = two(d.getUTCHours())+':'+two(d.getUTCMinutes())+':'+two(d.getUTCSeconds())+' UTC'; }
+  function t(){ const d=new Date(); el.textContent = two(d.getUTCHours())+':'+two(d.getUTCMinutes())+' UTC'; el.title = d.toUTCString(); }
   t(); setInterval(t,1000);
 })();
 
@@ -1148,6 +1438,329 @@ render();
     DATA.distributions.forEach(d=>{ const tr=document.createElement('tr'); tr.innerHTML='<td>'+d.date+'</td><td class="num">'+d.fees+'</td><td class="num">'+d.holders+'</td><td class="num">'+d.shifts+'</td><td class="num">'+d.paid+'</td>'; tb.appendChild(tr); });
   }
 })();
+
+/* ============================================================
+   DESKTOP SHELL — window manager, apps, sounds
+   ============================================================ */
+window.shell = (function(){
+  const desk = $('desktop'), wins = $('wins'), tasks = $('tasks'), sm = $('startmenu');
+  const isMobile = () => window.innerWidth <= 820;
+  let z = 10, sfxOn = true, booted = false, uptimeT0 = 0;
+
+  /* ---- sounds (WebAudio synth, no files) ---- */
+  let ac=null;
+  function ctx(){ try{ ac = ac || new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==='suspended') ac.resume(); return ac; }catch(e){ return null; } }
+  function tone(f, t0, dur, type='sine', vol=.12){ const a=ctx(); if(!a) return; const o=a.createOscillator(), g=a.createGain(); o.type=type; o.frequency.value=f; g.gain.setValueAtTime(.0001,t0); g.gain.exponentialRampToValueAtTime(vol,t0+.02); g.gain.exponentialRampToValueAtTime(.0001,t0+dur); o.connect(g).connect(a.destination); o.start(t0); o.stop(t0+dur+.05); }
+  const SFX = {
+    chime(){ if(!sfxOn) return; const a=ctx(); if(!a) return; const t=a.currentTime; [523,659,784,1047].forEach((f,i)=>tone(f,t+i*.13,.5,'triangle',.10)); },
+    ding(){ if(!sfxOn) return; const a=ctx(); if(!a) return; const t=a.currentTime; tone(1318,t,.35,'sine',.10); tone(1760,t+.08,.4,'sine',.07); },
+    err(){ if(!sfxOn) return; const a=ctx(); if(!a) return; const t=a.currentTime; tone(196,t,.22,'square',.08); tone(147,t+.25,.35,'square',.08); },
+    tada(){ if(!sfxOn) return; const a=ctx(); if(!a) return; const t=a.currentTime; [392,494,587,784].forEach((f,i)=>tone(f,t+i*.09,.6,'triangle',.11)); tone(988,t+.4,.9,'triangle',.09); },
+    tick(){ if(!sfxOn) return; const a=ctx(); if(!a) return; tone(900,a.currentTime,.05,'square',.03); },
+    im(){ if(!sfxOn) return; const a=ctx(); if(!a) return; const t=a.currentTime; tone(880,t,.12,'sine',.09); tone(1175,t+.12,.2,'sine',.09); },
+  };
+  document.addEventListener('pointerdown', ()=>ctx(), {once:true});
+
+  /* ---- window manager ---- */
+  const W = {};
+  document.querySelectorAll('.win').forEach(w=>{ W[w.dataset.app]=w; });
+  const DEF = {
+    ess:  ()=>{ const vw=window.innerWidth, vh=window.innerHeight-34; const w=Math.min(1060, vw-32), h=vh-22; return {l:(vw-w)/2, t:10, w, h}; },
+    inbox:()=>({l:90,t:70,w:Math.min(720,window.innerWidth-60),h:440}),
+    chat: ()=>({l:window.innerWidth-370,t:window.innerHeight-34-420,w:330,h:380}),
+    run:  ()=>({l:(window.innerWidth-420)/2,t:(window.innerHeight-260)/2,w:420,h:210}),
+    bin:  ()=>({l:140,t:110,w:Math.min(620,window.innerWidth-60),h:300}),
+    note: ()=>({l:200,t:90,w:Math.min(560,window.innerWidth-60),h:380}),
+    sys:  ()=>({l:(window.innerWidth-460)/2,t:120,w:460,h:330}),
+  };
+  function place(app){ const w=W[app]; const g=DEF[app](); w.style.left=g.l+'px'; w.style.top=g.t+'px'; w.style.width=g.w+'px'; w.style.height=g.h+'px'; }
+  function focus(app){ Object.values(W).forEach(w=>w.classList.add('inactive')); const w=W[app]; w.classList.remove('inactive'); w.style.zIndex=++z; renderTasks(); }
+  function openWin(app, opts={}){
+    const w=W[app]; if(!w) return;
+    if(!w.classList.contains('open')){ if(!w.dataset.placed){ place(app); w.dataset.placed='1'; } w.classList.add('open'); SFX.tick(); }
+    w.classList.remove('min'); w.style.display='flex'; focus(app);
+    if(app==='run'){ setTimeout(()=>{ $('runin').value=''; $('runout').textContent=''; $('runin').focus(); },30); }
+    if(app==='inbox') renderMail();
+    if(app==='chat') startChat();
+    if(app==='sys') tickUptime();
+  }
+  function closeWin(app){ const w=W[app]; w.classList.remove('open','max'); w.style.display=''; renderTasks(); const openApps=Object.keys(W).filter(a=>W[a].classList.contains('open')&&!W[a].classList.contains('min')); if(openApps.length) focus(openApps[openApps.length-1]); }
+  function minWin(app){ const w=W[app]; w.classList.add('min'); w.style.display='none'; renderTasks(); }
+  function maxWin(app){ W[app].classList.toggle('max'); focus(app); }
+  function renderTasks(){
+    tasks.innerHTML='';
+    Object.keys(W).forEach(app=>{ const w=W[app]; if(!w.classList.contains('open')) return;
+      const b=document.createElement('button'); b.className='task'+(!w.classList.contains('min')&&!w.classList.contains('inactive')?' active':'');
+      const ico=w.querySelector('.wt .ic'); b.innerHTML=(ico?'<i class="'+ico.className.replace(' sm','')+' xs"></i>':'')+'<span>'+(w.dataset.title||app)+'</span>'+(app==='inbox'?'<em class="badge'+(unread()?' on':'')+'">'+unread()+'</em>':'');
+      b.addEventListener('click',()=>{ if(w.classList.contains('min')||w.classList.contains('inactive')) openWin(app); else minWin(app); });
+      tasks.appendChild(b);
+    });
+  }
+  // drag
+  let drag=null;
+  wins.addEventListener('pointerdown', e=>{
+    const w=e.target.closest('.win'); if(!w) return; focus(w.dataset.app);
+    const bar=e.target.closest('.wt'); if(!bar || e.target.closest('.wbtns') || isMobile() || w.classList.contains('max')) return;
+    drag={w, dx:e.clientX-w.offsetLeft, dy:e.clientY-w.offsetTop}; w.setPointerCapture && bar.setPointerCapture(e.pointerId);
+  });
+  document.addEventListener('pointermove', e=>{ if(!drag) return; const maxL=window.innerWidth-120, maxT=window.innerHeight-34-40; drag.w.style.left=Math.max(-drag.w.offsetWidth+120, Math.min(maxL, e.clientX-drag.dx))+'px'; drag.w.style.top=Math.max(0, Math.min(maxT, e.clientY-drag.dy))+'px'; });
+  document.addEventListener('pointerup', ()=>{ drag=null; });
+  wins.addEventListener('dblclick', e=>{ const bar=e.target.closest('.wt'); if(bar && !e.target.closest('.wbtns') && !isMobile()) maxWin(bar.closest('.win').dataset.app); });
+  wins.addEventListener('click', e=>{
+    const w=e.target.closest('.win'); if(!w) return; const app=w.dataset.app;
+    if(e.target.closest('[data-close]')) closeWin(app);
+    else if(e.target.closest('[data-min]')) minWin(app);
+    else if(e.target.closest('[data-max]')) maxWin(app);
+  });
+  // openers (desktop icons, start menu, anywhere)
+  document.addEventListener('click', e=>{
+    const o=e.target.closest('[data-open]'); if(!o) return;
+    const app=o.dataset.open; openWin(app);
+    if(o.dataset.tab) go(o.dataset.tab);
+    if(o.dataset.note) showNote(o.dataset.note);
+    sm.classList.remove('on');
+  });
+  window.addEventListener('resize', ()=>{ if(W.ess.classList.contains('open') && !W.ess.classList.contains('max') && !isMobile()) place('ess'); });
+
+  /* ---- start menu ---- */
+  $('start').addEventListener('click', e=>{ e.stopPropagation(); sm.classList.toggle('on'); SFX.tick(); });
+  document.addEventListener('click', e=>{ if(!e.target.closest('#startmenu') && !e.target.closest('#start')) sm.classList.remove('on'); });
+  $('sm-music').addEventListener('click', ()=>{ $('snd').click(); sm.classList.remove('on'); });
+  function setSfx(on){ sfxOn=on; $('sm-sfx-st').textContent=on?'on':'off'; $('tr-sfx').classList.toggle('off',!on); try{ localStorage.setItem('wagie.sfx', on?'1':'0'); }catch(e){} }
+  $('sm-sfx').addEventListener('click', ()=>{ setSfx(!sfxOn); sm.classList.remove('on'); });
+  $('tr-sfx').addEventListener('click', ()=>setSfx(!sfxOn));
+  $('tr-music').addEventListener('click', ()=>$('snd').click());
+  try{ if(localStorage.getItem('wagie.sfx')==='0') setSfx(false); }catch(e){}
+  $('sm-logoff').addEventListener('click', ()=>{ sm.classList.remove('on'); desk.classList.remove('on'); Object.keys(W).forEach(closeWin); balloonHide(); window.rerunLogin(); });
+  $('sm-shut').addEventListener('click', ()=>{ sm.classList.remove('on'); SFX.err(); setTimeout(()=>{ desk.classList.remove('on'); $('shutdown').classList.add('on'); },300); });
+  $('poweron').addEventListener('click', ()=>{ $('shutdown').classList.remove('on'); Object.keys(W).forEach(closeWin); window.rerunLogin(); });
+
+  /* ---- balloon ---- */
+  let balT=null, balAction=null;
+  function balloon(title, body, action, ms=9000){ $('bal-t').textContent=title; $('bal-b').textContent=body; balAction=action||null; $('balloon').classList.add('on'); SFX.ding(); clearTimeout(balT); balT=setTimeout(balloonHide, ms); }
+  function balloonHide(){ $('balloon').classList.remove('on'); }
+  $('balloon').addEventListener('click', e=>{ if(e.target.closest('[data-bal-close]')){ balloonHide(); return; } if(balAction) balAction(); balloonHide(); });
+
+  /* ---- mail ---- */
+  const MAIL = [
+    {id:'welcome', from:'Human Resources', sub:'Welcome to WAGIE, INC.', dt:'Mon 08:58', unread:false, body:
+`Dear wagie,
+
+Welcome to WAGIE, INC. Your employee number is 000001. Your desk is the one with the plastic plant.
+
+Three things and you'll be fine:
+
+  1. Clock in once every workday. It is one button.
+  2. Payday is every second Friday, in $SPY. The pool is trading fees. That's it.
+  3. Three consecutive missed workdays and the contract terminates you. There is no appeal. There is a Reapply button.
+
+There is no onboarding call. This email was the onboarding call.
+
+Regards,
+Human Resources
+(a smart contract)`},
+    {id:'pay', from:'Payroll', sub:'Your pay schedule and payroll currency', dt:'Mon 09:04', unread:false, body:
+`Hi wagie,
+
+Payday falls on every second Friday, counted from the contract going live.
+
+You are paid in $SPY — the S&P 500, as a Robinhood Chain stock token. If that sounds like your retirement plan, that's because it is your retirement plan, minus the forty years.
+
+How the pool fills:
+  • Every WAGIE trade pays a 1% fee (Pons v2).
+  • 70% of that fee is the attendance pool. 30% is the protocol's.
+  • On payday the pool is split pro-rata by shifts among employed holders.
+
+Fewer trades = smaller payday. No trades = 0.0000 $SPY, and your pay statement will say so. We don't round up.
+
+Payroll`},
+    {id:'micro', from:'Facilities', sub:'RE: the microwave (again)', dt:'Tue 12:41', unread:false, body:
+`All,
+
+The break-room microwave is shared. Whoever reheated fish on Tuesday: the contract knows who clocked in on Tuesday.
+
+If you clock in, you clean up. If you don't clock in, you don't have a microwave. This is not a threat, it is the attendance policy.
+
+Facilities`},
+    {id:'dave', from:'Dave (Accounting)', sub:'RE: RE: RE: RE: stapler', dt:'Wed 15:20', unread:false, body:
+`still missing. red one. the good one.
+
+reward is 0.0000 $SPY until payday, then it's a share of the pool, which depending on volume is either nothing or a lot. so, motivation.
+
+also did u clock in today
+
+- dave`},
+    {id:'reminder', from:'Attendance Committee', sub:'Reminder: you have not clocked in today', dt:'Today 04:51', unread:true, body:
+`wagie,
+
+Our records show no clock-in for today's workday.
+
+Consecutive misses on file: see your timecard. At three, your employment is terminated by the contract and your shifts for the period are forfeited to colleagues who did clock in.
+
+This is an automated message. Replying to it will not clock you in. Clicking the button in your timecard will.
+
+Attendance Committee`},
+    {id:'stmt', from:'Payroll', sub:'Your pay statement is available', dt:'Fri 17:00', unread:false, body:
+`Your pay statement for the current period is available in Employee Self Service → PAY.
+
+Net pay: 0.0000 $SPY
+Reason: the pool fills from trading fees after launch.
+
+This is not a mistake. It is a preview of the exact format your real one will use, with the exact number that is currently true.
+
+Payroll`},
+  ];
+  let selMail=null;
+  const unread=()=>MAIL.filter(m=>m.unread).length;
+  function renderMail(){
+    const L=$('mlist'); L.innerHTML=MAIL.slice().reverse().map(m=>'<div class="mrow'+(m.unread?' unread':'')+(selMail===m.id?' sel':'')+'" data-mail="'+m.id+'"><span class="env"></span><span class="fr">'+m.from+'</span><span class="dt">'+m.dt+'</span><span class="sb">'+m.sub+'</span></div>').join('');
+    $('mcount').textContent = MAIL.length+' items · '+unread()+' unread';
+    const b=$('badge-inbox'); b.textContent=unread(); b.classList.toggle('on', unread()>0);
+    renderTasks();
+  }
+  $('mlist').addEventListener('click', e=>{ const r=e.target.closest('[data-mail]'); if(!r) return; const m=MAIL.find(x=>x.id===r.dataset.mail); selMail=m.id; m.unread=false;
+    $('mview').innerHTML='<button class="btn mback" id="mback" style="min-width:0;height:24px">◂ Inbox</button><div class="mhead"><b>'+m.sub+'</b>From: '+m.from+' &lt;'+m.from.toLowerCase().replace(/[^a-z]+/g,'.')+'@wagie.corp&gt;<br>To: wagie@wagie.corp<br>Sent: '+m.dt+'</div><div class="mbody">'+m.body.replace(/</g,'&lt;')+'</div>';
+    document.querySelector('#w-inbox .wb').classList.add('viewing'); renderMail(); });
+  document.addEventListener('click', e=>{ if(e.target.id==='mback') document.querySelector('#w-inbox .wb').classList.remove('viewing'); });
+  function newMail(m){ MAIL.push(Object.assign({dt:'Just now', unread:true}, m)); renderMail(); balloon('New message from '+m.from, m.sub, ()=>{ openWin('inbox'); }); }
+
+  /* ---- chat (Dave) ---- */
+  let chatStarted=false, chatTimers=[];
+  function say(who, text, delay){ const t=setTimeout(()=>{ const L=$('clog'); const typing=L.querySelector('.typing'); if(typing) typing.remove(); const d=document.createElement('div'); d.className='m'+(who==='me'?' me':''); d.innerHTML='<b>'+(who==='me'?'wagie':'Dave (Accounting)')+' · '+new Date().toTimeString().slice(0,5)+'</b><span>'+text+'</span>'; L.appendChild(d); L.scrollTop=L.scrollHeight; if(who!=='me') SFX.im(); }, delay); chatTimers.push(t); return t; }
+  function typing(delay){ const t=setTimeout(()=>{ const L=$('clog'); if(L.querySelector('.typing')) return; const d=document.createElement('div'); d.className='m typing'; d.innerHTML='<span>Dave is typing…</span>'; L.appendChild(d); L.scrollTop=L.scrollHeight; }, delay); chatTimers.push(t); }
+  function buttons(list){ const B=$('cbtns'); B.innerHTML=''; list.forEach(([label,fn])=>{ const b=document.createElement('button'); b.className='btn'; b.textContent=label; b.addEventListener('click',()=>{ B.innerHTML=''; fn(); }); B.appendChild(b); }); }
+  function startChat(){
+    if(chatStarted) return; chatStarted=true;
+    $('clog').innerHTML='';
+    say('dave','hey',300); typing(900); say('dave','u there',1800); typing(2300);
+    if(S.shifts[S.cur]==='in'){ say('dave','saw u clocked in. respect.',3200); typing(3800); say('dave','payday is second friday. in $SPY. the whole index. wild.',4800); buttons([['see you at payday',()=>{ say('me','see you at payday',0); typing(700); say('dave','not if hr sees me first',1900); }]]); }
+    else { say('dave','did u clock in yet',3200); typing(3700); say('dave','streak resets at midnight utc. just saying',4900);
+      setTimeout(()=>buttons([['clocking in now',()=>{ say('me','clocking in now',0); openWin('ess'); go('timecard'); setTimeout(()=>{ clockIn(); typing(400); say('dave','nice. see u at payday',1500); },600); }],['later',()=>{ say('me','later',0); typing(600); say('dave','ok. it\'s your streak.',1700); typing(2300); say('dave','(it\'s also my payday. more for me.)',3400); }]]), 5200);
+    }
+  }
+  function daveOnClockIn(){ if(!chatStarted || !W.chat.classList.contains('open')) return; typing(500); say('dave','saw that. timecard doesn\'t lie',1600); }
+
+  /* ---- notepad + recycle bin ---- */
+  const NOTES = {
+    readme:['READ ME FIRST.txt', `WAGIE, INC. — EMPLOYEE SELF SERVICE
+=====================================
+
+You are logged in as wagie (#000001).
+
+WHAT THIS IS
+  A memecoin on Robinhood Chain that treats you like an employee.
+  Hold it. Clock in once a workday. Get paid every second Friday
+  in $SPY — the S&P 500 as a stock token. Miss three days: fired.
+
+WHAT TO DO NOW
+  1. Open Employee Self Service (it's already open).
+  2. Press CLOCK IN.
+  3. Press NEXT WORKDAY a few times and see what happens.
+  4. Read the Handbook. Section 4.1 is about eleven children.
+
+WHAT THIS ISN'T
+  Employment. A salary. Financial advice. See HELP → Disclosures.
+
+Try: Start → Run… → type "clockin".
+
+— HR (a contract)`],
+    motivation:['motivation.txt', `monday: clock in
+tuesday: clock in
+wednesday: clock in
+thursday: clock in
+friday: clock in
+
+that's it. that's the file.`],
+    resign:['resignation_letter_FINAL_v7.txt', `Dear Attendance Committee,
+
+Please accept this letter as notice of my
+
+
+
+
+(draft — never sent — it was a Friday and then it was a second Friday and then the pool paid out and now it's Monday again)`],
+    k401:['401k_projection_2066.txt', `PROJECTED RETIREMENT: 2066
+ASSUMED RETURN: "the market"
+ASSUMED MARKET: $SPY
+ASSUMED ME IN 2066: tired
+
+alternatively: paid in $SPY every second friday starting now.
+same fund. fewer decades.`],
+    promo:['promotion_request.txt', ``],
+  };
+  function showNote(k){ const n=NOTES[k]||NOTES.readme; $('notetitle').textContent=n[0]+' — Notepad'; $('notebody').value=n[1]||'(this file is empty. it has always been empty.)'; openWin('note'); }
+  document.querySelector('#w-bin').addEventListener('click', e=>{ const r=e.target.closest('.frow'); if(r){ showNote(r.dataset.note); } });
+
+  /* ---- run ---- */
+  const CMDS = {
+    clockin:()=>{ openWin('ess'); go('timecard'); clockIn(); return 'Clocking in…'; },
+    timecard:()=>{ openWin('ess'); go('timecard'); }, pay:()=>{ openWin('ess'); go('pay'); }, handbook:()=>{ openWin('ess'); go('handbook'); },
+    bulletin:()=>{ openWin('ess'); go('bulletin'); }, company:()=>{ openWin('ess'); go('company'); }, help:()=>{ openWin('ess'); go('help'); },
+    inbox:()=>openWin('inbox'), mail:()=>openWin('inbox'), chat:()=>openWin('chat'), dave:()=>openWin('chat'), notepad:()=>showNote('readme'), bin:()=>openWin('bin'),
+    spy:()=>{ openWin('ess'); go('handbook'); return 'Opening Handbook §4.1 — the eleven children.'; },
+    payday:()=>'Payday is every second Friday. You cannot run payday. Only the contract can.',
+    terminate:()=>{ SFX.err(); return 'Access denied. Only the contract can do that. It will, if you let it.'; },
+    promote:()=>{ SFX.err(); return 'No.'; }, raise:()=>{ SFX.err(); return 'Ha.'; },
+    music:()=>{ $('snd').click(); }, logoff:()=>$('sm-logoff').click(), shutdown:()=>$('sm-shut').click(),
+    cmd:()=>'This is the command prompt. You are already in it. Try "clockin".', help_:()=>'Try: clockin, pay, handbook, inbox, dave, spy, payday, terminate, promote, music, logoff.',
+  };
+  function runCmd(){ const v=$('runin').value.trim().toLowerCase().replace(/\.exe$|\.txt$/,''); const f=CMDS[v]|| (v==='help'?CMDS.help_:null) || (v==='?'?CMDS.help_:null);
+    if(!f){ SFX.err(); $('runout').textContent='WAGIE cannot find "'+($('runin').value||'')+'". Make sure you typed the name correctly. Try "help".'; return; }
+    const out=f(); $('runout').style.color='var(--blue)'; $('runout').textContent=typeof out==='string'?out:''; if(typeof out!=='string') closeWin('run'); }
+  $('runok').addEventListener('click', runCmd);
+  $('runin').addEventListener('keydown', e=>{ if(e.key==='Enter') runCmd(); });
+
+  /* ---- system uptime ---- */
+  function tickUptime(){ const el=$('uptime'); if(!el) return; const s=Math.floor((Date.now()-uptimeT0)/1000); el.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); if(W.sys.classList.contains('open')) setTimeout(tickUptime,1000); }
+
+  /* ---- screensaver ---- */
+  let idleT=null, saverRAF=null;
+  function armIdle(){ clearTimeout(idleT); if(isMobile()||!booted) return; idleT=setTimeout(startSaver, 90000); }
+  function startSaver(){ const sv=$('saver'), b=$('bounce'); sv.classList.add('on'); let x=40,y=40,vx=1.6,vy=1.3; const bw=()=>b.offsetWidth, bh=()=>b.offsetHeight;
+    const hues=['#a6caf0','#f6d24a','#8fe08f','#f08a8a','#e0b0ff'];
+    function step(){ x+=vx; y+=vy; let hit=false; if(x<=0||x+bw()>=window.innerWidth){vx=-vx;hit=true;} if(y<=0||y+bh()>=window.innerHeight){vy=-vy;hit=true;} if(hit){ const c=hues[Math.floor(Math.random()*hues.length)]; b.style.color=c; b.style.borderColor=c; } b.style.transform='translate('+x+'px,'+y+'px)'; saverRAF=requestAnimationFrame(step); } step(); }
+  function stopSaver(){ const sv=$('saver'); if(sv.classList.contains('on')){ sv.classList.remove('on'); cancelAnimationFrame(saverRAF); } armIdle(); }
+  ['pointerdown','pointermove','keydown','touchstart','wheel'].forEach(ev=>document.addEventListener(ev, stopSaver, {passive:true}));
+
+  /* ---- boot ---- */
+  function bootDesktop(){
+    desk.classList.add('on'); desk.setAttribute('aria-hidden','false'); booted=true; uptimeT0=Date.now();
+    Object.values(W).forEach(w=>{ delete w.dataset.placed; });
+    setTimeout(()=>{ SFX.chime(); openWin('ess'); if(isMobile()) W.ess.classList.add('max'); }, 250);
+    renderMail();
+    setTimeout(()=>{ if(S.shifts[S.cur]!=='in' && S.employed) balloon('You have not clocked in today', 'Click here to open your timecard. Your streak resets at 23:59 UTC.', ()=>{ openWin('ess'); go('timecard'); }); }, 2600);
+    setTimeout(()=>{ if(!isMobile()) openWin('chat'); else if(S.shifts[S.cur]!=='in') balloon('CorpChat — Dave (Accounting)', 'did u clock in yet', ()=>openWin('chat')); }, 11000);
+    armIdle();
+  }
+  window.bootDesktop = bootDesktop;
+
+  /* ---- hooks from the mechanic ---- */
+  return {
+    onClockIn(){ daveOnClockIn(); renderTasks(); },
+    onTerminated(){ SFX.err(); setTimeout(()=>newMail({from:'Human Resources', sub:'Notice of separation of employment', body:
+`wagie,
+
+Our records indicate three (3) consecutive missed workdays. Under the terms of the contract, your position has been eliminated effective immediately.
+
+Your accrued shifts for the period have been redistributed to colleagues who clocked in. Please surrender your badge at the front desk. Please also return the stapler, if you have it. Dave has asked.
+
+You may reapply at any time. The desk is still warm.
+
+Human Resources`}), 1200); },
+    onPayday(shifts, employed){ SFX.tada(); setTimeout(()=>newMail({from:'Payroll', sub:'Payday: distribution complete', body:
+`Payday has run for this period.
+
+Shifts credited to you: ${employed?shifts:0} of 10
+Fees collected in period: 0.0000 $SPY (the pool fills after launch)
+Your share: 0.0000 $SPY
+
+Paid to your wallet in $SPY, the S&P 500. It is exactly as advertised, which is more than most payroll departments can say.
+
+Payroll`}), 1500); },
+    open:openWin, note:showNote, sfx:SFX,
+  };
+})();
+
 </script>
 </body>
 </html>
