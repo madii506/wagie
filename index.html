@@ -394,7 +394,32 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 .lwin .st{font-size:11px;color:var(--muted);margin-top:6px;min-height:16px}
 .lwin .row{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
 .ltip{border-top:1px solid var(--line);background:#fff8dc;padding:8px 14px;font-size:11px;color:#4a3f10;line-height:1.5}
-@media (max-width:720px){ .lbox{grid-template-columns:1fr} .lbrand{min-height:230px;padding:18px 18px 0} .lword{font-size:44px} .ldesk{width:52%;right:-10px} .lpts{font-size:12px;line-height:1.7;max-width:60%} }
+/* login motion */
+.lbox{animation:lin .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes lin{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.lbrand:after{content:"";position:absolute;top:-40%;left:-60%;width:40%;height:180%;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.10) 45%,rgba(255,255,255,.16) 50%,rgba(255,255,255,.10) 55%,transparent 100%);transform:rotate(8deg);animation:sweep 4.5s ease-in-out infinite}
+@keyframes sweep{0%{left:-60%}55%{left:130%}100%{left:130%}}
+.lgrid{animation:gridDrift 18s linear infinite}
+@keyframes gridDrift{from{background-position:0 0,0 0}to{background-position:28px 28px,28px 28px}}
+.ldesk{animation:bob 3.2s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.lwin .field .typed{white-space:pre}
+.lwin .field .caret{display:inline-block;width:1px;height:14px;background:#111;margin-left:1px;animation:blink 1s steps(1) infinite;vertical-align:-2px}
+.lwin .field.done .caret{display:none}
+@keyframes blink{50%{opacity:0}}
+.lwin .btn.def.pressed{background:var(--chrome-d);box-shadow:inset 1px 1px 3px rgba(0,0,0,.35);transform:translateY(1px)}
+.lwin .btn.def.busy{opacity:.6;pointer-events:none}
+.lwin .prog{opacity:0;transition:opacity .3s}
+.lwin .prog.on{opacity:1}
+.lwin .prog i{transition:opacity .15s}
+.llog{list-style:none;margin:8px 0 0;padding:0;font:11px/1.55 'DejaVu Sans Mono','Liberation Mono',Consolas,monospace;color:#3a3a36;min-height:96px}
+.llog li{display:flex;justify-content:space-between;gap:10px;opacity:0;transform:translateX(-4px);animation:lg .25s ease-out forwards}
+.llog li b{font-weight:normal;color:var(--ok)}
+.llog li b.wait{color:var(--muted)}
+.llog li b.skip{color:#a07a10}
+@keyframes lg{to{opacity:1;transform:none}}
+.lwin .st{font-size:10.5px;color:var(--muted);margin-top:8px;min-height:14px;border-top:1px dotted var(--line);padding-top:6px}
+@media (max-width:720px){ .lbox{grid-template-columns:1fr} .lbrand{min-height:230px;padding:18px 18px 0} .lword{font-size:44px} .ldesk{width:52%;right:-10px} .lpts{font-size:12px;line-height:1.7;max-width:60%} .llog{min-height:0} }
 
 /* ============================================================
    DESKTOP SHELL
@@ -571,12 +596,13 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
           <div class="face"><img src="assets/wagie-face.png" alt=""></div>
           <div class="w">WAGIE, INC.<small>ATTENDANCE DIVISION</small></div>
         </div>
-        <label><span>User ID</span><span class="field">wagie</span></label>
-        <label><span>Password</span><span class="field pw">••••••••••</span></label>
+        <label><span>User ID</span><span class="field" id="l-user"><span class="typed"></span><i class="caret"></i></span></label>
+        <label><span>Password</span><span class="field pw" id="l-pw"><span class="typed"></span><i class="caret"></i></span></label>
         <label><span>Domain</span><span class="field">CORP\ATTENDANCE</span></label>
+        <div class="row"><span class="btn def" id="l-signin">Sign In</span><span class="btn" style="pointer-events:none">Cancel</span></div>
         <div class="prog" id="lprog"></div>
-        <div class="st" id="lst">Contacting domain controller…</div>
-        <div class="row"><span class="btn def" style="pointer-events:none">Sign In</span><span class="btn" style="pointer-events:none">Cancel</span></div>
+        <ul class="llog" id="llog"></ul>
+        <div class="st" id="lst">Last logon: Friday 17:02 from CUBICLE-04 · 0 failed attempts (impressive)</div>
       </div>
       <div class="ltip"><b>Tip of the day:</b> <span id="ltip"></span></div>
     </div>
@@ -1147,20 +1173,46 @@ const DATA = { holders: null, liquidity: null, marketCap: null, supply: null, di
    LOGIN LOADER (3s)
    ============================================================ */
 (function login(){
-  const prog = document.getElementById('lprog'), st = document.getElementById('lst');
+  const prog = document.getElementById('lprog'), log = document.getElementById('llog'), btn = document.getElementById('l-signin');
   const N = 26; for (let i=0;i<N;i++){ prog.appendChild(document.createElement('i')); }
-  const steps = ['Contacting domain controller…','Authenticating CORP\\wagie…','Loading attendance profile…','Retrieving timecard…','Applying group policy…','Welcome.'];
-  const T = 3000, t0 = performance.now();
-  function tick(){
-    const p = Math.min(1,(performance.now()-t0)/T);
-    const lit = Math.floor(p*N);
-    prog.querySelectorAll('i').forEach((el,i)=>el.classList.toggle('on', i<lit));
-    st.textContent = steps[Math.min(steps.length-1, Math.floor(p*steps.length))];
-    if (p<1) requestAnimationFrame(tick);
-    else { document.getElementById('login').classList.add('out'); setTimeout(()=>{ document.getElementById('login').style.display='none'; window.bootDesktop && window.bootDesktop(); }, 450); }
+  const STEPS = [
+    ['Contacting domain controller CORP-DC01', 'ok'],
+    ['Authenticating CORP\\wagie', 'ok'],
+    ['Loading attendance profile #000001', 'ok'],
+    ['Retrieving timecard — pay cycle 1', 'ok'],
+    ['Mounting \\\\HR\\policies (read-only)', 'ok'],
+    ['Starting hold music service', 'skipped'],
+    ['Applying group policy: CLOCK_IN_REQUIRED', 'ok'],
+  ];
+  const sleep = ms => new Promise(r=>setTimeout(r,ms));
+  function typeInto(id, text, per){ const f=document.getElementById(id), t=f.querySelector('.typed'); f.classList.remove('done'); t.textContent=''; return new Promise(res=>{ let i=0; (function step(){ if(i<text.length){ t.textContent+=text[i++]; setTimeout(step, per + Math.random()*40); } else { f.classList.add('done'); res(); } })(); }); }
+  async function run(){
+    log.innerHTML=''; prog.classList.remove('on'); prog.querySelectorAll('i').forEach(el=>el.classList.remove('on'));
+    btn.classList.remove('pressed','busy');
+    document.getElementById('l-user').classList.remove('done'); document.getElementById('l-pw').classList.remove('done');
+    document.querySelector('#l-user .typed').textContent=''; document.querySelector('#l-pw .typed').textContent='';
+    await sleep(350);
+    await typeInto('l-user', 'wagie', 95);
+    await sleep(180);
+    await typeInto('l-pw', '••••••••••', 42);
+    await sleep(220);
+    btn.classList.add('pressed'); await sleep(140); btn.classList.remove('pressed'); btn.classList.add('busy');
+    prog.classList.add('on');
+    const T = 2300, t0 = performance.now(); let shown = 0;
+    await new Promise(res=>{ (function tick(){
+      const p = Math.min(1,(performance.now()-t0)/T);
+      const lit = Math.floor(p*N); prog.querySelectorAll('i').forEach((el,i)=>el.classList.toggle('on', i<lit));
+      const want = Math.min(STEPS.length, Math.floor(p*STEPS.length)+1);
+      while (shown < want){ const [txt, st] = STEPS[shown]; const li=document.createElement('li'); li.innerHTML='<span>'+txt+'…</span><b class="wait">…</b>'; log.appendChild(li); const b=li.querySelector('b'); setTimeout(()=>{ b.className=st==='ok'?'':'skip'; b.textContent = st==='ok'?'OK':'skipped'; }, 220); shown++; }
+      if (p<1) requestAnimationFrame(tick); else res();
+    })(); });
+    await sleep(320);
+    const l=document.getElementById('login'); l.classList.add('out');
+    setTimeout(()=>{ l.style.display='none'; window.bootDesktop && window.bootDesktop(); }, 450);
   }
-  requestAnimationFrame(tick);
-  window.rerunLogin = function(){ const l=document.getElementById('login'); l.style.display='flex'; l.classList.remove('out'); const t0b=performance.now(); function tk(){ const p=Math.min(1,(performance.now()-t0b)/T); const lit=Math.floor(p*N); prog.querySelectorAll('i').forEach((el,i)=>el.classList.toggle('on', i<lit)); st.textContent=steps[Math.min(steps.length-1,Math.floor(p*steps.length))]; if(p<1) requestAnimationFrame(tk); else { l.classList.add('out'); setTimeout(()=>{ l.style.display='none'; window.bootDesktop(); },450);} } requestAnimationFrame(tk); };
+  btn.addEventListener('click', ()=>{}); // decorative; the script presses it
+  run();
+  window.rerunLogin = function(){ const l=document.getElementById('login'); l.style.display='flex'; l.classList.remove('out'); run(); };
 })();
 
 /* ============================================================
