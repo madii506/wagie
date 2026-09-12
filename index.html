@@ -2,359 +2,952 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WAGIE</title>
-<meta name="description" content="WAGIE. The memecoin that treats you like an employee. Paired to $ADP on Robinhood Chain. Clock in daily, get paid every other Friday in the stock.">
-<link rel="icon" href="assets/favicon-32.png" sizes="32x32">
-<link rel="icon" href="assets/favicon-64.png" sizes="64x64">
-<link rel="apple-touch-icon" href="assets/favicon-180.png">
-<meta property="og:title" content="WAGIE — paired to $ADP">
-<meta property="og:description" content="Clock in every day. Get paid every other Friday in tokenized ADP stock. Miss three days, you're fired.">
-<meta property="og:image" content="banner.png">
+<meta name="description" content="WAGIE — the memecoin that treats you like an employee. Clock in every workday. Payday every second Friday, in $WDAY. Miss three days and you're fired.">
+<meta property="og:title" content="WAGIE">
+<meta property="og:description" content="Clock in every workday. Payday every second Friday, in $WDAY. Three misses and you're fired.">
+<meta property="og:image" content="assets/banner.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
 <style>
-@font-face{font-family:'Inter';src:url(assets/inter-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Inter';src:url(assets/inter-latin-500-normal.woff2) format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'Inter';src:url(assets/inter-latin-700-normal.woff2) format('woff2');font-weight:700;font-display:swap}
-@font-face{font-family:'Inter';src:url(assets/inter-latin-900-normal.woff2) format('woff2');font-weight:900;font-display:swap}
-@font-face{font-family:'Inter';src:url(assets/inter-latin-900-italic.woff2) format('woff2');font-weight:900;font-style:italic;font-display:swap}
-@font-face{font-family:'Plex';src:url(assets/ibm-plex-mono-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Plex';src:url(assets/ibm-plex-mono-latin-500-normal.woff2) format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'Playfair';src:url(assets/playfair-display-latin-400-italic.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
-:root{--bg:#000;--ink:#f2f2f2;--ink2:#bdbdbd;--muted:#7a7a7a;--line:rgba(242,242,242,.14);--panel:rgba(12,12,12,.8);--paper:#ece9df;--paperink:#1a1a1a}
+/* ============================================================
+   WAGIE, INC. — EMPLOYEE SELF SERVICE
+   A 2000s corporate intranet. System fonts only (period-correct).
+   ============================================================ */
+:root{
+  --chrome:#ece9d8; --chrome-d:#d4d0c8; --chrome-dd:#aca899;
+  --line:#a8a49a; --line-d:#716f64;
+  --blue:#1d4488; --blue-d:#0a246a; --blue-l:#a6caf0; --sel:#316ac5;
+  --ink:#1b1b18; --muted:#5f5e58;
+  --paper:#fff; --paper-2:#f7f6f0;
+  --ok:#2e7d32; --ok-bg:#e2f2e0; --bad:#a62121; --bad-bg:#f7e0e0;
+  --today:#fff5c2; --today-b:#c9a227; --gold:#b8860b;
+  --carpet:#62705f;
+}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden}
-a{color:var(--ink)}
-#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0}
-#loader{position:fixed;inset:0;z-index:50;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .5s}
-#loader.done{opacity:0;pointer-events:none}
-#loader .w{font-weight:900;font-style:italic;font-size:64px;letter-spacing:-.03em;animation:pulse 1s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.35}}
-#loader .t{font-family:Plex,monospace;color:var(--muted);font-size:13px;letter-spacing:.1em}
-#loader .bar{width:220px;height:2px;background:rgba(242,242,242,.15);overflow:hidden}
-#loader .bar i{display:block;height:100%;width:0;background:var(--ink);animation:load 3s linear forwards}
-@keyframes load{to{width:100%}}
-main{position:relative;z-index:1}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-nav{display:flex;flex-direction:column;align-items:center;gap:16px;padding:26px 0 10px}
-nav .brand{font-weight:900;font-style:italic;font-size:28px;letter-spacing:-.03em;display:flex;align-items:center;gap:10px}
-nav .brand img{width:34px;height:34px;border-radius:50%}
-nav .links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-nav .links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:700;font-style:italic;padding:9px 18px;border:1px solid var(--line);background:var(--panel);transition:background .12s,color .12s}
-nav .links a:hover{background:var(--ink);color:#000}
-nav .links a.primary{background:var(--ink);color:#000;border-color:var(--ink)}
-nav .links a.primary.off{opacity:.4;pointer-events:none}
-nav .links a#music{font-family:Plex,monospace;font-style:normal;font-weight:500}
-nav .links a#music.on{background:var(--ink);color:#000}
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:40px 0 70px}
-.hero h1{font-weight:900;font-style:italic;font-size:clamp(84px,14vw,180px);line-height:.85;margin:0 0 18px;letter-spacing:-.05em}
-.hero p{max-width:480px;color:var(--ink2);margin:0 0 26px}
-.hero img{width:100%;max-width:460px;justify-self:center}
-.btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-block;padding:13px 24px;font-weight:700;text-decoration:none;border:2px solid var(--ink);color:#000;background:var(--ink);transition:transform .12s;font-style:italic;cursor:pointer;font-family:inherit;font-size:16px}
-.btn:hover{transform:skewX(-6deg)}
-.btn.ghost{background:transparent;color:var(--ink)}
-.btn.off{opacity:.4;pointer-events:none}
-section{padding:80px 0;border-top:1px solid var(--line)}
-h2{font-weight:900;font-style:italic;font-size:clamp(38px,6vw,64px);margin:0 0 10px;line-height:1;letter-spacing:-.04em}
-.sub{color:var(--muted);max-width:640px;margin:0 0 36px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.steps{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.card{background:var(--panel);border:1px solid var(--line);padding:26px;backdrop-filter:blur(6px)}
-.card h3{margin:0 0 8px;font-size:19px;font-weight:900;font-style:italic}
-.card p{margin:0;color:var(--ink2);font-size:15.5px}
-.card .k{font-family:Plex,monospace;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
-.note{font-family:Plex,monospace;color:var(--muted);font-size:13px;max-width:720px;margin:24px 0 0;line-height:1.6}
-/* punch clock + pay stub */
-.clock{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.punch{background:var(--panel);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px}
-.punch .big{font-weight:900;font-style:italic;font-size:44px;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
-.punch .lbl{font-family:Plex,monospace;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-.punch .row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:12px;font-family:Plex,monospace;font-size:14px}
-.punch .row span:last-child{color:var(--ink2)}
-.punch .tag{display:inline-block;font-family:Plex,monospace;font-size:12px;padding:4px 8px;border:1px solid var(--line);color:var(--muted)}
-.stub{background:var(--paper);color:var(--paperink);padding:26px 28px;font-family:Plex,monospace;font-size:13.5px;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative}
-.stub::before{content:'';position:absolute;left:0;right:0;top:0;height:6px;background:repeating-linear-gradient(90deg,#1a1a1a 0 12px,transparent 12px 20px);opacity:.25}
-.stub h3{font-family:Inter,sans-serif;font-weight:900;font-style:italic;margin:6px 0 2px;font-size:22px;letter-spacing:-.03em}
-.stub .co{font-size:12px;color:#555;margin-bottom:16px}
-.stub table{width:100%;border-collapse:collapse}
-.stub td{padding:6px 0;border-bottom:1px dashed rgba(0,0,0,.2);vertical-align:top}
-.stub td:last-child{text-align:right;font-variant-numeric:tabular-nums}
-.stub tr.total td{border-bottom:2px solid #1a1a1a;font-weight:700}
-.stub .foot{margin-top:14px;font-size:11px;color:#666}
-.stub input{font:inherit;border:0;border-bottom:1px solid #1a1a1a;background:transparent;width:100%;color:#1a1a1a;padding:2px 0;outline:none}
-.stub .stamp{position:absolute;right:26px;top:24px;border:3px solid #a33;color:#a33;font-weight:900;font-family:Inter,sans-serif;font-style:italic;padding:4px 10px;transform:rotate(-12deg);font-size:14px;letter-spacing:.05em;opacity:.85}
-/* HR */
-.hr{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.hr .card b{display:block;font-weight:900;font-style:italic;font-size:40px;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
-.hr .card b.zero{color:var(--muted)}
-.hr .card small{font-family:Plex,monospace;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-/* gallery */
-.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.meme{display:block;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);transition:transform .15s,border-color .15s}
-.meme:hover{transform:translateY(-4px);border-color:var(--ink)}
-.meme img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
-.meme span{display:block;padding:12px 14px;font-family:Plex,monospace;font-size:13px;color:var(--ink2)}
-/* lore */
-.tl{border-left:2px solid var(--ink);margin-left:8px}
-.tl .ev{position:relative;padding:0 0 30px 30px}
-.tl .ev::before{content:'';position:absolute;left:-8px;top:8px;width:14px;height:14px;background:#000;border:2px solid var(--ink)}
-.tl .ev .d{font-family:Plex,monospace;color:var(--muted);font-size:13px;letter-spacing:.06em}
-.tl .ev h3{margin:4px 0 6px;font-size:20px;font-weight:900;font-style:italic}
-.tl .ev p{margin:0;color:var(--ink2);max-width:640px}
-.tl .ev p a{color:var(--muted);font-size:14px}
-/* token */
-.tok{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.row2{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px}
-.row2:last-child{border-bottom:0}
-.row2 b{color:var(--muted);font-weight:500;white-space:nowrap}
-.row2 span{font-family:Plex,monospace;text-align:right;word-break:break-all}
-.row2 span.zero{color:var(--muted)}
-.ca{font-family:Plex,monospace;background:#000;border:1px dashed var(--line);padding:14px;word-break:break-all;color:var(--muted);cursor:pointer;margin-top:8px}
-.ca.live{color:var(--ink);border-style:solid}
-details{border-bottom:1px solid var(--line);padding:16px 0}
-summary{cursor:pointer;font-weight:900;font-style:italic;font-size:19px;list-style:none;display:flex;justify-content:space-between}
-summary::after{content:'+';font-family:Plex,monospace;color:var(--muted)}
-details[open] summary::after{content:'–'}
-details p{color:var(--ink2);margin:10px 0 0;max-width:680px}
-.end{padding:70px 0 90px;text-align:center}
-.end .big{font-weight:900;font-style:italic;font-size:clamp(70px,14vw,180px);line-height:.85;letter-spacing:-.06em}
-.end .q{font-family:Playfair,serif;font-style:italic;color:var(--muted);font-size:20px;margin-top:14px}
-@media(max-width:820px){.hero{grid-template-columns:1fr;padding-top:0}.hero img{max-width:280px;order:-1}.grid3,.tok,.steps,.clock,.gal{grid-template-columns:1fr}.hr{grid-template-columns:1fr 1fr}nav .links a{padding:8px 12px;font-size:13px}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font:12px/1.5 Tahoma,Verdana,'DejaVu Sans',Geneva,sans-serif;
+  background-color:var(--carpet);
+  background-image:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 4px),
+    radial-gradient(ellipse at 50% 0%,#75857200,#3f4b3d 140%);
+  min-height:100vh;
+}
+a{color:var(--blue)}
+b,strong{font-weight:bold}
+button{font:inherit}
+img{max-width:100%}
+
+/* ---------- the page "window" ---------- */
+.page{max-width:1040px;margin:18px auto 40px;background:var(--chrome);
+  border:1px solid #3b4a63;box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.25) inset}
+.tbar{height:30px;display:flex;align-items:center;padding:0 8px 0 10px;color:#fff;font-weight:bold;font-size:12px;
+  background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);text-shadow:1px 1px 0 rgba(0,0,0,.55);
+  letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbar .dots{margin-left:auto;display:flex;gap:3px;flex:0 0 auto}
+.tbar .dots i{width:20px;height:18px;background:linear-gradient(#e8eef8,#a8bdda);border:1px solid #3c4a60;display:block;
+  font-style:normal;color:#16233a;font-size:11px;font-weight:bold;text-align:center;line-height:16px}
+
+/* ---------- masthead ---------- */
+.mast{display:flex;align-items:center;gap:14px;padding:12px 16px 10px;background:linear-gradient(#fbfaf5,#ebe8dc);border-bottom:1px solid var(--line)}
+.mast .face{width:64px;height:64px;border:1px solid var(--line-d);background:#c9d2cb;overflow:hidden;flex:0 0 auto;position:relative}
+.mast .face img{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:76px}
+.mast .word{font-size:40px;line-height:.9;font-weight:bold;letter-spacing:-1.5px;
+  background:linear-gradient(to bottom,#5c8fd6 0%,#2a5aa8 46%,#1d4488 50%,#3f74c4 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(1px 1px 0 rgba(255,255,255,.9))}
+.mast .sub{font-size:11px;letter-spacing:4px;color:#4a5a50;font-weight:bold;margin-top:2px}
+.mast .who{margin-left:auto;text-align:right;font-size:11px;color:var(--muted);line-height:1.45}
+.mast .who b{color:var(--ink)}
+@media (max-width:640px){ .mast .who{display:none} .mast .word{font-size:34px} }
+
+/* ---------- nav: one centred row ---------- */
+.nav{display:flex;justify-content:center;align-items:flex-end;gap:2px;padding:10px 10px 0;background:var(--chrome);
+  border-bottom:1px solid var(--line-d);flex-wrap:wrap;position:relative}
+.tab{appearance:none;border:1px solid var(--line-d);border-bottom:none;background:linear-gradient(#f6f5ef,#dcd8cb);
+  color:var(--ink);padding:6px 14px 5px;cursor:pointer;font-weight:bold;font-size:11px;letter-spacing:.6px;
+  box-shadow:inset 1px 1px 0 #fff;position:relative;top:1px;border-radius:3px 3px 0 0}
+.tab:hover{background:linear-gradient(#fff,#e8e4d8)}
+.tab[aria-selected="true"]{background:#fff;border-top:3px solid #e0961a;padding-top:5px;top:2px;box-shadow:none}
+.tab .k{display:none}
+.snd{margin-left:8px;appearance:none;border:1px solid var(--line-d);background:linear-gradient(#f6f5ef,#dcd8cb);
+  cursor:pointer;font-size:11px;padding:5px 10px 4px;border-radius:3px 3px 0 0;position:relative;top:1px;color:var(--ink);
+  box-shadow:inset 1px 1px 0 #fff;display:inline-flex;align-items:center;gap:6px;font-weight:bold;letter-spacing:.4px}
+.snd .led{width:8px;height:8px;border-radius:50%;background:#8a3a3a;box-shadow:inset 0 0 2px #000;display:inline-block}
+.snd[aria-pressed="true"] .led{background:#4fd15a;box-shadow:0 0 6px #4fd15a,inset 0 0 2px #063}
+@media (max-width:560px){ .tab{padding:6px 9px 5px;font-size:10.5px;letter-spacing:.3px} .snd{margin-left:2px} }
+
+/* ---------- content ---------- */
+.content{background:#fff;padding:16px;min-height:520px}
+.view{display:none}
+.view.on{display:block;animation:fade .18s ease-out}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.panel{border:1px solid var(--line);background:#fff;margin-bottom:14px}
+.panel > .ph{background:linear-gradient(#dfe7f3,#c4d3e8);border-bottom:1px solid var(--line);padding:5px 10px;font-weight:bold;
+  color:var(--blue-d);font-size:11.5px;letter-spacing:.8px;display:flex;align-items:center;gap:8px}
+.panel > .ph .r{margin-left:auto;font-weight:normal;color:var(--muted);letter-spacing:0}
+.panel > .pb{padding:12px}
+.grid2{display:grid;grid-template-columns:1fr 300px;gap:14px}
+@media (max-width:820px){ .grid2{grid-template-columns:1fr} }
+
+table.t{border-collapse:collapse;width:100%;font-size:12px}
+table.t th,table.t td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+table.t th{background:var(--chrome-d);font-weight:bold;white-space:nowrap}
+table.t tr:nth-child(even) td{background:#fbfaf6}
+table.t td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.zero{color:var(--muted);font-style:italic}
+.tag{display:inline-block;border:1px solid;padding:0 6px;font-size:10px;font-weight:bold;letter-spacing:.6px;border-radius:2px;line-height:16px;vertical-align:middle}
+.tag.ok{color:var(--ok);border-color:#8fc59a;background:var(--ok-bg)}
+.tag.bad{color:var(--bad);border-color:#d99a9a;background:var(--bad-bg)}
+.tag.warn{color:#7a5a00;border-color:#d8b95a;background:#fff3c4}
+.tag.info{color:var(--blue);border-color:#9bb5dd;background:#e6eef9}
+
+.btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-width:120px;height:30px;padding:0 16px;
+  background:linear-gradient(#f6f5ef,#dcd8cb);border:1px solid var(--line-d);box-shadow:inset 1px 1px 0 #fff,1px 1px 0 rgba(0,0,0,.08);
+  font-size:12px;font-weight:bold;color:var(--ink);cursor:pointer;letter-spacing:.3px;border-radius:2px}
+.btn:hover{background:linear-gradient(#fff,#e9e6db)}
+.btn:active{background:var(--chrome-d);box-shadow:inset 1px 1px 2px rgba(0,0,0,.25)}
+.btn.def{border:2px solid var(--blue-d);height:32px}
+.btn.big{height:44px;font-size:14px;min-width:190px;letter-spacing:1px}
+.btn.go{background:linear-gradient(#5fbf66,#2e8b3a);color:#fff;border-color:#1f5f28;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+.btn.go:hover{background:linear-gradient(#6fd076,#35a044)}
+.btn:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.6)}
+.btnrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0 4px}
+
+.note{border:1px solid #d8b95a;background:#fff8dc;padding:8px 10px;font-size:11.5px;display:flex;gap:8px;align-items:flex-start}
+.note .i{width:16px;height:16px;border-radius:50%;background:linear-gradient(#f6d24a,#d59c15);border:1px solid #8a6408;color:#4a3505;
+  font-weight:bold;font-size:11px;text-align:center;line-height:14px;flex:0 0 auto;margin-top:1px}
+.note.blue{border-color:#9bb5dd;background:#eaf1fb}
+.note.blue .i{background:linear-gradient(#8fb4ea,#3f74c4);border-color:#1d4488;color:#fff}
+
+h2.sec{font-size:13px;margin:0 0 8px;color:var(--blue-d);letter-spacing:.5px;text-transform:uppercase}
+p{margin:0 0 10px}
+.small{font-size:11px;color:var(--muted)}
+hr.dot{border:0;border-top:1px dotted var(--line);margin:12px 0}
+
+/* ---------- welcome strip ---------- */
+.welcome{display:flex;align-items:center;gap:12px;background:var(--paper-2);border:1px solid var(--line);padding:8px 12px;margin-bottom:14px}
+.welcome .av{width:44px;height:44px;border:1px solid var(--line-d);background:#c9d2cb;overflow:hidden;position:relative;flex:0 0 auto}
+.welcome .av img{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:54px}
+.welcome .txt{font-size:12px;line-height:1.45}
+.welcome .txt .st{margin-left:6px}
+.welcome .day{margin-left:auto;text-align:right;font-size:11px;color:var(--muted);white-space:nowrap}
+.welcome .day b{display:block;font-size:15px;color:var(--ink);letter-spacing:1px}
+
+/* ---------- timecard ---------- */
+.tc{border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed}
+.tc th{background:var(--chrome-d);border:1px solid var(--line);padding:5px 4px;font-size:10.5px;letter-spacing:1px}
+.tc th.wk{width:52px;background:#e6e3d6}
+.tc td{border:1px solid var(--line);height:64px;padding:0;position:relative;background:#fff;vertical-align:top}
+.tc td .lbl{position:absolute;left:5px;top:3px;font-size:9.5px;color:var(--muted);letter-spacing:.5px}
+.tc td .pd{position:absolute;right:4px;top:2px;font-size:10px;font-weight:bold;color:var(--gold)}
+.tc td .mark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;letter-spacing:.5px}
+.tc td.in{background:var(--ok-bg)}
+.tc td.in .mark{color:var(--ok)}
+.tc td.missed{background:var(--bad-bg)}
+.tc td.missed .mark{color:var(--bad)}
+.tc td.today{outline:2px solid var(--today-b);outline-offset:-2px;background:var(--today)}
+.tc td.today.in{background:#e7f5d9}
+.tc td.future .mark{color:#c9c6bb;font-weight:normal;font-size:11px}
+.tc td.payday{box-shadow:inset 0 -4px 0 #e6c45a}
+.tc td .stamp{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);border:2px solid var(--ok);color:var(--ok);
+  font-size:11px;font-weight:bold;padding:1px 6px;letter-spacing:1px;border-radius:3px;opacity:.9;animation:stamp .28s ease-out}
+@keyframes stamp{0%{transform:translate(-50%,-50%) rotate(-8deg) scale(2.2);opacity:0}70%{opacity:1}100%{transform:translate(-50%,-50%) rotate(-8deg) scale(1)}}
+@media (max-width:560px){ .tc td{height:54px} .tc td .mark{font-size:11px} .tc th.wk{width:38px} .tc td .lbl{font-size:8.5px} }
+
+.kv{width:100%;border-collapse:collapse}
+.kv td{padding:6px 8px;border-bottom:1px dotted var(--line);font-size:12px;vertical-align:middle}
+.kv td:first-child{color:var(--muted);width:52%;letter-spacing:.4px;font-size:10.5px;text-transform:uppercase}
+.kv td:last-child{font-weight:bold;text-align:right}
+.meter{height:10px;border:1px solid var(--line-d);background:#fff;box-shadow:inset 1px 1px 0 rgba(0,0,0,.08);display:flex;gap:2px;padding:1px}
+.meter i{flex:1;background:#e5e2d6}
+.meter i.x{background:var(--bad)}
+
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.how .c{border:1px solid var(--line);background:var(--paper-2);padding:10px 84px 10px 10px;font-size:11.5px;position:relative;min-height:112px}
+.how .c b{display:block;font-size:12px;color:var(--blue-d);margin-bottom:4px;letter-spacing:.4px}
+.how .c img{position:absolute;right:6px;bottom:0;height:84px;opacity:.95}
+.how .c .n{position:absolute;left:8px;top:-9px;background:var(--blue-d);color:#fff;font-size:10px;font-weight:bold;padding:0 6px;line-height:16px;border-radius:2px}
+@media (max-width:720px){ .how{grid-template-columns:1fr} }
+
+/* ---------- pay statement ---------- */
+.stub{border:1px solid var(--line-d);background:#fff;padding:14px 16px;font-size:12px;box-shadow:2px 2px 0 rgba(0,0,0,.06)}
+.stub .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:10px;gap:10px;flex-wrap:wrap}
+.stub .head .co{font-weight:bold;font-size:14px;letter-spacing:2px}
+.stub .head .co small{display:block;font-weight:normal;letter-spacing:.5px;color:var(--muted);font-size:10.5px}
+.stub .head .doc{text-align:right;font-size:10.5px;color:var(--muted);line-height:1.5}
+.stub .head .doc b{display:block;color:var(--ink);font-size:12px;letter-spacing:1.5px}
+.stub .net{display:flex;justify-content:space-between;align-items:center;border:2px solid var(--ink);padding:8px 12px;margin-top:10px;font-size:13px}
+.stub .net b{font-size:20px;letter-spacing:.5px;font-variant-numeric:tabular-nums}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.flow .s{flex:1 1 120px;border:1px solid var(--line);background:var(--paper-2);padding:8px 10px;font-size:11px;position:relative;min-width:120px}
+.flow .s b{display:block;font-size:12px;color:var(--blue-d)}
+.flow .s + .s{margin-left:14px}
+.flow .s + .s:before{content:"▶";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--line-d);font-size:10px}
+@media (max-width:640px){ .flow .s + .s{margin-left:0;margin-top:10px} .flow .s + .s:before{content:"▼";left:50%;top:-12px;transform:translateX(-50%)} }
+
+/* ---------- handbook ---------- */
+.hb{max-width:760px;font-size:12.5px;line-height:1.65}
+.hb .clause{display:grid;grid-template-columns:54px 1fr;gap:10px;padding:10px 0;border-bottom:1px dotted var(--line)}
+.hb .clause .n{font-weight:bold;color:var(--blue-d);font-variant-numeric:tabular-nums}
+.hb .clause p{margin:0 0 6px}
+.hb .clause p:last-child{margin:0}
+.hb sup a{text-decoration:none;font-weight:bold}
+.hb .src{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.7}
+.hb .src a{word-break:break-all}
+.hb .hero{float:right;width:210px;margin:0 0 10px 18px}
+@media (max-width:640px){ .hb .hero{float:none;display:block;margin:0 auto 10px;width:180px} }
+blockquote.q{margin:8px 0 10px;padding:8px 12px;border-left:3px solid var(--blue-l);background:var(--paper-2);font-style:italic;color:#333}
+
+/* ---------- bulletin board ---------- */
+.cork{position:relative;padding:22px 18px 30px;border:10px solid #6b4a2b;border-image:linear-gradient(135deg,#8a6236,#5a3d20) 1;
+  background-color:#c69a68;background-image:
+   radial-gradient(rgba(255,255,255,.18) 1px,transparent 1.5px),
+   radial-gradient(rgba(60,30,10,.22) 1px,transparent 1.5px),
+   linear-gradient(160deg,#cfa26f,#b98a58);
+  background-size:7px 7px,11px 11px,100% 100%;background-position:0 0,3px 5px,0 0;
+  box-shadow:inset 0 0 60px rgba(60,30,10,.35)}
+.cork .row{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 22px}
+@media (max-width:720px){ .cork .row{grid-template-columns:1fr} }
+.pin{position:relative;background:#fff;padding:8px 8px 12px;box-shadow:0 8px 16px rgba(40,20,5,.35),0 1px 0 rgba(255,255,255,.4) inset}
+.pin img{display:block;width:100%;height:auto;border:1px solid #ddd}
+.pin .cap{font-size:11px;color:#333;margin-top:8px;font-family:'Liberation Serif','DejaVu Serif',Georgia,serif;font-style:italic}
+.pin:before{content:"";position:absolute;left:50%;top:-9px;width:18px;height:18px;border-radius:50%;margin-left:-9px;
+  background:radial-gradient(circle at 35% 30%,#ff7a7a,#b40e0e 60%,#6f0505);box-shadow:0 3px 4px rgba(0,0,0,.45);z-index:2}
+.pin.r1{transform:rotate(-1.6deg)} .pin.r2{transform:rotate(1.2deg)} .pin.r3{transform:rotate(.9deg)} .pin.r4{transform:rotate(-1.1deg)}
+.pin.blue:before{background:radial-gradient(circle at 35% 30%,#8fb4ff,#1d4488 60%,#0a246a)}
+.pin.green:before{background:radial-gradient(circle at 35% 30%,#a6f0a6,#2e8b3a 60%,#12461a)}
+.pin.yellow:before{background:radial-gradient(circle at 35% 30%,#fff2a6,#e0b400 60%,#8a6c00)}
+.memo-note{background:#fff9b8;padding:12px 14px;font-family:'Liberation Serif','DejaVu Serif',Georgia,serif;font-size:12.5px;line-height:1.5;
+  box-shadow:0 8px 16px rgba(40,20,5,.35);position:relative;transform:rotate(1.4deg)}
+.memo-note.w{background:#fff;font-family:Tahoma,Verdana,'DejaVu Sans',sans-serif;font-size:11.5px;transform:rotate(-.8deg)}
+.memo-note:before{content:"";position:absolute;left:50%;top:-8px;width:60px;height:16px;margin-left:-30px;background:rgba(255,255,255,.55);
+  border:1px solid rgba(0,0,0,.08);transform:rotate(-2deg)}
+.cork .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:26px}
+@media (max-width:720px){ .cork .notes{grid-template-columns:1fr} }
+
+/* ---------- org chart ---------- */
+.org{display:flex;flex-direction:column;align-items:center;gap:0}
+.org .box{border:1px solid var(--line-d);background:linear-gradient(#fff,#efede4);padding:6px 14px;text-align:center;min-width:180px;font-size:11.5px;box-shadow:1px 1px 0 rgba(0,0,0,.08)}
+.org .box b{display:block;font-size:12px;letter-spacing:.5px;color:var(--blue-d)}
+.org .v{width:1px;height:16px;background:var(--line-d)}
+.org .h{width:60%;height:1px;background:var(--line-d)}
+.org .lvl{display:flex;justify-content:center;gap:30px;width:100%}
+.org .lvl .col{display:flex;flex-direction:column;align-items:center}
+@media (max-width:560px){ .org .lvl{gap:10px} .org .box{min-width:120px;padding:6px 8px} }
+.ca{font-family:'DejaVu Sans Mono','Liberation Mono',Consolas,monospace;font-size:11.5px;background:var(--paper-2);border:1px solid var(--line);padding:4px 8px;word-break:break-all}
+.copy{appearance:none;border:1px solid var(--line-d);background:linear-gradient(#f6f5ef,#dcd8cb);font-size:10.5px;padding:2px 8px;cursor:pointer;margin-left:6px;vertical-align:middle}
+
+/* ---------- FAQ ---------- */
+details.faq{border:1px solid var(--line);margin-bottom:6px;background:#fff}
+details.faq summary{cursor:pointer;padding:7px 10px;background:linear-gradient(#f6f5ef,#e6e3d6);font-weight:bold;font-size:12px;list-style:none;display:flex;gap:8px;align-items:center}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary:before{content:"+";width:14px;height:14px;border:1px solid var(--line-d);background:#fff;font-size:11px;line-height:12px;text-align:center;flex:0 0 auto;font-weight:bold}
+details.faq[open] summary:before{content:"–"}
+details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border-top:1px solid var(--line)}
+.legal{font-size:11px;color:#444;line-height:1.6;border:1px solid var(--line);background:var(--paper-2);padding:10px 12px}
+
+/* ---------- footer status bar ---------- */
+.status{display:flex;gap:0;border-top:1px solid var(--line-d);background:var(--chrome);font-size:10.5px;color:var(--muted)}
+.status span{padding:4px 10px;border-right:1px solid var(--line);border-left:1px solid #fff}
+.status span:last-child{margin-left:auto;border-right:0}
+@media (max-width:560px){ .status span:nth-child(2){display:none} }
+
+/* ---------- modals & toast ---------- */
+.ov{position:fixed;inset:0;background:rgba(20,30,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.ov.on{display:flex}
+.dlg{width:min(560px,100%);background:var(--chrome);border:2px solid;border-color:#fff #5a5a52 #5a5a52 #fff;box-shadow:4px 4px 0 rgba(0,0,0,.35);animation:pop .16s ease-out}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+.dlg .bar{height:30px;background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);color:#fff;font-weight:bold;font-size:12px;
+  display:flex;align-items:center;padding:0 6px 0 10px;text-shadow:1px 1px 0 rgba(0,0,0,.55)}
+.dlg .bar .x{margin-left:auto;width:20px;height:18px;background:linear-gradient(#e8eef8,#a8bdda);border:1px solid #3c4a60;color:#16233a;font-size:11px;font-weight:bold;text-align:center;line-height:16px;cursor:pointer}
+.dlg .body{padding:16px;display:flex;gap:14px;align-items:flex-start;background:var(--chrome)}
+.dlg .body .ico{width:40px;height:40px;flex:0 0 40px;border-radius:50%;background:linear-gradient(#f6d24a,#d59c15);border:2px solid #8a6408;color:#4a3505;font-weight:bold;font-size:24px;text-align:center;line-height:36px}
+.dlg .body .ico.ok{background:linear-gradient(#8fe08f,#2e8b3a);border-color:#1f5f28;color:#fff}
+.dlg .body .ico.bad{background:linear-gradient(#f08a8a,#a62121);border-color:#6f0505;color:#fff}
+.dlg .body .msg{font-size:12.5px;line-height:1.55}
+.dlg .body .msg b.t{display:block;font-size:14px;margin-bottom:6px}
+.dlg .foot{display:flex;justify-content:flex-end;gap:8px;padding:0 16px 14px;flex-wrap:wrap}
+/* termination memo */
+.dlg.memo .body{display:block;background:#f7f5ec;padding:0}
+.memo-paper{padding:18px 22px;font-family:'Liberation Serif','DejaVu Serif',Georgia,serif;color:#20201c;position:relative;overflow:hidden}
+.memo-paper .ph{border-bottom:3px double #20201c;padding-bottom:6px;margin-bottom:10px}
+.memo-paper .ph .co{font-family:Tahoma,Verdana,'DejaVu Sans',sans-serif;font-size:9.5px;letter-spacing:4px;color:#5a5a52}
+.memo-paper .ph h3{margin:2px 0 0;font-size:22px;letter-spacing:6px;font-weight:normal}
+.memo-paper .kv2{font-family:Tahoma,Verdana,'DejaVu Sans',sans-serif;font-size:11px;line-height:1.9}
+.memo-paper .kv2 span{display:inline-block;width:52px;color:#5a5a52}
+.memo-paper .bd{font-size:13px;line-height:1.6;margin-top:10px;max-width:360px}
+.memo-paper .stamp{position:absolute;right:16px;bottom:18px;transform:rotate(-13deg);border:4px solid #a62121;color:#a62121;padding:4px 12px;
+  font-family:Tahoma,Verdana,'DejaVu Sans',sans-serif;font-size:24px;font-weight:bold;letter-spacing:3px;opacity:.85;border-radius:4px}
+.memo-paper img{position:absolute;right:-10px;top:10px;height:170px;opacity:.95}
+@media (max-width:520px){ .memo-paper img{display:none} .memo-paper .bd{max-width:none} }
+/* payday plaque */
+.dlg.plaque .body{display:block;background:linear-gradient(155deg,#5a3a22,#3a2415);padding:16px}
+.plate{background:linear-gradient(150deg,#f0d98c,#c8a23c 42%,#a9832a 60%,#e6cf83);border:2px solid #7d6018;padding:16px 14px;text-align:center;color:#3a2c07}
+.plate .t1{font-size:10px;letter-spacing:6px}
+.plate .t2{font-size:22px;font-weight:bold;letter-spacing:2px;margin-top:6px}
+.plate .hr{height:2px;background:#7d6018;margin:10px 40px}
+.plate .amt{font-size:26px;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:.5px;margin:4px 0}
+.plate .ft{font-size:11.5px;line-height:1.6;margin-top:8px}
+.plate img{height:110px;margin:-6px auto 0;display:block}
+
+.toast{position:fixed;right:16px;bottom:16px;z-index:60;width:min(340px,calc(100% - 32px));display:none}
+.toast.on{display:block;animation:pop .16s ease-out}
+.toast .dlg{width:100%}
+.toast .body{padding:10px 12px}
+.toast .body .msg{font-size:12px}
+
+/* ---------- login loader ---------- */
+#login{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;
+  background-color:#3b6ea5;background-image:radial-gradient(ellipse at 50% 30%,#5b8fc9,#2a4f86 70%,#1a3260 100%);
+  transition:opacity .45s ease}
+#login.out{opacity:0;pointer-events:none}
+.lwin{width:min(420px,100%);background:var(--chrome);border:2px solid;border-color:#fff #5a5a52 #5a5a52 #fff;box-shadow:6px 6px 0 rgba(0,0,0,.35)}
+.lwin .bar{height:30px;background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);color:#fff;font-weight:bold;font-size:12px;
+  display:flex;align-items:center;padding:0 10px;text-shadow:1px 1px 0 rgba(0,0,0,.55)}
+.lwin .b{padding:16px}
+.lwin .brand{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.lwin .brand .face{width:52px;height:52px;border:1px solid var(--line-d);background:#c9d2cb;overflow:hidden;position:relative;flex:0 0 auto}
+.lwin .brand .face img{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:62px}
+.lwin .brand .w{font-size:26px;font-weight:bold;letter-spacing:-1px;color:var(--blue-d);line-height:1}
+.lwin .brand .w small{display:block;font-size:9.5px;letter-spacing:3px;color:#4a5a50;margin-top:3px}
+.lwin label{display:grid;grid-template-columns:80px 1fr;gap:8px;align-items:center;font-size:11.5px;margin-bottom:8px}
+.lwin .field{background:#fff;border:1px solid;border-color:#5a5a52 #fff #fff #5a5a52;padding:4px 6px;font-size:12px;font-family:inherit;height:24px;display:flex;align-items:center}
+.lwin .field.pw{letter-spacing:2px}
+.lwin .prog{margin-top:12px;height:18px;border:1px solid var(--line-d);background:#fff;box-shadow:inset 1px 1px 0 rgba(0,0,0,.08);padding:2px;display:flex;gap:2px}
+.lwin .prog i{width:9px;background:linear-gradient(#5f9be8,#2a5aa8);display:block;opacity:0}
+.lwin .prog i.on{opacity:1}
+.lwin .st{font-size:11px;color:var(--muted);margin-top:6px;min-height:16px}
+.lwin .row{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+
+/* ---------- misc ---------- */
+.sr{position:absolute;left:-9999px}
+.center{text-align:center}
+.mt0{margin-top:0}
 </style>
 </head>
 <body>
-<div id="loader"><div class="w">WAGIE</div><div class="bar"><i></i></div><div class="t">ONBOARDING…</div></div>
-<canvas id="bg"></canvas>
-<main>
-<div class="wrap">
-<nav>
-  <div class="brand"><img src="assets/favicon-64.png" alt="">WAGIE</div>
-  <div class="links"><a id="navbuy" class="primary off" href="#">Buy WAGIE</a><a href="#how">How it works</a><a href="#payroll">Payroll</a><a href="#clock">Clock in</a><a href="#lore">Lore</a><a href="#memes">Memes</a><a href="#token">Token</a><a href="#faq">FAQ</a><a id="xlink" href="#" target="_blank" rel="noopener">X</a><a id="music" href="#" role="button" aria-pressed="false">♪ Music: off</a></div>
-</nav>
-<audio id="bgm" src="assets/wagie-loop.mp3" loop preload="auto"></audio>
 
-<div class="hero">
-  <div>
-    <h1>WAGIE</h1>
-    <p>The memecoin that treats you like an employee. Paired to tokenized ADP stock — the company that runs payroll for one in five American workers. Clock in every day. Get paid every other Friday in $ADP. Miss three days and you're fired.</p>
-    <div class="btns"><a id="buy" class="btn off" href="#">Buy WAGIE</a><a class="btn ghost" href="#clock">Clock in</a></div>
+<!-- ===================== LOGIN (loader) ===================== -->
+<div id="login" aria-live="polite">
+  <div class="lwin">
+    <div class="bar">Employee Self Service — Sign In</div>
+    <div class="b">
+      <div class="brand">
+        <div class="face"><img src="assets/wagie-face.png" alt=""></div>
+        <div class="w">WAGIE, INC.<small>EMPLOYEE SELF SERVICE</small></div>
+      </div>
+      <label><span>User ID</span><span class="field">wagie</span></label>
+      <label><span>Password</span><span class="field pw">••••••••••</span></label>
+      <label><span>Domain</span><span class="field">CORP\ATTENDANCE</span></label>
+      <div class="prog" id="lprog"></div>
+      <div class="st" id="lst">Contacting domain controller…</div>
+      <div class="row"><span class="btn def" style="pointer-events:none">Sign In</span><span class="btn" style="pointer-events:none">Cancel</span></div>
+    </div>
   </div>
-  <img src="logo.png" alt="WAGIE, an exhausted office worker with a lanyard and a coffee mug">
 </div>
+
+<!-- ===================== PAGE ===================== -->
+<div class="page">
+  <div class="tbar">Employee Self Service — WAGIE, INC. <span class="dots"><i>_</i><i>□</i><i>×</i></span></div>
+
+  <div class="mast">
+    <div class="face"><img src="assets/wagie-face.png" alt="WAGIE"></div>
+    <div>
+      <div class="word">WAGIE</div>
+      <div class="sub">EMPLOYEE SELF SERVICE</div>
+    </div>
+    <div class="who">Signed in as <b>WAGIE</b> · Employee #000001<br>Department: Clocking In · <a href="#" onclick="return false">Sign out</a></div>
+  </div>
+
+  <nav class="nav" role="tablist" aria-label="Portal sections">
+    <button class="tab" role="tab" data-v="timecard" aria-selected="true">TIMECARD</button>
+    <button class="tab" role="tab" data-v="pay">PAY</button>
+    <button class="tab" role="tab" data-v="handbook">HANDBOOK</button>
+    <button class="tab" role="tab" data-v="bulletin">BULLETIN</button>
+    <button class="tab" role="tab" data-v="company">COMPANY</button>
+    <button class="tab" role="tab" data-v="help">HELP</button>
+    <button class="snd" id="snd" aria-pressed="false" title="Hold music"><span class="led"></span>HOLD MUSIC</button>
+  </nav>
+
+  <div class="content">
+
+    <!-- ===================== TIMECARD ===================== -->
+    <section class="view on" id="v-timecard" role="tabpanel">
+      <div class="welcome">
+        <div class="av"><img src="assets/wagie-face.png" alt=""></div>
+        <div class="txt">Welcome back, <b>WAGIE</b>.<span class="st" id="w-status"></span><br><span class="small">Your timecard for the current pay cycle is shown below. Clock in once per workday.</span></div>
+        <div class="day">TODAY<b id="w-day">WK1 MON</b></div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <div class="panel">
+            <div class="ph">TIMECARD — PAY CYCLE <span id="cyc">1</span> <span class="r">4 weeks · payday every second Friday</span></div>
+            <div class="pb">
+              <table class="tc" id="tc" aria-label="Timecard"></table>
+              <div class="btnrow">
+                <button class="btn big go" id="b-in">CLOCK IN</button>
+                <button class="btn big" id="b-next">NEXT WORKDAY ▸</button>
+                <button class="btn" id="b-reset" title="Start a new timecard">RESET</button>
+              </div>
+              <div class="note" style="margin-top:10px"><span class="i">i</span><span><b>Practice timecard.</b> This runs in your browser only — nothing is written to the chain. It uses the exact rules the on-chain clock will enforce at launch: one clock-in per workday, payday every second Friday, three consecutive misses and you're out.</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="ph">HOW IT WORKS</div>
+            <div class="pb">
+              <div class="how">
+                <div class="c"><span class="n">1</span><b>CLOCK IN</b>Once per workday, hold WAGIE and call <code>clockIn()</code>. That's the whole job. No manager. No meeting.<img src="assets/wagie-clockin.png" alt=""></div>
+                <div class="c"><span class="n">2</span><b>GET PAID</b>Every trade pays a 1% fee. The creator share (70%) goes into the attendance pool and is split among everyone who clocked in that period — paid in <b>$WDAY</b>, every second Friday.<img src="assets/wagie-thumbs.png" alt=""></div>
+                <div class="c"><span class="n">3</span><b>DON'T GET FIRED</b>Miss three workdays in a row and the contract terminates you. Your unpaid share goes to the colleagues who showed up. You can reapply — from zero.<img src="assets/wagie-box.png" alt=""></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="panel">
+            <div class="ph">EMPLOYEE STATUS</div>
+            <div class="pb" style="padding:6px 10px 10px">
+              <table class="kv">
+                <tr><td>Status</td><td id="s-emp"></td></tr>
+                <tr><td>Current streak</td><td id="s-streak">0 days</td></tr>
+                <tr><td>Best streak</td><td id="s-best">0 days</td></tr>
+                <tr><td>Consecutive misses</td><td id="s-miss">0 of 3</td></tr>
+                <tr><td colspan="2" style="padding-top:4px"><div class="meter" id="meter"><i></i><i></i><i></i></div></td></tr>
+                <tr><td>Shifts this period</td><td id="s-per">0 of 10</td></tr>
+                <tr><td>Next payday</td><td id="s-pd">—</td></tr>
+                <tr><td>Paydays reached</td><td id="s-pdc">0</td></tr>
+                <tr><td>Terminations</td><td id="s-term">0</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph">PAYCHECK PREVIEW <span class="r">this period</span></div>
+            <div class="pb">
+              <table class="kv">
+                <tr><td>Fees collected</td><td class="zero" id="p-fees">0.0000 $WDAY</td></tr>
+                <tr><td>Your share</td><td class="zero" id="p-share">0.0000 $WDAY</td></tr>
+              </table>
+              <p class="small" style="margin:8px 0 0">The pool fills from trading fees after launch. Until then every payday pays exactly what it says on the tin.</p>
+            </div>
+          </div>
+          <div class="note blue"><span class="i">!</span><span><b>Launch status:</b> <span id="launch-status">contract not yet issued</span>. On-chain clock-in opens the moment it is.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PAY ===================== -->
+    <section class="view" id="v-pay" role="tabpanel">
+      <div class="grid2">
+        <div>
+          <div class="stub">
+            <div class="head">
+              <div class="co">WAGIE, INC.<small>Attendance Division · Robinhood Chain (4663)</small></div>
+              <div class="doc"><b>PAY STATEMENT</b>Employee: WAGIE · #000001<br>Pay period: <span id="ps-period">Cycle 1, weeks 1–2</span><br>Pay date: second Friday</div>
+            </div>
+            <table class="t">
+              <tr><th>Earnings</th><th>Units</th><th>Rate</th><th style="text-align:right">Amount</th></tr>
+              <tr><td>Attendance share</td><td id="ps-shifts">0 shifts</td><td>pro-rata of period fees</td><td class="num zero">0.0000 $WDAY</td></tr>
+              <tr><td>Perfect-attendance bonus</td><td>—</td><td>none. attendance is the job.</td><td class="num zero">0.0000 $WDAY</td></tr>
+              <tr><th colspan="3">Gross</th><td class="num"><b>0.0000 $WDAY</b></td></tr>
+            </table>
+            <table class="t" style="margin-top:10px">
+              <tr><th>Deductions</th><th style="text-align:right">Amount</th></tr>
+              <tr><td>Federal, state, local, dental, 401(k), parking</td><td class="num zero">none — there is no pay yet</td></tr>
+            </table>
+            <div class="net"><span>NET PAY</span><b id="ps-net">0.0000 $WDAY</b></div>
+            <div class="small" style="margin-top:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px"><span>YTD net: <b>0.0000 $WDAY</b></span><span>Paid to: your wallet, in $WDAY (Workday, Inc. stock token)</span></div>
+          </div>
+          <div class="panel" style="margin-top:14px">
+            <div class="ph">DISTRIBUTION HISTORY</div>
+            <div class="pb">
+              <table class="t">
+                <tr><th>Pay date</th><th>Fees in period</th><th>Employed holders</th><th>Shifts credited</th><th style="text-align:right">Paid out</th></tr>
+                <tr id="dist-zero"><td colspan="5" class="zero">No distributions yet. The first payday is the second Friday after launch.</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="ph">HOW PAY IS FUNDED</div>
+            <div class="pb">
+              <div class="flow" style="flex-direction:column">
+                <div class="s"><b>Someone trades WAGIE</b>Buy or sell, on the bonding curve or the pool.</div>
+                <div class="s"><b>1% fee</b>Charged by Pons v2 on every trade.</div>
+                <div class="s"><b>70% → attendance pool</b>The creator share. 100% of it is payroll. The other 30% is the protocol's.</div>
+                <div class="s"><b>Second Friday: payday</b>Pool is split pro-rata by shifts clocked among holders still employed. Paid in <b>$WDAY</b>.</div>
+              </div>
+              <hr class="dot">
+              <p class="small">Worked example, in units not dollars: if 10 holders each clock 10 shifts and one clocks 5, the pool splits 105 ways and the part-timer gets 5/105ths. Show up and the maths is on your side.</p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph">WHY $WDAY</div>
+            <div class="pb small" style="font-size:12px">
+              <p>Because Workday, Inc. is the company whose software runs the real version of this portal. Your actual timecard, your actual PTO request, your actual pay statement — there's a decent chance it's Workday.</p>
+              <p style="margin:0">So the payroll company pays the payroll. See the <a href="#" data-go="handbook">Handbook</a> for how that company came to exist.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HANDBOOK ===================== -->
+    <section class="view" id="v-handbook" role="tabpanel">
+      <div class="panel">
+        <div class="ph">EMPLOYEE HANDBOOK <span class="r">rev. 2026-09 · Section 4</span></div>
+        <div class="pb hb">
+          <img class="hero" src="assets/wagie-desk.png" alt="">
+          <h2 class="sec mt0">4.1 — Why we pay in $WDAY</h2>
+          <p>New hires ask why payroll is denominated in a Workday stock token rather than, say, money. The short answer is that Workday makes the software that runs employee self-service portals like this one. The long answer is the best corporate revenge story of the 2000s, and every employee should know it.</p>
+
+          <div class="clause"><div class="n">4.1.1</div><div>
+            <p>In <b>June 2003</b>, Oracle launched a hostile bid for <b>PeopleSoft</b>, the HR-software company Dave Duffield had co-founded in 1987. The opening offer was roughly <b>$13 billion</b>. Over the next eighteen months it went down to about $9.4B, down again to about $7.7B, and back up to $9.4B.<sup><a href="#src-2">[2]</a></sup></p>
+          </div></div>
+          <div class="clause"><div class="n">4.1.2</div><div>
+            <p>PeopleSoft fought back with a poison pill unlike most: a <b>customer assurance program</b> promising customers refunds of <b>two to five times</b> their licence fees if the company were acquired and support was cut. It did not stop the deal.<sup><a href="#src-2">[2]</a></sup></p>
+          </div></div>
+          <div class="clause"><div class="n">4.1.3</div><div>
+            <p>Oracle closed the acquisition in <b>December 2004</b> for about <b>$10.3 billion</b>. <b>A month later it laid off 6,000 of PeopleSoft's 11,000 employees.</b><sup><a href="#src-2">[2]</a></sup> That is more than half of a company that had been famous for how it treated its people.</p>
+          </div></div>
+          <div class="clause"><div class="n">4.1.4</div><div>
+            <p>In <b>March 2005</b> — three months after losing his company — Duffield and Aneel Bhusri founded <b>Workday</b>. The product launched in <b>November 2006</b>. In December 2008 the company moved its headquarters to <b>Pleasanton, California</b>: PeopleSoft's home town.<sup><a href="#src-1">[1]</a></sup></p>
+          </div></div>
+          <div class="clause"><div class="n">4.1.5</div><div>
+            <p>Workday IPO'd on <b>12 October 2012</b> at <b>$28</b> a share and closed its first day at <b>$48.69</b>, raising about <b>$637 million</b> and valuing the company near <b>$9.5 billion</b>.<sup><a href="#src-1">[1]</a></sup> Today its software is the timecard, the PTO request and the pay statement for a meaningful slice of the world's office workers. In fiscal 2025 it reported <b>$8.45 billion</b> in revenue and around <b>20,400</b> employees.<sup><a href="#src-1">[1]</a></sup></p>
+          </div></div>
+          <div class="clause"><div class="n">4.1.6</div><div>
+            <p>One more thing every wagie should know. Duffield's largest philanthropy is <b>Maddie's Fund</b>, an animal-welfare foundation named after his <b>miniature schnauzer, Maddie</b>, who died in <b>1997</b>.<sup><a href="#src-3">[3]</a></sup> In his words:</p>
+            <blockquote class="q">"Maddie was the lighthouse during the stormy period."</blockquote>
+            <p>The company that fired six thousand people made him a billionaire twice. The dog got the foundation.</p>
+          </div></div>
+
+          <h2 class="sec" style="margin-top:18px">4.2 — Attendance policy</h2>
+          <div class="clause"><div class="n">4.2.1</div><div><p>A workday is any Monday–Friday, measured in UTC. A holder may clock in once per workday by calling <code>clockIn()</code> from a wallet holding WAGIE.</p></div></div>
+          <div class="clause"><div class="n">4.2.2</div><div><p>Payday is every second Friday. The attendance pool — 100% of the creator fee share collected since the previous payday — is distributed pro-rata by shifts clocked to every holder still employed.</p></div></div>
+          <div class="clause"><div class="n">4.2.3</div><div><p>Three consecutive missed workdays constitute job abandonment. The contract terminates the holder's employment; their shifts for the period are forfeited to colleagues who clocked in. Terminated holders may reapply at any time and start again from zero.</p></div></div>
+          <div class="clause"><div class="n">4.2.4</div><div><p>There is no PTO. There is no sick leave. There is no manager to ask. There is a button.</p></div></div>
+
+          <div class="src">
+            <b>Sources</b><br>
+            <span id="src-1">[1]</span> Wikipedia — <a href="https://en.wikipedia.org/wiki/Workday,_Inc." target="_blank" rel="noopener">Workday, Inc.</a><br>
+            <span id="src-2">[2]</span> Wikipedia — <a href="https://en.wikipedia.org/wiki/PeopleSoft" target="_blank" rel="noopener">PeopleSoft</a> (Oracle acquisition)<br>
+            <span id="src-3">[3]</span> Maddie's Fund — <a href="https://www.maddiesfund.org/dave-duffield.htm" target="_blank" rel="noopener">Dave Duffield, Founder</a><br>
+            <span>[4]</span> Workday — <a href="https://www.workday.com/en-us/company/about-workday/leadership/dave-duffield.html" target="_blank" rel="noopener">Co-Founder and CEO Emeritus Dave Duffield</a><br>
+            WAGIE is not affiliated with, endorsed by, or connected to Workday, Inc., Oracle, or PeopleSoft. The facts above are public record; the jokes are ours.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BULLETIN ===================== -->
+    <section class="view" id="v-bulletin" role="tabpanel">
+      <div class="panel">
+        <div class="ph">BULLETIN BOARD <span class="r">break room, by the microwave</span></div>
+        <div class="pb" style="padding:10px">
+          <div class="cork">
+            <div class="row">
+              <div class="pin r1"><img src="memes/wagie-not-clocked-in.png" alt="Dialog: You have not clocked in today." loading="lazy"><div class="cap">it's 4:51. you know what you didn't do.</div></div>
+              <div class="pin r2 blue"><img src="memes/wagie-terminated.png" alt="HR memo stamped TERMINATED" loading="lazy"><div class="cap">three days. that's all it takes.</div></div>
+              <div class="pin r3 green"><img src="memes/wagie-badge.png" alt="Employee ID badge" loading="lazy"><div class="cap">status: employed (for now)</div></div>
+              <div class="pin r4 yellow"><img src="memes/wagie-perfect-attendance.png" alt="Perfect attendance plaque" loading="lazy"><div class="cap">fourteen days. they gave him a plaque. it was paid for from the pool.</div></div>
+            </div>
+            <div class="notes">
+              <div class="memo-note">Payday is the <b>second Friday</b>. It has always been the second Friday. Please stop asking the contract.</div>
+              <div class="memo-note w"><b>REMINDER FROM FACILITIES</b><br>The break-room microwave is shared. If you clock in, you clean up. If you don't clock in, you don't have a microwave.</div>
+              <div class="memo-note" style="transform:rotate(-1.8deg)">LOST: one (1) stapler, red. Last seen before the reorg. Reward: my undying gratitude and 0.0000 $WDAY.</div>
+            </div>
+          </div>
+          <p class="small center" style="margin:12px 0 0">Right-click, save, post. Captions are yours to keep.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COMPANY ===================== -->
+    <section class="view" id="v-company" role="tabpanel">
+      <div class="grid2">
+        <div>
+          <div class="panel">
+            <div class="ph">TOKEN INFORMATION</div>
+            <div class="pb">
+              <table class="t">
+                <tr><th style="width:170px">Name</th><td>WAGIE</td></tr>
+                <tr><th>Ticker</th><td>$WAGIE</td></tr>
+                <tr><th>Pair</th><td><b>$WDAY</b> — Workday, Inc. stock token on Robinhood Chain</td></tr>
+                <tr><th>Chain</th><td>Robinhood Chain (chain id 4663)</td></tr>
+                <tr><th>Launchpad</th><td>Pons v2 — bonding curve, graduates to a Uniswap v4 pool</td></tr>
+                <tr><th>Trade fee</th><td>1% per trade: 70% to the attendance pool (payroll), 30% to the protocol</td></tr>
+                <tr><th>Contract address</th><td id="ca-cell"><span class="zero">Not yet issued</span></td></tr>
+                <tr><th>Holders</th><td id="d-holders" class="zero">—</td></tr>
+                <tr><th>Liquidity</th><td id="d-liq" class="zero">—</td></tr>
+                <tr><th>Market cap</th><td id="d-mc" class="zero">—</td></tr>
+                <tr><th>Links</th><td id="links"></td></tr>
+              </table>
+              <p class="small" style="margin:10px 0 0">Fields marked — are read live from the chain after launch. Nothing on this page is estimated, projected or made up.</p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph">ABOUT WAGIE, INC.</div>
+            <div class="pb" style="font-size:12px">
+              <p>WAGIE, INC. is not a company. It has no offices, no revenue, no products and no employees, in the sense that would interest a regulator. It has a contract, a timecard, and a mascot who has been at his desk since March 2005 and has not been promoted once.</p>
+              <p>The contract collects the creator share of trading fees and pays it back out to holders on the same schedule as real payroll, in the stock token of the company whose software runs real payroll. That's the whole company. That's the whole joke. We think it's a good one.</p>
+              <p style="margin:0">Facilities note: the plant in the cubicle is plastic.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="ph">ORGANISATION CHART</div>
+            <div class="pb">
+              <div class="org">
+                <div class="box"><b>CHIEF EXECUTIVE</b><span class="zero">vacant</span></div>
+                <div class="v"></div>
+                <div class="box"><b>ATTENDANCE COMMITTEE</b>the contract</div>
+                <div class="v"></div><div class="h"></div>
+                <div class="lvl">
+                  <div class="col"><div class="v"></div><div class="box"><b>PAYROLL</b>second Fridays</div></div>
+                  <div class="col"><div class="v"></div><div class="box"><b>SEPARATIONS</b>third misses</div></div>
+                </div>
+                <div class="v"></div>
+                <div class="box" style="border-color:var(--blue-d);background:linear-gradient(#fff,#e6eef9)"><b>EMPLOYEES</b>you, if you clock in</div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph">STAFF DIRECTORY</div>
+            <div class="pb" style="padding:0">
+              <table class="t" style="font-size:11.5px">
+                <tr><th>#</th><th>Name</th><th>Dept.</th><th>Status</th></tr>
+                <tr><td>000001</td><td>WAGIE</td><td>Clocking In</td><td><span class="tag ok">EMPLOYED</span></td></tr>
+                <tr><td colspan="4" class="zero">Further entries populate from the chain after launch.</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HELP ===================== -->
+    <section class="view" id="v-help" role="tabpanel">
+      <div class="grid2">
+        <div>
+          <h2 class="sec">Frequently asked questions</h2>
+          <details class="faq" open><summary>What do I actually have to do?</summary><div class="a">Hold WAGIE. Once per workday (Mon–Fri, UTC), call <code>clockIn()</code> from the wallet that holds it. That is the entire job description. Every second Friday, the attendance pool is paid out to everyone who clocked in, pro-rata by shifts, in $WDAY.</div></details>
+          <details class="faq"><summary>What happens if I miss a day?</summary><div class="a">One miss resets your streak. Two misses is a warning you will not receive because there is no HR. <b>Three consecutive misses and the contract terminates you.</b> Your shifts for that period are forfeited to the colleagues who clocked in. You can reapply immediately and start again from zero.</div></details>
+          <details class="faq"><summary>Where does the money come from?</summary><div class="a">Trading fees, and only trading fees. Pons v2 charges 1% on every trade; 70% of that is the creator share, and 100% of the creator share is the attendance pool. There is no treasury, no team allocation and no "marketing wallet". If nobody trades, payday is 0.0000 $WDAY and the pay statement will say so.</div></details>
+          <details class="faq"><summary>Why is payday in $WDAY and not ETH or a stablecoin?</summary><div class="a">Because it's funnier, and because Workday, Inc. is the company whose software is the real version of this portal. Robinhood Chain lets a token pair against tokenized US stocks, so the payroll company pays the payroll. Read Handbook §4.1 for the origin story.</div></details>
+          <details class="faq"><summary>Is the timecard on this page real?</summary><div class="a">It runs in your browser only, so you can learn the rules before the on-chain clock opens. It enforces the same rules the contract will. Nothing you do here is written anywhere but your own browser.</div></details>
+          <details class="faq"><summary>Is there a contract address yet?</summary><div class="a" id="faq-ca">Not yet. When there is, it appears on the Company tab, in the pinned post on X, and nowhere else. Anything claiming to be WAGIE before that is not.</div></details>
+          <details class="faq"><summary>Can I get promoted?</summary><div class="a">No.</div></details>
+        </div>
+        <div>
+          <h2 class="sec">Disclosures</h2>
+          <div class="legal">
+            <p><b>WAGIE is a memecoin.</b> It is not employment, a security, an investment product, a payroll service or a promise of income. "Clock in", "payday", "employee", "terminated" and every other word on this site are jokes wearing lanyards.</p>
+            <p>There is no salary, no benefits, no employer and no guarantee that the attendance pool will ever contain anything. Payouts depend entirely on trading activity, which may be zero. Tokens can go to zero. Smart contracts can have bugs. Do not put in money you cannot afford to lose, and do not take financial advice from a cartoon in a headset.</p>
+            <p>WAGIE is not affiliated with, endorsed by or connected to Workday, Inc., Oracle Corporation, PeopleSoft, Robinhood Markets or Pons. $WDAY refers to a third-party stock token on Robinhood Chain; holding WAGIE gives you no rights in Workday, Inc.</p>
+            <p style="margin:0">Nothing on this site is financial, legal or tax advice. Consult a professional. Or a manager, if you can find one.</p>
+          </div>
+          <div class="panel" style="margin-top:14px">
+            <div class="ph">SUPPORT</div>
+            <div class="pb small" style="font-size:12px">
+              <p style="margin:0">Open a ticket by posting on X and tagging the account on the Company tab. Response time: when someone clocks in.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+
+  <div class="status">
+    <span>© WAGIE, INC. · Employee Self Service v2.0</span>
+    <span>Best viewed at 1024×768</span>
+    <span>Not employment. Not financial advice.</span>
+    <span id="st-right">Ready</span>
+  </div>
+</div><!-- /page -->
+
+<!-- ===================== MODALS ===================== -->
+<div class="ov" id="ov-term" aria-modal="true" role="dialog">
+  <div class="dlg memo">
+    <div class="bar">Human Resources — Notice of Separation<span class="x" data-close="ov-term">×</span></div>
+    <div class="body">
+      <div class="memo-paper">
+        <img src="assets/wagie-box.png" alt="">
+        <div class="ph"><div class="co">WAGIE, INC. · HUMAN RESOURCES</div><h3>MEMORANDUM</h3></div>
+        <div class="kv2"><div><span>TO:</span> WAGIE (#000001)</div><div><span>FROM:</span> Attendance Committee</div><div><span>RE:</span> Separation of employment</div></div>
+        <div class="bd">Our records indicate three (3) consecutive missed workdays. Under the terms of the contract, your position has been eliminated effective immediately. Your accrued shifts have been redistributed to colleagues who clocked in. Please surrender your badge at the front desk.<br><br>We wish you every success in your future endeavours.</div>
+        <div class="stamp">TERMINATED</div>
+      </div>
+    </div>
+    <div class="foot"><button class="btn def" id="b-reapply">REAPPLY</button><button class="btn" data-close="ov-term">Leave quietly</button></div>
+  </div>
 </div>
 
-<section id="how"><div class="wrap">
-  <h2>How it works</h2>
-  <p class="sub">Three rules. Same as any job, except this one pays in stock.</p>
-  <div class="grid3">
-    <div class="card"><div class="k">Pair</div><h3>WAGIE / $ADP</h3><p>One pool on Robinhood Chain: WAGIE against tokenized Automatic Data Processing stock. Buy WAGIE with $ADP, sell it back for $ADP.</p></div>
-    <div class="card"><div class="k">Attendance</div><h3>Clock in daily</h3><p>One tiny transaction a day to the punch-clock contract. That's your timesheet. No clock-in, no pay for that day.</p></div>
-    <div class="card"><div class="k">Payday</div><h3>Every other Friday</h3><p>The fee pool is swapped to $ADP and paid out to everyone with attendance, pro-rata by days worked and bag size. Direct deposit, on-chain.</p></div>
-  </div>
-</div></section>
-
-<section id="payroll"><div class="wrap">
-  <h2>How payroll works</h2>
-  <p class="sub">Your first job where the HR department is a smart contract.</p>
-  <div class="steps">
-    <div class="card"><div class="k">Step 1 · The stock token</div><h3>$ADP exists on-chain</h3><p>Robinhood issues tokenized US stocks on Robinhood Chain. The $ADP token tracks the share price of Automatic Data Processing. It is not a share certificate and carries no voting rights.</p></div>
-    <div class="card"><div class="k">Step 2 · The timesheet</div><h3>clockIn() once per day</h3><p>The WagieClock contract records the day you clocked in and counts your attendance for the pay period. It cannot be faked — the timestamp is the chain's.</p></div>
-    <div class="card"><div class="k">Step 3 · Strikes</div><h3>Three misses, you're fired</h3><p>Miss a day: written warning. Miss three in one pay period: terminated — no payout that period, attendance resets. Clock in the next day and you're rehired at the bottom.</p></div>
-    <div class="card"><div class="k">Step 4 · Payday</div><h3>Fees → $ADP → you</h3><p>Every trade on the pair pays a fee. On payday the pool is bought as $ADP and split among wallets with attendance: your share = your WAGIE balance × your days worked, over the total.</p></div>
-  </div>
-  <p class="note">Plain-English version, not a prospectus. Tokenized stocks are not the same as owning shares, prices can go to zero, and WAGIE is a memecoin. Payroll is only as big as the fees the pair generates; some Fridays it will be small.</p>
-</div></section>
-
-<section id="clock"><div class="wrap">
-  <h2>Punch clock</h2>
-  <p class="sub">The on-chain clock opens at launch. Until then this is a practice clock — it lives in your browser only and counts for nothing.</p>
-  <div class="clock">
-    <div class="punch">
-      <div><div class="lbl">Next payday</div><div class="big" id="payday">—</div><div class="lbl" id="paydayin"></div></div>
-      <button class="btn" id="punch" type="button">CLOCK IN (practice)</button>
-      <div class="row"><span>practice days this period</span><span id="pdays">0</span></div>
-      <div class="row"><span>practice streak</span><span id="pstreak">0</span></div>
-      <div class="row"><span>on-chain attendance</span><span>not open yet</span></div>
-      <span class="tag" id="pstatus">not clocked in today</span>
+<div class="ov" id="ov-pay" aria-modal="true" role="dialog">
+  <div class="dlg plaque">
+    <div class="bar">Payroll — Second Friday<span class="x" data-close="ov-pay">×</span></div>
+    <div class="body">
+      <div class="plate">
+        <div class="t1">PAYDAY</div>
+        <div class="t2" id="pay-title">ATTENDANCE POOL DISTRIBUTION</div>
+        <div class="hr"></div>
+        <img src="assets/wagie-photo.png" alt="">
+        <div class="amt" id="pay-amt">0.0000 $WDAY</div>
+        <div class="ft" id="pay-ft"></div>
+      </div>
     </div>
-    <div class="stub" id="stub">
-      <div class="stamp" id="stamp">PRACTICE</div>
-      <h3>WAGIE PAYROLL</h3>
-      <div class="co">Employer: WAGIE / $ADP fee pool · Robinhood Chain</div>
-      <table>
-        <tr><td>Employee</td><td><input id="emp" placeholder="0x… your wallet (optional)" maxlength="48"></td></tr>
-        <tr><td>Employee #</td><td id="empno">—</td></tr>
-        <tr><td>Pay period</td><td id="period">—</td></tr>
-        <tr><td>Pay date</td><td id="paydate">—</td></tr>
-        <tr><td>Days worked</td><td id="dw">0</td></tr>
-        <tr><td>Warnings on file</td><td id="warn">0</td></tr>
-        <tr><td>Gross pay ($ADP)</td><td id="gross">—</td></tr>
-        <tr><td>Deductions</td><td>0.00</td></tr>
-        <tr class="total"><td>NET PAY ($ADP)</td><td id="net">—</td></tr>
-        <tr><td>YTD ($ADP)</td><td id="ytd">—</td></tr>
-      </table>
-      <div class="foot">Amounts fill in from the payday contract after launch. Nothing on this stub is an estimate. Screenshot it anyway.</div>
-    </div>
+    <div class="foot"><button class="btn def" data-close="ov-pay">ACKNOWLEDGE</button></div>
   </div>
-  <div class="hr" style="margin-top:18px">
-    <div class="card"><b class="zero" id="h1">—</b><small>clocked in today</small></div>
-    <div class="card"><b class="zero" id="h2">—</b><small>on payroll</small></div>
-    <div class="card"><b class="zero" id="h3">—</b><small>fired this period</small></div>
-    <div class="card"><b class="zero" id="h4">—</b><small>$ADP paid to date</small></div>
+</div>
+
+<div class="toast" id="toast">
+  <div class="dlg">
+    <div class="bar" id="toast-bar">Wagie Clock</div>
+    <div class="body"><div class="ico ok" id="toast-ico">✓</div><div class="msg" id="toast-msg"></div></div>
   </div>
-</div></section>
+</div>
 
-<section id="lore"><div class="wrap">
-  <h2>Insane ADP lore</h2>
-  <p class="sub">The company that pays America, in order. Every line links to its source.</p>
-  <div class="tl">
-    <div class="ev"><div class="d">1949</div><h3>Started above a luncheonette</h3><p>Henry Taub and his brother Joe founded "Automatic Payrolls, Inc." in Paterson, New Jersey, doing payroll by hand from an office above a lunch counter. <a href="https://en.wikipedia.org/wiki/ADP_(company)" target="_blank" rel="noopener">source</a></p></div>
-    <div class="ev"><div class="d">1954</div><h3>A future US senator was a partner</h3><p>Frank Lautenberg joined early and was a full partner by 1954. He went on to serve five terms in the United States Senate. <a href="https://en.wikipedia.org/wiki/ADP_(company)" target="_blank" rel="noopener">source</a></p></div>
-    <div class="ev"><div class="d">1957 – 1961</div><h3>Punch cards, then Wall Street</h3><p>In 1957 the calculators were replaced by a punched-card system. The company renamed itself Automatic Data Processing in 1958 and went public in 1961 with 300 clients, 125 employees and about $400,000 in revenue. <a href="https://en.wikipedia.org/wiki/ADP_(company)" target="_blank" rel="noopener">source</a></p></div>
-    <div class="ev"><div class="d">1985 →</div><h3>One in five paychecks</h3><p>From the mid-eighties on, ADP has processed the paychecks of roughly 20% of the US workforce. Today it's about 67,000 employees and $20.6B in revenue. <a href="https://en.wikipedia.org/wiki/ADP_(company)" target="_blank" rel="noopener">source</a></p></div>
-    <div class="ev"><div class="d">Every month</div><h3>The jobs number the market front-runs</h3><p>The ADP National Employment Report, built from 26 million+ workers' data, comes out two days before the government's jobs report — and in 2025 ADP stopped sharing its employment data with the Federal Reserve. <a href="https://en.wikipedia.org/wiki/ADP_(company)" target="_blank" rel="noopener">source</a></p></div>
-    <div class="ev"><div class="d">NOW</div><h3>There's a WAGIE on Robinhood Chain</h3><p>Paired to $ADP. Clock in, get paid every other Friday in the stock. That's the whole job.</p></div>
-  </div>
-</div></section>
-
-<section id="memes"><div class="wrap">
-  <h2>Memes</h2>
-  <p class="sub">Original WAGIE art, free to post. Save them, crop them, add your own captions.</p>
-  <div class="gal">
-    <a class="meme" href="memes/monday.png" target="_blank" rel="noopener"><img src="memes/monday.png" alt="WAGIE at his desk at 8:59, clocking in"><span>8:59. Clocked in.</span></a>
-    <a class="meme" href="memes/payday.png" target="_blank" rel="noopener"><img src="memes/payday.png" alt="WAGIE holding a pay stub that says $ADP"><span>Every other Friday.</span></a>
-    <a class="meme" href="memes/fired.png" target="_blank" rel="noopener"><img src="memes/fired.png" alt="WAGIE carrying a box out of the office"><span>Three strikes.</span></a>
-  </div>
-</div></section>
-
-<section id="token"><div class="wrap">
-  <h2>Token</h2>
-  <p class="sub">Contract, pool and chart appear here the moment WAGIE deploys. Until then the fields stay empty — no placeholder numbers, ever.</p>
-  <div class="tok">
-    <div class="card">
-      <div class="row2"><b>Name</b><span>WAGIE</span></div>
-      <div class="row2"><b>Chain</b><span>Robinhood Chain</span></div>
-      <div class="row2"><b>Pair</b><span>WAGIE / $ADP</span></div>
-      <div class="row2"><b>Payday</b><span>every 2nd Friday, in $ADP</span></div>
-      <div class="row2"><b>Contract</b><span id="ca-short" class="zero">not deployed yet</span></div>
-      <div class="row2"><b>Punch clock</b><span id="clock-short" class="zero">not deployed yet</span></div>
-      <div class="row2"><b>Pool</b><span id="pool-short" class="zero">opens at launch</span></div>
-    </div>
-    <div class="card">
-      <h3 style="margin:0 0 6px">Contract address</h3>
-      <div class="ca" id="ca" title="Click to copy">— will appear here at launch —</div>
-      <div class="btns" style="margin-top:18px"><a id="pool" class="btn off" href="#">Pool</a><a id="chart" class="btn ghost off" href="#">Chart</a></div>
-    </div>
-  </div>
-</div></section>
-
-<section id="faq"><div class="wrap">
-  <h2>FAQ</h2>
-  <p class="sub">Short answers. HR is not available for further questions.</p>
-  <details open><summary>What does "paired to $ADP" mean?</summary><p>The liquidity pool is WAGIE against tokenized Automatic Data Processing stock on Robinhood Chain. Fees on the pair are paid out in $ADP, not in WAGIE.</p></details>
-  <details><summary>Do I really have to clock in every day?</summary><p>Yes. One transaction to the punch-clock contract per day. The contract records the day; the payday script only pays wallets with attendance in that period. Weekends count — this job has no weekends.</p></details>
-  <details><summary>What happens if I get fired?</summary><p>Three missed days in one pay period means no payout for that period and your attendance resets. Clock in the next day and you're rehired. Nobody takes your WAGIE — they just stop paying you.</p></details>
-  <details><summary>Is this affiliated with ADP?</summary><p>No. WAGIE is a community memecoin. Automatic Data Processing did not make it, endorse it, or hear about it. The lore above is public record.</p></details>
-  <details><summary>Where is the contract?</summary><p>There isn't one yet. The token, the punch clock and the pool appear in the Token section the moment they deploy, and are posted as the first reply to the launch tweet.</p></details>
-  <details><summary>Is this financial advice?</summary><p>No. It's a job that pays in a memecoin's fees. Only spend what you can afford to lose, and clock out on time.</p></details>
-</div></section>
-
-<div class="end"><div class="big">WAGIE</div><div class="q">Clock in. Clock out. Get paid in $ADP.</div></div>
-</main>
+<audio id="music" loop preload="none" src="assets/hold-music.mp3"></audio>
 
 <script>
+/* ============================================================
+   ── FILL IN AT LAUNCH ──
+   Leave a field empty and the site shows an honest zero state.
+   ============================================================ */
 const CONFIG = {
-  x: "",       // https://x.com/…
-  pool: "",    // pool url
-  chart: "",   // chart url
-  ca: "",      // token contract address
-  clock: "",   // WagieClock contract address
-  anchor: "2026-09-25" // first payday (a Friday); every 14 days after
+  name: 'WAGIE',
+  pair: '$WDAY',
+  chain: 'Robinhood Chain (4663)',
+  ca: '',            // contract address, e.g. '0x…'
+  x: '',             // https://x.com/…
+  pool: '',          // pool / trade URL
+  chart: '',         // chart URL
+  launchpad: 'https://ponsvault.com/launch',
 };
-const DATA = {}; // no live numbers pre-launch
+// Live figures are only ever set from real on-chain data. Empty = "—".
+const DATA = { holders: null, liquidity: null, marketCap: null, supply: null, distributions: [] };
 
-(function(){
-  const $=id=>document.getElementById(id);
-  if(CONFIG.x){$('xlink').href=CONFIG.x}
-  if(CONFIG.pool){$('pool').href=CONFIG.pool;$('pool').classList.remove('off');$('buy').href=CONFIG.pool;$('buy').classList.remove('off');$('navbuy').href=CONFIG.pool;$('navbuy').classList.remove('off');$('pool-short').textContent='open';$('pool-short').classList.remove('zero')}
-  if(CONFIG.chart){$('chart').href=CONFIG.chart;$('chart').classList.remove('off')}
-  if(CONFIG.ca){$('ca').textContent=CONFIG.ca;$('ca').classList.add('live');$('ca-short').textContent=CONFIG.ca.slice(0,6)+'…'+CONFIG.ca.slice(-4);$('ca-short').classList.remove('zero');
-    $('ca').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(CONFIG.ca);$('ca').textContent='copied';setTimeout(()=>$('ca').textContent=CONFIG.ca,900)}}
-  if(CONFIG.clock){$('clock-short').textContent=CONFIG.clock.slice(0,6)+'…'+CONFIG.clock.slice(-4);$('clock-short').classList.remove('zero')}
+/* ============================================================
+   LOGIN LOADER (3s)
+   ============================================================ */
+(function login(){
+  const prog = document.getElementById('lprog'), st = document.getElementById('lst');
+  const N = 26; for (let i=0;i<N;i++){ prog.appendChild(document.createElement('i')); }
+  const steps = ['Contacting domain controller…','Authenticating CORP\\wagie…','Loading attendance profile…','Retrieving timecard…','Applying group policy…','Welcome.'];
+  const T = 3000, t0 = performance.now();
+  function tick(){
+    const p = Math.min(1,(performance.now()-t0)/T);
+    const lit = Math.floor(p*N);
+    prog.querySelectorAll('i').forEach((el,i)=>el.classList.toggle('on', i<lit));
+    st.textContent = steps[Math.min(steps.length-1, Math.floor(p*steps.length))];
+    if (p<1) requestAnimationFrame(tick);
+    else { document.getElementById('login').classList.add('out'); setTimeout(()=>document.getElementById('login').remove(), 600); }
+  }
+  requestAnimationFrame(tick);
 })();
 
-// Music
-const music=(()=>{
-  const a=document.getElementById('bgm'),b=document.getElementById('music');a.volume=0.5;
-  let want=true;try{want=localStorage.getItem('wagie-music')!=='off'}catch(e){}
-  const paint=()=>{const on=!a.paused;b.textContent='♪ Music: '+(on?'on':'off');b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)};
-  const play=()=>a.play().then(paint).catch(()=>{});
-  const gesture=()=>{if(want&&a.paused)play();removeEventListener('pointerdown',gesture);removeEventListener('keydown',gesture)};
-  addEventListener('pointerdown',gesture);addEventListener('keydown',gesture);
-  b.onclick=e=>{e.preventDefault();e.stopPropagation();if(a.paused){want=true;play()}else{want=false;a.pause();paint()}try{localStorage.setItem('wagie-music',want?'on':'off')}catch(e){}};
-  a.addEventListener('play',paint);a.addEventListener('pause',paint);paint();
-  return {tryStart:()=>{if(want)play()}};
-})();
-
-// Payday math: every 14 days from the anchor Friday, 16:00 ET (approximated as 20:00 UTC)
-function nextPayday(){const a=new Date(CONFIG.anchor+'T20:00:00Z');const now=Date.now();let t=a.getTime();const P=14*864e5;while(t<=now)t+=P;return new Date(t)}
-function periodOf(d){const end=d,start=new Date(d.getTime()-14*864e5+864e5);const f=x=>x.toISOString().slice(0,10);return f(start)+' → '+f(end)}
-function fmt(d){return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
-
-// Practice punch clock (browser only)
-const today=new Date().toISOString().slice(0,10);
-let st={days:[],streak:0,last:'',period:''};
-try{const s=JSON.parse(localStorage.getItem('wagie-practice')||'null');if(s)st=s}catch(e){}
-const pd=nextPayday(),pkey=pd.toISOString().slice(0,10);
-if(st.period!==pkey){st.period=pkey;st.days=[]} // new pay period
-function save(){try{localStorage.setItem('wagie-practice',JSON.stringify(st))}catch(e){}}
-function render(){
-  const $=id=>document.getElementById(id);
-  $('payday').textContent=fmt(pd);
-  const ms=pd-Date.now(),dd=Math.floor(ms/864e5),hh=Math.floor(ms%864e5/36e5);$('paydayin').textContent='in '+dd+'d '+hh+'h';
-  const done=st.days.includes(today);
-  $('pdays').textContent=st.days.length;$('pstreak').textContent=st.streak;
-  $('pstatus').textContent=done?'clocked in today (practice)':'not clocked in today';
-  $('punch').textContent=done?'CLOCKED IN ✓':'CLOCK IN (practice)';$('punch').disabled=done;
-  // stub
-  $('period').textContent=periodOf(pd);$('paydate').textContent=fmt(pd);$('dw').textContent=st.days.length;
-  const missed=Math.max(0,Math.min(13,Math.floor((Date.now()-(pd.getTime()-13*864e5))/864e5))-st.days.length);
-  $('warn').textContent=Math.min(3,Math.max(0,missed));
-  const emp=$('emp').value.trim();$('empno').textContent=emp?('#'+(parseInt(emp.slice(-4),16)||0).toString().padStart(4,'0')):'—';
+/* ============================================================
+   TABS
+   ============================================================ */
+const tabs = [...document.querySelectorAll('.tab')];
+function go(v){
+  tabs.forEach(t=>t.setAttribute('aria-selected', t.dataset.v===v ? 'true':'false'));
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
+  try{ history.replaceState(null,'','#'+v); }catch(e){}
+  document.getElementById('st-right').textContent = 'Viewing: ' + v.toUpperCase();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-document.getElementById('punch').onclick=()=>{if(st.days.includes(today))return;
-  const y=new Date(Date.now()-864e5).toISOString().slice(0,10);st.streak=(st.last===y)?st.streak+1:1;st.last=today;st.days.push(today);save();render()};
-document.getElementById('emp').addEventListener('input',render);
-render();setInterval(render,60000);
+tabs.forEach(t=>t.addEventListener('click',()=>go(t.dataset.v)));
+document.addEventListener('click',e=>{ const a=e.target.closest('[data-go]'); if(a){ e.preventDefault(); go(a.dataset.go); } });
+if (location.hash && document.getElementById('v-'+location.hash.slice(1))) go(location.hash.slice(1));
 
-// Background: fluorescent office — receding cubicle grid + drifting ceiling-light bars + cursor glow
-const cv=document.getElementById('bg'),cx=cv.getContext('2d');let W,H,t=0,mx=-1e4,my=-1e4,tx=-1e4,ty=-1e4;
-function size(){W=cv.width=innerWidth;H=cv.height=innerHeight}addEventListener('resize',size);size();
-addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY},{passive:true});
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-(function frame(){
-  t+=reduce?0:0.004;mx+=(tx-mx)*0.08;my+=(ty-my)*0.08;
-  cx.fillStyle='#000';cx.fillRect(0,0,W,H);
-  // ceiling light bars, slowly drifting, flickering
-  for(let i=0;i<5;i++){const y=(H*0.08+i*H*0.09)+Math.sin(t+i)*6,x=(W*0.15+i*W*0.17+t*40)%(W+400)-200;const fl=0.5+0.5*Math.abs(Math.sin(t*23+i*7));
-    const g=cx.createRadialGradient(x,y,2,x,y,260);g.addColorStop(0,`rgba(255,255,255,${0.10*fl})`);g.addColorStop(1,'rgba(255,255,255,0)');cx.fillStyle=g;cx.fillRect(x-260,y-260,520,520);
-    cx.fillStyle=`rgba(255,255,255,${0.35*fl})`;cx.fillRect(x-90,y-2,180,4);}
-  // cubicle grid in perspective
-  const hz=H*0.42;cx.strokeStyle='rgba(242,242,242,.08)';cx.lineWidth=1;
-  for(let i=-10;i<=10;i++){cx.beginPath();cx.moveTo(W/2+i*W*0.08,hz);cx.lineTo(W/2+i*W*0.5,H);cx.stroke();}
-  for(let k=1;k<12;k++){const y=hz+(H-hz)*Math.pow(k/12,2.2);cx.beginPath();cx.moveTo(0,y);cx.lineTo(W,y);cx.stroke();}
-  // halftone dots lit by cursor
-  const r=Math.min(W,H)*0.3;cx.fillStyle='rgba(242,242,242,.5)';
-  for(let y=Math.max(0,my-r);y<Math.min(H,my+r);y+=14){for(let x=Math.max(0,mx-r);x<Math.min(W,mx+r);x+=14){const d=Math.hypot(x-mx,y-my)/r;if(d<1){cx.globalAlpha=(1-d)*(1-d)*0.7;cx.beginPath();cx.arc(x,y,2.5*(1-d)+0.5,0,Math.PI*2);cx.fill();}}}
-  cx.globalAlpha=1;
-  cx.fillStyle='rgba(0,0,0,.18)';for(let y=(t*40)%4;y<H;y+=4)cx.fillRect(0,y,W,1);
-  const vg=cx.createRadialGradient(W/2,H/2,Math.min(W,H)*0.35,W/2,H/2,Math.max(W,H)*0.8);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.75)');cx.fillStyle=vg;cx.fillRect(0,0,W,H);
-  if(!reduce)requestAnimationFrame(frame);
+/* ============================================================
+   HOLD MUSIC
+   ============================================================ */
+const music = document.getElementById('music'), snd = document.getElementById('snd');
+snd.addEventListener('click', async ()=>{
+  const on = snd.getAttribute('aria-pressed')==='true';
+  if (on){ music.pause(); snd.setAttribute('aria-pressed','false'); }
+  else { try{ music.volume=.55; await music.play(); snd.setAttribute('aria-pressed','true'); }catch(e){} }
+});
+
+/* ============================================================
+   TIMECARD — practice mode (browser only)
+   Rules mirror the contract: 1 clock-in per workday, payday at
+   every second Friday (index % 10 === 9), 3 consecutive misses
+   = terminated, reapply from zero.
+   ============================================================ */
+const DAYS = ['MON','TUE','WED','THU','FRI'], WD = 20;
+const KEY = 'wagie.timecard.v1';
+const fresh = ()=>({ cur:0, cycle:1, shifts:Array(WD).fill(null), employed:true, streak:0, best:0, missed:0, per:0, paydays:0, terms:0 });
+let S = fresh();
+try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.shifts) && s.shifts.length===WD) S = Object.assign(fresh(), s); }catch(e){}
+const save = ()=>{ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
+const isPayday = i => i % 10 === 9;
+const label = i => 'WK'+(Math.floor(i/5)+1)+' '+DAYS[i%5];
+
+const $ = id => document.getElementById(id);
+const tc = $('tc');
+
+function renderGrid(){
+  let h = '<thead><tr><th class="wk"></th>' + DAYS.map(d=>'<th>'+d+'</th>').join('') + '</tr></thead><tbody>';
+  for (let w=0; w<4; w++){
+    h += '<tr><th class="wk">WK '+(w+1)+'</th>';
+    for (let d=0; d<5; d++){
+      const i = w*5+d, s = S.shifts[i];
+      let cls = s==='in' ? 'in' : s==='missed' ? 'missed' : 'future';
+      if (i===S.cur && S.cur<WD) cls += ' today';
+      if (isPayday(i)) cls += ' payday';
+      let mark = s==='in' ? '<span class="stamp">IN</span>' : s==='missed' ? '<span class="mark">MISSED</span>' : (i===S.cur ? '<span class="mark" style="color:#8a6c00">TODAY</span>' : '<span class="mark">—</span>');
+      h += '<td class="'+cls+'"><span class="lbl">'+DAYS[d]+' '+(w*5+d+1)+'</span>'+(isPayday(i)?'<span class="pd">$ PAYDAY</span>':'')+mark+'</td>';
+    }
+    h += '</tr>';
+  }
+  tc.innerHTML = h + '</tbody>';
+}
+
+function renderStatus(){
+  const done = S.cur>=WD;
+  $('w-day').textContent = done ? 'CYCLE END' : label(S.cur);
+  $('cyc').textContent = S.cycle;
+  $('w-status').innerHTML = S.employed ? '<span class="tag ok">EMPLOYED</span>' : '<span class="tag bad">TERMINATED</span>';
+  $('s-emp').innerHTML = S.employed ? '<span class="tag ok">EMPLOYED</span>' : '<span class="tag bad">TERMINATED</span>';
+  $('s-streak').textContent = S.streak + (S.streak===1?' day':' days');
+  $('s-best').textContent = S.best + (S.best===1?' day':' days');
+  $('s-miss').textContent = Math.min(3,S.missed) + ' of 3';
+  [...$('meter').children].forEach((el,i)=>el.classList.toggle('x', i<S.missed));
+  $('s-per').textContent = S.per + ' of 10';
+  const nextPd = done ? null : (S.cur<=9 ? 9 : 19);
+  $('s-pd').textContent = done ? '—' : (nextPd===S.cur ? 'TODAY' : 'in '+(nextPd-S.cur)+' workday'+(nextPd-S.cur===1?'':'s'));
+  $('s-pdc').textContent = S.paydays;
+  $('s-term').textContent = S.terms;
+  $('ps-shifts').textContent = S.per + (S.per===1?' shift':' shifts') + ' (practice)';
+  $('ps-period').textContent = 'Cycle '+S.cycle+', '+(S.cur<=9?'weeks 1–2':'weeks 3–4');
+  $('b-in').disabled = done || !S.employed || S.shifts[S.cur]!==null;
+  $('b-in').textContent = !S.employed ? 'CLOCK IN (TERMINATED)' : (S.shifts[S.cur]==='in' ? 'CLOCKED IN ✓' : 'CLOCK IN');
+  $('b-next').textContent = done ? 'START NEW CYCLE ▸' : 'NEXT WORKDAY ▸';
+}
+function render(){ renderGrid(); renderStatus(); save(); }
+
+/* tiny punch-clock sound (WebAudio, no file) */
+let actx=null;
+function punch(){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const t = actx.currentTime;
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type='square'; o.frequency.setValueAtTime(180,t); o.frequency.exponentialRampToValueAtTime(60,t+.08);
+    g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.25,t+.005); g.gain.exponentialRampToValueAtTime(.0001,t+.12);
+    o.connect(g).connect(actx.destination); o.start(t); o.stop(t+.13);
+    const n = actx.createBufferSource(), b = actx.createBuffer(1, actx.sampleRate*.05, actx.sampleRate), d = b.getChannelData(0);
+    for (let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
+    const g2 = actx.createGain(); g2.gain.value=.18; n.buffer=b; n.connect(g2).connect(actx.destination); n.start(t+.01);
+  }catch(e){}
+}
+
+let toastT=null;
+function toast(msg, kind='ok', bar='Wagie Clock'){
+  const el=$('toast'); $('toast-msg').innerHTML=msg; $('toast-bar').textContent=bar;
+  const ico=$('toast-ico'); ico.className='ico '+kind; ico.textContent = kind==='ok'?'✓':kind==='bad'?'!':'i';
+  el.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('on'), 2600);
+}
+function open(id){ $(id).classList.add('on'); }
+function close(id){ $(id).classList.remove('on'); }
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>close(b.dataset.close)));
+
+function clockIn(){
+  if (S.cur>=WD || !S.employed || S.shifts[S.cur]!==null) return;
+  S.shifts[S.cur]='in'; S.streak++; S.best=Math.max(S.best,S.streak); S.missed=0; S.per++;
+  punch(); render();
+  toast('<b>Shift recorded.</b> '+label(S.cur)+' · 09:00 UTC. Streak: '+S.streak+'.');
+}
+
+function nextDay(){
+  if (S.cur>=WD){ // new cycle
+    S.cur=0; S.cycle++; S.shifts=Array(WD).fill(null); S.per=0; S.missed = S.employed ? 0 : S.missed;
+    render(); toast('<b>New pay cycle started.</b> Cycle '+S.cycle+', WK1 MON.', 'info', 'Payroll'); return;
+  }
+  const i=S.cur;
+  if (S.shifts[i]===null){
+    S.shifts[i]='missed'; S.streak=0;
+    if (S.employed){
+      S.missed++;
+      if (S.missed>=3){ S.employed=false; S.terms++; S.per=0; }
+    }
+  }
+  const payday = isPayday(i);
+  const wasEmployed = S.employed;
+  const perShifts = S.per;
+  S.cur++;
+  if (payday){ S.paydays++; S.per=0; }
+  render();
+  if (!S.employed && S.missed>=3 && S.shifts[i]==='missed' && S.terms>0 && justTerminated(i)){ open('ov-term'); return; }
+  if (payday) showPayday(perShifts, wasEmployed);
+  else if (S.shifts[i]==='missed' && S.employed) toast('<b>Missed workday.</b> '+label(i)+'. Consecutive misses: '+S.missed+' of 3.', 'bad', 'Attendance');
+}
+function justTerminated(i){ // terminated on this exact advance?
+  return !S.employed && S.shifts[i]==='missed' && (i<2 || (S.shifts[i-1]==='missed' && S.shifts[i-2]==='missed')) && S.missed===3;
+}
+function showPayday(shifts, employed){
+  $('pay-title').textContent = employed ? 'ATTENDANCE POOL DISTRIBUTION' : 'NOT ON PAYROLL';
+  $('pay-amt').textContent = '0.0000 '+CONFIG.pair;
+  $('pay-ft').innerHTML = employed
+    ? 'Shifts credited: <b>'+shifts+' of 10</b>.<br>Fees collected this period: <b>0.0000 '+CONFIG.pair+'</b> — the pool is empty until launch.<br>Your share: <b>0.0000 '+CONFIG.pair+'</b>. Exactly as advertised.'
+    : 'You were not employed this period.<br>Your share went to the colleagues who clocked in.<br>You may reapply at any time.';
+  open('ov-pay');
+}
+function reapply(){ S.employed=true; S.missed=0; S.streak=0; close('ov-term'); render(); toast('<b>Application accepted.</b> Welcome back. Streak: 0. Try to make it to Friday.', 'info', 'Human Resources'); }
+function reset(){ S=fresh(); render(); toast('<b>Timecard reset.</b> New employee, same desk.', 'info', 'Payroll'); }
+
+$('b-in').addEventListener('click', clockIn);
+$('b-next').addEventListener('click', nextDay);
+$('b-reset').addEventListener('click', reset);
+$('b-reapply').addEventListener('click', reapply);
+document.addEventListener('keydown', e=>{
+  if (e.target.closest('input,textarea')) return;
+  if (e.key==='Escape') document.querySelectorAll('.ov.on').forEach(o=>o.classList.remove('on'));
+  if (e.key===' ' || e.key==='Enter'){ if (document.activeElement===document.body){ e.preventDefault(); clockIn(); } }
+  if (e.key==='ArrowRight' || e.key==='n'){ if (document.activeElement===document.body) nextDay(); }
+});
+render();
+
+/* ============================================================
+   CONFIG / DATA → zero states
+   ============================================================ */
+(function fill(){
+  const fmt = v => v==null ? '<span class="zero">—</span>' : v;
+  $('d-holders').innerHTML = fmt(DATA.holders); $('d-liq').innerHTML = fmt(DATA.liquidity); $('d-mc').innerHTML = fmt(DATA.marketCap);
+  if (CONFIG.ca){
+    $('ca-cell').innerHTML = '<span class="ca">'+CONFIG.ca+'</span><button class="copy" id="copyca">copy</button>';
+    $('copyca').addEventListener('click', ()=>{ try{ navigator.clipboard.writeText(CONFIG.ca); toast('Contract address copied.', 'info', 'Company'); }catch(e){} });
+    $('launch-status').textContent = 'contract live';
+    $('faq-ca').innerHTML = 'Yes: <span class="ca">'+CONFIG.ca+'</span>. It is also in the pinned post on X. Anything else claiming to be WAGIE is not.';
+  }
+  const L = [];
+  L.push(CONFIG.x ? '<a href="'+CONFIG.x+'" target="_blank" rel="noopener">X / Twitter</a>' : '<span class="zero">X — handle not yet assigned</span>');
+  L.push(CONFIG.pool ? '<a href="'+CONFIG.pool+'" target="_blank" rel="noopener">Trade</a>' : '<span class="zero">Trade — opens at launch</span>');
+  L.push(CONFIG.chart ? '<a href="'+CONFIG.chart+'" target="_blank" rel="noopener">Chart</a>' : '<span class="zero">Chart — opens at launch</span>');
+  L.push('<a href="'+CONFIG.launchpad+'" target="_blank" rel="noopener">Pons v2</a>');
+  $('links').innerHTML = L.join(' &nbsp;·&nbsp; ');
+  if (DATA.distributions.length){
+    const z = $('dist-zero'); z.remove();
+    const tb = document.querySelector('#v-pay .t tbody') || document.querySelector('#v-pay .panel .t');
+    DATA.distributions.forEach(d=>{ const tr=document.createElement('tr'); tr.innerHTML='<td>'+d.date+'</td><td class="num">'+d.fees+'</td><td class="num">'+d.holders+'</td><td class="num">'+d.shifts+'</td><td class="num">'+d.paid+'</td>'; tb.appendChild(tr); });
+  }
 })();
-
-Promise.all([document.fonts.ready,new Promise(r=>setTimeout(r,3000))]).then(()=>{document.getElementById('loader').classList.add('done');document.body.dataset.ready='1';music.tryStart()});
 </script>
 </body>
 </html>
