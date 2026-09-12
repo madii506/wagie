@@ -32,11 +32,7 @@
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0;color:var(--ink);font:12px/1.5 Tahoma,Verdana,'DejaVu Sans',Geneva,sans-serif;
-  background-color:var(--carpet);
-  background-image:
-    repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),
-    repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 4px),
-    radial-gradient(ellipse at 50% 0%,#75857200,#3f4b3d 140%);
+  background:linear-gradient(180deg,#7d8c9b 0%,#66788a 55%,#56687a 100%) fixed;
   min-height:100vh;
 }
 a{color:var(--blue)}
@@ -50,7 +46,8 @@ img{max-width:100%}
 .tbar{height:30px;display:flex;align-items:center;padding:0 8px 0 10px;color:#fff;font-weight:bold;font-size:12px;
   background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);text-shadow:1px 1px 0 rgba(0,0,0,.55);
   letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tbar .dots{margin-left:auto;display:flex;gap:3px;flex:0 0 auto}
+.tbar .clk{margin-left:auto;font-weight:normal;font-size:11px;opacity:.95;font-variant-numeric:tabular-nums;padding-right:10px;letter-spacing:.5px}
+.tbar .dots{display:flex;gap:3px;flex:0 0 auto}
 .tbar .dots i{width:20px;height:18px;background:linear-gradient(#e8eef8,#a8bdda);border:1px solid #3c4a60;display:block;
   font-style:normal;color:#16233a;font-size:11px;font-weight:bold;text-align:center;line-height:16px}
 
@@ -65,7 +62,16 @@ img{max-width:100%}
 .mast .sub{font-size:11px;letter-spacing:4px;color:#4a5a50;font-weight:bold;margin-top:2px}
 .mast .who{margin-left:auto;text-align:right;font-size:11px;color:var(--muted);line-height:1.45}
 .mast .who b{color:var(--ink)}
-@media (max-width:640px){ .mast .who{display:none} .mast .word{font-size:34px} }
+.pair{display:flex;align-items:center;gap:10px;border:1px solid var(--line-d);background:linear-gradient(#fff,#eef2f7);padding:6px 10px 6px 8px;
+  box-shadow:1px 1px 0 rgba(0,0,0,.08);white-space:nowrap}
+.pair .tk{width:44px;height:44px;border-radius:6px;background:linear-gradient(160deg,#1f5fbf,#0a246a);color:#fff;font-weight:bold;font-size:12px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;letter-spacing:.3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.pair .tk small{font-size:7.5px;opacity:.85;margin-top:3px;letter-spacing:1px}
+.pair .pt{font-size:10px;color:var(--muted);letter-spacing:1.4px;line-height:1.3}
+.pair .pt b{display:block;font-size:13px;color:var(--ink);letter-spacing:.3px}
+.pair .pt i{font-style:normal;color:var(--ok);font-weight:bold}
+@media (max-width:820px){ .mast .who{display:none} }
+@media (max-width:640px){ .mast .word{font-size:34px} .pair .pt{display:none} .pair{padding:4px} }
 
 /* ---------- nav: one centred row ---------- */
 .nav{display:flex;justify-content:center;align-items:flex-end;gap:2px;padding:10px 10px 0;background:var(--chrome);
@@ -176,6 +182,22 @@ hr.dot{border:0;border-top:1px dotted var(--line);margin:12px 0}
 .how .c img{position:absolute;right:6px;bottom:0;height:84px;opacity:.95}
 .how .c .n{position:absolute;left:8px;top:-9px;background:var(--blue-d);color:#fff;font-size:10px;font-weight:bold;padding:0 6px;line-height:16px;border-radius:2px}
 @media (max-width:720px){ .how{grid-template-columns:1fr} }
+
+.clockbody{display:flex;gap:10px;align-items:flex-end;padding:8px 10px 10px}
+.clockbody img{width:118px;flex:0 0 auto;transition:transform .12s ease}
+.clockbody img.punch{transform:translateY(3px) scale(.97)}
+.punchlog{flex:1;min-height:96px;max-height:120px;overflow:hidden;background:#fbfaf3;border:1px solid var(--line);padding:6px 8px;
+  font:11px/1.55 'DejaVu Sans Mono','Liberation Mono',Consolas,monospace;color:#2a2a26;position:relative}
+.punchlog:before{content:"PUNCH LOG";position:absolute;right:6px;top:3px;font-size:8.5px;letter-spacing:1.5px;color:var(--muted)}
+.punchlog div{white-space:nowrap}
+.punchlog div.in{color:var(--ok)} .punchlog div.miss{color:var(--bad)} .punchlog div.sys{color:var(--blue)}
+.recog{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.aw{border:1px solid var(--line);background:var(--paper-2);padding:6px 8px 6px 30px;position:relative;font-size:10px;color:var(--muted);line-height:1.35;opacity:.55;filter:grayscale(1)}
+.aw b{display:block;font-size:10.5px;color:var(--ink);letter-spacing:.5px}
+.aw .ic{position:absolute;left:8px;top:8px;width:16px;height:16px;border-radius:50%;background:linear-gradient(#f0d98c,#a9832a);color:#3a2c07;font-size:10px;text-align:center;line-height:16px;border:1px solid #7d6018}
+.aw.got{opacity:1;filter:none;background:#fff8dc;border-color:#d8b95a}
+.paycal td.pd{background:#fff8dc;font-weight:bold}
+.lb tr td.zero{padding:10px 8px}
 
 /* ---------- pay statement ---------- */
 .stub{border:1px solid var(--line-d);background:#fff;padding:14px 16px;font-size:12px;box-shadow:2px 2px 0 rgba(0,0,0,.06)}
@@ -306,10 +328,12 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
 
 /* ---------- login loader ---------- */
 #login{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;
-  background-color:#3b6ea5;background-image:radial-gradient(ellipse at 50% 30%,#5b8fc9,#2a4f86 70%,#1a3260 100%);
+  background:linear-gradient(180deg,#eef2f6 0%,#d5dee8 100%);
   transition:opacity .45s ease}
+#login:before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,#0a246a,#3a6ea5,#a6caf0)}
+#login .foot{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-size:10.5px;color:#6a7683;letter-spacing:.4px}
 #login.out{opacity:0;pointer-events:none}
-.lwin{width:min(420px,100%);background:var(--chrome);border:2px solid;border-color:#fff #5a5a52 #5a5a52 #fff;box-shadow:6px 6px 0 rgba(0,0,0,.35)}
+.lwin{width:min(420px,100%);background:var(--chrome);border:1px solid #5a6b7c;box-shadow:0 14px 34px rgba(30,45,60,.28),0 0 0 1px rgba(255,255,255,.6) inset}
 .lwin .bar{height:30px;background:linear-gradient(to bottom,#0a246a 0%,#2f5bb7 46%,#1d3f8f 52%,#7ea7dd 100%);color:#fff;font-weight:bold;font-size:12px;
   display:flex;align-items:center;padding:0 10px;text-shadow:1px 1px 0 rgba(0,0,0,.55)}
 .lwin .b{padding:16px}
@@ -352,11 +376,12 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
       <div class="row"><span class="btn def" style="pointer-events:none">Sign In</span><span class="btn" style="pointer-events:none">Cancel</span></div>
     </div>
   </div>
+  <div class="foot">Unauthorised access is monitored. Authorised access is also monitored. · WAGIE, INC.</div>
 </div>
 
 <!-- ===================== PAGE ===================== -->
 <div class="page">
-  <div class="tbar">Employee Self Service — WAGIE, INC. <span class="dots"><i>_</i><i>□</i><i>×</i></span></div>
+  <div class="tbar">Employee Self Service — WAGIE, INC. <span class="clk" id="utc">--:--:-- UTC</span><span class="dots"><i>_</i><i>□</i><i>×</i></span></div>
 
   <div class="mast">
     <div class="face"><img src="assets/wagie-face.png" alt="WAGIE"></div>
@@ -365,6 +390,7 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
       <div class="sub">EMPLOYEE SELF SERVICE</div>
     </div>
     <div class="who">Signed in as <b>WAGIE</b> · Employee #000001<br>Department: Clocking In · <a href="#" onclick="return false">Sign out</a></div>
+    <a class="pair" href="#" data-go="company" title="Payroll currency"><span class="tk">$WDAY<small>STOCK TOKEN</small></span><span class="pt">PAYROLL CURRENCY<b>Workday, Inc. · Robinhood Chain</b><i>● listed</i> · pair verified</span></a>
   </div>
 
   <nav class="nav" role="tablist" aria-label="Portal sections">
@@ -415,6 +441,12 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
         </div>
 
         <div>
+          <div class="panel clockpanel">
+            <div class="ph">TIME CLOCK <span class="r">station 04</span></div>
+            <div class="pb clockbody"><img id="clockimg" src="assets/wagie-clockin.png" alt="">
+              <div class="punchlog" id="punchlog"><div class="zero">— no punches yet —</div></div>
+            </div>
+          </div>
           <div class="panel">
             <div class="ph">EMPLOYEE STATUS</div>
             <div class="pb" style="padding:6px 10px 10px">
@@ -441,6 +473,20 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
               <p class="small" style="margin:8px 0 0">The pool fills from trading fees after launch. Until then every payday pays exactly what it says on the tin.</p>
             </div>
           </div>
+          <div class="panel">
+            <div class="ph">RECOGNITION</div>
+            <div class="pb recog" id="recog">
+              <div class="aw" data-aw="first"><span class="ic">★</span><b>FIRST DAY</b><span>clock in once</span></div>
+              <div class="aw" data-aw="week"><span class="ic">★</span><b>FULL WEEK</b><span>5-day streak</span></div>
+              <div class="aw" data-aw="perfect"><span class="ic">★</span><b>PERFECT PERIOD</b><span>10 of 10 shifts</span></div>
+              <div class="aw" data-aw="rehired"><span class="ic">★</span><b>REHIRED</b><span>come back after a firing</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph">COLLEAGUES ONLINE <span class="r" id="col-n">0</span></div>
+            <div class="pb small" style="font-size:11.5px"><span class="zero">Nobody else has clocked in yet. You're early. Don't tell HR.</span><br><span class="small">Populates from the chain after launch.</span></div>
+          </div>
+          <div class="btnrow" style="margin:0 0 14px"><button class="btn" id="b-share" style="width:100%">COPY TIMECARD FOR X</button></div>
           <div class="note blue"><span class="i">!</span><span><b>Launch status:</b> <span id="launch-status">contract not yet issued</span>. On-chain clock-in opens the moment it is.</span></div>
         </div>
       </div>
@@ -493,6 +539,13 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
             </div>
           </div>
           <div class="panel">
+            <div class="ph">PAY CALENDAR <span class="r">next Fridays</span></div>
+            <div class="pb" style="padding:0">
+              <table class="t paycal" id="paycal"></table>
+              <p class="small" style="padding:8px 10px;margin:0">Payday is every second Friday, counted from the contract going live. The first payday is the second Friday after launch.</p>
+            </div>
+          </div>
+          <div class="panel">
             <div class="ph">WHY $WDAY</div>
             <div class="pb small" style="font-size:12px">
               <p>Because Workday, Inc. is the company whose software runs the real version of this portal. Your actual timecard, your actual PTO request, your actual pay statement — there's a decent chance it's Workday.</p>
@@ -539,12 +592,17 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
           <div class="clause"><div class="n">4.2.3</div><div><p>Three consecutive missed workdays constitute job abandonment. The contract terminates the holder's employment; their shifts for the period are forfeited to colleagues who clocked in. Terminated holders may reapply at any time and start again from zero.</p></div></div>
           <div class="clause"><div class="n">4.2.4</div><div><p>There is no PTO. There is no sick leave. There is no manager to ask. There is a button.</p></div></div>
 
+          <h2 class="sec" style="margin-top:18px">4.3 — About the payroll currency</h2>
+          <div class="clause"><div class="n">4.3.1</div><div><p><b>$WDAY</b> is a stock token on Robinhood Chain that tracks Workday, Inc. It is one of the tokenized US equities Robinhood lists on its chain, and it is the asset WAGIE is paired against on Pons v2. We checked the chain's live asset list before choosing it; ADP and Paychex, the other payroll names, are not listed there.<sup><a href="#src-5">[5]</a></sup></p></div></div>
+          <div class="clause"><div class="n">4.3.2</div><div><p>A stock token is not a share. It carries no voting rights and is not issued by Workday. Read Robinhood's own documentation before treating it as anything more than what it is: the unit your attendance is paid in.</p></div></div>
+
           <div class="src">
             <b>Sources</b><br>
             <span id="src-1">[1]</span> Wikipedia — <a href="https://en.wikipedia.org/wiki/Workday,_Inc." target="_blank" rel="noopener">Workday, Inc.</a><br>
             <span id="src-2">[2]</span> Wikipedia — <a href="https://en.wikipedia.org/wiki/PeopleSoft" target="_blank" rel="noopener">PeopleSoft</a> (Oracle acquisition)<br>
             <span id="src-3">[3]</span> Maddie's Fund — <a href="https://www.maddiesfund.org/dave-duffield.htm" target="_blank" rel="noopener">Dave Duffield, Founder</a><br>
             <span>[4]</span> Workday — <a href="https://www.workday.com/en-us/company/about-workday/leadership/dave-duffield.html" target="_blank" rel="noopener">Co-Founder and CEO Emeritus Dave Duffield</a><br>
+            <span id="src-5">[5]</span> Robinhood — <a href="https://docs.robinhood.com/chain/stock-tokens/" target="_blank" rel="noopener">Stock Tokens on Robinhood Chain</a> · asset list at <a href="https://api.robinhood.com/rhj/assets" target="_blank" rel="noopener">api.robinhood.com/rhj/assets</a><br>
             WAGIE is not affiliated with, endorsed by, or connected to Workday, Inc., Oracle, or PeopleSoft. The facts above are public record; the jokes are ours.
           </div>
         </div>
@@ -622,6 +680,13 @@ details.faq .a{padding:10px 12px 12px 32px;font-size:12px;line-height:1.6;border
                 <div class="v"></div>
                 <div class="box" style="border-color:var(--blue-d);background:linear-gradient(#fff,#e6eef9)"><b>EMPLOYEES</b>you, if you clock in</div>
               </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph">ATTENDANCE LEADERBOARD <span class="r">this period</span></div>
+            <div class="pb" style="padding:0">
+              <table class="t lb"><tr><th>#</th><th>Wallet</th><th>Shifts</th><th>Streak</th></tr>
+              <tr><td colspan="4" class="zero">Populates from the chain after launch. Top ten by shifts; ties broken by streak; everyone below the line still gets paid.</td></tr></table>
             </div>
           </div>
           <div class="panel">
@@ -792,7 +857,7 @@ snd.addEventListener('click', async ()=>{
    ============================================================ */
 const DAYS = ['MON','TUE','WED','THU','FRI'], WD = 20;
 const KEY = 'wagie.timecard.v1';
-const fresh = ()=>({ cur:0, cycle:1, shifts:Array(WD).fill(null), employed:true, streak:0, best:0, missed:0, per:0, paydays:0, terms:0 });
+const fresh = ()=>({ cur:0, cycle:1, shifts:Array(WD).fill(null), employed:true, streak:0, best:0, missed:0, per:0, paydays:0, terms:0, log:[], aw:{} });
 let S = fresh();
 try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.shifts) && s.shifts.length===WD) S = Object.assign(fresh(), s); }catch(e){}
 const save = ()=>{ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
@@ -839,7 +904,14 @@ function renderStatus(){
   $('b-in').disabled = done || !S.employed || S.shifts[S.cur]!==null;
   $('b-in').textContent = !S.employed ? 'CLOCK IN (TERMINATED)' : (S.shifts[S.cur]==='in' ? 'CLOCKED IN ✓' : 'CLOCK IN');
   $('b-next').textContent = done ? 'START NEW CYCLE ▸' : 'NEXT WORKDAY ▸';
+  // punch log (last 6)
+  const pl = $('punchlog');
+  pl.innerHTML = S.log.length ? S.log.slice(-6).map(l=>'<div class="'+l.k+'">'+l.t+'</div>').join('') : '<div class="zero">— no punches yet —</div>';
+  // recognition
+  document.querySelectorAll('.aw').forEach(a=>a.classList.toggle('got', !!S.aw[a.dataset.aw]));
 }
+function logLine(k, t){ S.log.push({k,t}); if (S.log.length>40) S.log.shift(); }
+function award(key, title){ if (S.aw[key]) return; S.aw[key]=true; setTimeout(()=>toast('<b>Recognition:</b> '+title, 'info', 'Human Resources'), 900); }
 function render(){ renderGrid(); renderStatus(); save(); }
 
 /* tiny punch-clock sound (WebAudio, no file) */
@@ -871,7 +943,12 @@ document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',
 function clockIn(){
   if (S.cur>=WD || !S.employed || S.shifts[S.cur]!==null) return;
   S.shifts[S.cur]='in'; S.streak++; S.best=Math.max(S.best,S.streak); S.missed=0; S.per++;
-  punch(); render();
+  logLine('in', label(S.cur)+'  09:00  IN   #'+String(S.per).padStart(2,'0'));
+  if (S.per>=1) award('first','First Day. You showed up.');
+  if (S.streak>=5) award('week','Full Week. Five in a row.');
+  if (S.per>=10) award('perfect','Perfect Period. 10 of 10. There is a plaque.');
+  punch(); const im=$('clockimg'); im.classList.add('punch'); setTimeout(()=>im.classList.remove('punch'),140);
+  render();
   toast('<b>Shift recorded.</b> '+label(S.cur)+' · 09:00 UTC. Streak: '+S.streak+'.');
 }
 
@@ -883,11 +960,13 @@ function nextDay(){
   const i=S.cur;
   if (S.shifts[i]===null){
     S.shifts[i]='missed'; S.streak=0;
+    logLine('miss', label(i)+'  --:--  MISSED');
     if (S.employed){
       S.missed++;
-      if (S.missed>=3){ S.employed=false; S.terms++; S.per=0; }
+      if (S.missed>=3){ S.employed=false; S.terms++; S.per=0; logLine('sys', label(i)+'  17:00  TERMINATED'); }
     }
   }
+  if (isPayday(i)) logLine('sys', label(i)+'  17:00  PAYDAY  0.0000 WDAY');
   const payday = isPayday(i);
   const wasEmployed = S.employed;
   const perShifts = S.per;
@@ -909,13 +988,39 @@ function showPayday(shifts, employed){
     : 'You were not employed this period.<br>Your share went to the colleagues who clocked in.<br>You may reapply at any time.';
   open('ov-pay');
 }
-function reapply(){ S.employed=true; S.missed=0; S.streak=0; close('ov-term'); render(); toast('<b>Application accepted.</b> Welcome back. Streak: 0. Try to make it to Friday.', 'info', 'Human Resources'); }
+function reapply(){ S.employed=true; S.missed=0; S.streak=0; logLine('sys', 'HR     09:00  REHIRED'); award('rehired','Rehired. Same desk. Same plant.'); close('ov-term'); render(); toast('<b>Application accepted.</b> Welcome back. Streak: 0. Try to make it to Friday.', 'info', 'Human Resources'); }
 function reset(){ S=fresh(); render(); toast('<b>Timecard reset.</b> New employee, same desk.', 'info', 'Payroll'); }
 
 $('b-in').addEventListener('click', clockIn);
 $('b-next').addEventListener('click', nextDay);
 $('b-reset').addEventListener('click', reset);
 $('b-reapply').addEventListener('click', reapply);
+$('b-share').addEventListener('click', ()=>{
+  const txt = 'clocked in '+S.per+'/10 workdays this period at WAGIE, INC.\nstreak: '+S.streak+' · status: '+(S.employed?'employed':'terminated')+'\npaid in $WDAY every second friday.\n'+location.origin+location.pathname;
+  try{ navigator.clipboard.writeText(txt); toast('<b>Copied.</b> Paste it on X. HR is watching.', 'info', 'Company'); }
+  catch(e){ toast('Could not copy on this browser.', 'bad', 'Company'); }
+});
+
+/* live UTC clock in the title bar */
+(function clock(){
+  const el=$('utc'); const two=n=>String(n).padStart(2,'0');
+  function t(){ const d=new Date(); el.textContent = two(d.getUTCHours())+':'+two(d.getUTCMinutes())+':'+two(d.getUTCSeconds())+' UTC'; }
+  t(); setInterval(t,1000);
+})();
+
+/* pay calendar: the next 6 Fridays, real dates, alternating payday */
+(function paycal(){
+  const d=new Date(); d.setUTCHours(0,0,0,0);
+  const dow=d.getUTCDay(); const toFri=(5-dow+7)%7 || 7; d.setUTCDate(d.getUTCDate()+toFri);
+  const fmt=x=>x.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'});
+  let h='<tr><th>Friday</th><th>Type</th><th style="text-align:right">Distribution</th></tr>';
+  for(let i=0;i<6;i++){
+    const pd = i%2===1;
+    h+='<tr><td>'+fmt(d)+'</td><td'+(pd?' class="pd"':'')+'>'+(pd?'PAYDAY':'—')+'</td><td class="num zero">'+(pd?'0.0000 $WDAY':'')+'</td></tr>';
+    d.setUTCDate(d.getUTCDate()+7);
+  }
+  $('paycal').innerHTML=h;
+})();
 document.addEventListener('keydown', e=>{
   if (e.target.closest('input,textarea')) return;
   if (e.key==='Escape') document.querySelectorAll('.ov.on').forEach(o=>o.classList.remove('on'));
